@@ -33,7 +33,6 @@ public class Media_test_vlcj extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Explicitly register VLC path now that VLC is installed
         com.sun.jna.NativeLibrary.addSearchPath(
                 "libvlc",
                 "C:\\Program Files\\VideoLAN\\VLC"
@@ -68,7 +67,7 @@ public class Media_test_vlcj extends Application {
         Button stopBtn = new Button("Stop");
         stopBtn.setDisable(true);
 
-        timeSlider = new Slider();
+        timeSlider = new Slider(0, 100, 0); // min: 0, max: 100, initial value: 0
         timeSlider.setDisable(true);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
 
@@ -166,12 +165,24 @@ public class Media_test_vlcj extends Application {
             }
 
             @Override
+            public void lengthChanged(MediaPlayer mediaPlayer, long newLength) {
+                Platform.runLater(() -> {
+                    if (newLength > 0) {
+                        timeSlider.setMax(newLength / 1000.0);
+                        log("Media length detected: " + formatTime(newLength));
+                    }
+                });
+            }
+
+            @Override
             public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
                 Platform.runLater(() -> {
                     if (!timeSlider.isValueChanging()) {
                         timeSlider.setValue(newTime / 1000.0);
                     }
-                    timeLabel.setText(formatTime(newTime) + " / " + formatTime(embeddedMediaPlayer.status().length()));
+                    long totalLength = embeddedMediaPlayer.status().length();
+                    String totalFormatted = totalLength > 0 ? formatTime(totalLength) : "00:00";
+                    timeLabel.setText(formatTime(newTime) + " / " + totalFormatted);
                 });
             }
         });
