@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuController">
+   <children>
+      <StackPane fx:id="MainPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <MediaView fx:id="MediaBackground" fitHeight="200.0" fitWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="226.0" layoutY="215.0" prefHeight="119.0" prefWidth="147.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="98.0" text="Play" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Account" />
+                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" text="Settings" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
