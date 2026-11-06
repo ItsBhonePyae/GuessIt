@@ -67,7 +67,7 @@ public class Media_test_vlcj extends Application {
         Button stopBtn = new Button("Stop");
         stopBtn.setDisable(true);
 
-        timeSlider = new Slider(0, 100, 0); // min: 0, max: 100, initial value: 0
+        timeSlider = new Slider(0, 100, 0);
         timeSlider.setDisable(true);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
 
