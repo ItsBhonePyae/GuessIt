@@ -15,6 +15,7 @@ module com.example.javagroupproject {
     requires com.almasb.fxgl.all;
     requires javafx.media;
     requires com.sun.jna;
+    requires java.sql;
 
     opens com.example.javagroupproject to javafx.fxml;
     opens Testing_for_bascially_everything to javafx.graphics;
