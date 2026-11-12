@@ -19,6 +19,7 @@ module com.example.javagroupproject {
     requires com.sun.jna;
     requires java.sql;
     requires atlantafx.base;
+    requires animatefx;
 
     opens com.example.javagroupproject to javafx.fxml;
     opens Testing_for_bascially_everything to javafx.graphics;
