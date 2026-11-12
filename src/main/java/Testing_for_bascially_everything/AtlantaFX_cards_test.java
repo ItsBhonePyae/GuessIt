@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
@@ -31,6 +32,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  * Horizontal card carousel test.
@@ -420,7 +423,12 @@ public class AtlantaFX_cards_test extends Application {
         StackPane player = new StackPane();
         player.setStyle("-fx-background-color: black; -fx-background-radius: 16;");
         player.setPrefSize(760, 400);
-        Label play = new Label("▶  Player goes here");
+        FontIcon playIcon = new FontIcon(Feather.PLAY);
+        // Keep the inline -fx-font-family that FontIcon needs, then add a colour.
+        playIcon.setStyle(playIcon.getStyle() + " -fx-icon-size: 22px; -fx-icon-color: white;");
+        Label play = new Label("Player goes here", playIcon);
+        play.setContentDisplay(ContentDisplay.LEFT);
+        play.setGraphicTextGap(10);
         play.setTextFill(Color.WHITE);
         player.getChildren().add(play);
 
