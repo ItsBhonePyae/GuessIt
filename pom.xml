@@ -12,6 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.12.1</junit.version>
+        <!-- Keep one JNA version: vlcj asks for the JPMS-packaged artifacts. -->
+        <jna.version>5.14.0</jna.version>
     </properties>
 
     <dependencies>
@@ -19,6 +21,27 @@
             <groupId>com.github.javakeyring</groupId>
             <artifactId>java-keyring</artifactId>
             <version>1.0.4</version>
+            <exclusions>
+                <!-- vlcj already brings the JPMS-packaged JNA modules; keep one set. -->
+                <exclusion>
+                    <groupId>net.java.dev.jna</groupId>
+                    <artifactId>jna</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.java.dev.jna</groupId>
+                    <artifactId>jna-platform</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-jpms</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform-jpms</artifactId>
+            <version>${jna.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.typhon0</groupId>
@@ -160,8 +183,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <!-- release also pins the JDK API level and avoids the
+                         "location of system modules is not set" warning. -->
+                    <release>16</release>
                 </configuration>
             </plugin>
             <plugin>
