@@ -4,9 +4,15 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Central access point for everything bundled under
@@ -26,6 +32,16 @@ public final class AssetCatalog {
 
     private static final String[] IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp"};
     private static final Map<String, Image> POSTER_CACHE = new HashMap<>();
+    private static final Object POSTER_LOCK = new Object();
+
+    /** Decodes posters off the FX thread so startup is not serialised by PNG loading. */
+    private static final ExecutorService POSTER_LOADER = Executors.newFixedThreadPool(
+        Math.max(2, Math.min(4, Runtime.getRuntime().availableProcessors())),
+        runnable -> {
+            Thread thread = new Thread(runnable, "poster-loader");
+            thread.setDaemon(true);
+            return thread;
+        });
 
     /** A clip that ships with the project. */
     public record Clip(String label, String relativePath) { }
@@ -51,8 +67,10 @@ public final class AssetCatalog {
 
     /** The poster artwork for a slug, or {@code null} when no image is bundled. */
     public static Image poster(String slug) {
-        if (POSTER_CACHE.containsKey(slug)) {
-            return POSTER_CACHE.get(slug);
+        synchronized (POSTER_LOCK) {
+            if (POSTER_CACHE.containsKey(slug)) {
+                return POSTER_CACHE.get(slug);
+            }
         }
         Image image = null;
         for (String extension : IMAGE_EXTENSIONS) {
@@ -62,8 +80,24 @@ public final class AssetCatalog {
                 break;
             }
         }
-        POSTER_CACHE.put(slug, image);
-        return image;
+        synchronized (POSTER_LOCK) {
+            if (!POSTER_CACHE.containsKey(slug)) {
+                POSTER_CACHE.put(slug, image);
+            }
+            return POSTER_CACHE.get(slug);
+        }
+    }
+
+    /**
+     * Loads every slug in parallel and waits for the pool to finish. Called once
+     * during startup so the first rendered frame already has its artwork.
+     */
+    public static void preloadPosters(Collection<String> slugs) {
+        List<CompletableFuture<Void>> jobs = new ArrayList<>();
+        for (String slug : new LinkedHashSet<>(slugs)) {
+            jobs.add(CompletableFuture.runAsync(() -> poster(slug), POSTER_LOADER));
+        }
+        CompletableFuture.allOf(jobs.toArray(new CompletableFuture[0])).join();
     }
 
     /**

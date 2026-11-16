@@ -1,7 +1,7 @@
 package Testing_for_bascially_everything;
 
 import atlantafx.base.theme.PrimerDark;
-import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -15,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
@@ -93,8 +94,22 @@ public class SlidingSidebar_test extends Application {
 
     // ------------------------------------------------------------------- data
 
-    /** A poster tile in the animated background wall. */
+    /** One poster tile in the animated background wall. */
     record Poster(String title, String tag, String from, String to) { }
+
+    /** One drifting column: node, direction, loop length in seconds, elapsed time. */
+    private static final class PosterStrip {
+        final VBox node;
+        final boolean downward;
+        final double seconds;
+        double elapsed;
+
+        PosterStrip(VBox node, boolean downward, double seconds) {
+            this.node = node;
+            this.downward = downward;
+            this.seconds = seconds;
+        }
+    }
 
     private static final List<Poster> POSTERS = List.of(
         new Poster("Blade Runner 2049", "SCI-FI", "#553199", "#342066"),
@@ -145,6 +160,11 @@ public class SlidingSidebar_test extends Application {
     private String activePage = "singleplayer";
     private boolean switching;
 
+    /** One clock drives every poster column, and paused work is skipped when hidden. */
+    private static AnimationTimer posterDrift;
+    private static final List<PosterStrip> POSTER_STRIPS = new ArrayList<>();
+    private static final double POSTER_PERIOD = 2288;
+
     private VBox historyList;
     private Label historyCount;
     private final Map<String, Button> historyFilters = new HashMap<>();
@@ -159,6 +179,7 @@ public class SlidingSidebar_test extends Application {
     public void start(Stage stage) {
         Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
         mainStage = stage;
+        preloadPosterArtwork();
 
         pageHost.setId("pageHost");
         pageHost.setStyle("-fx-background-color: " + BLACK + ";");
@@ -191,6 +212,15 @@ public class SlidingSidebar_test extends Application {
 
         updateNavActive();
         setSidebar(true, false);
+    }
+
+    /** Decodes every bundled poster on the loader pool before the first frame. */
+    private static void preloadPosterArtwork() {
+        List<String> slugs = new ArrayList<>();
+        for (Poster poster : POSTERS) {
+            slugs.add(slugify(poster.title));
+        }
+        AssetCatalog.preloadPosters(slugs);
     }
 
     /** Builds a scene that fits the available screen, scaled for HiDPI displays. */
@@ -410,6 +440,11 @@ public class SlidingSidebar_test extends Application {
             boolean active = item.key.equals(activePage);
             item.button.setStyle(active ? activeNavStyle() : idleNavStyle());
             item.icon.setIconColor(active ? Color.BLACK : Color.web("#b8b2c6"));
+            // Inline style beats the stylesheet pass; keep the icon font in the same string.
+            item.icon.setStyle("-fx-font-family: '" + item.icon.getFont().getFamily() + "';"
+                + " -fx-font-size: " + item.icon.getIconSize() + "px;"
+                + " -fx-icon-color: " + (active ? BLACK : "#b8b2c6") + ";"
+                + " -fx-fill: " + (active ? BLACK : "#b8b2c6") + ";");
             item.label.setTextFill(active ? Color.BLACK : Color.web("#b8b2c6"));
         }
     }
@@ -608,6 +643,12 @@ public class SlidingSidebar_test extends Application {
 
     /** Full-bleed wall of poster tiles that drift slowly in alternating directions. */
     private static Node posterWall() {
+        if (posterDrift != null) {
+            posterDrift.stop();
+            posterDrift = null;
+        }
+        POSTER_STRIPS.clear();
+
         HBox wall = new HBox(16);
         wall.setId("posterBackdrop");
         wall.setAlignment(Pos.CENTER);
@@ -630,7 +671,9 @@ public class SlidingSidebar_test extends Application {
             }
 
             boolean downward = column % 2 != 0;
-            strip.setTranslateY(downward ? -2288 : 0);
+            strip.setTranslateY(downward ? -POSTER_PERIOD : 0);
+            strip.setCache(true);
+            strip.setCacheHint(CacheHint.SPEED);
 
             Pane view = new Pane(strip);
             view.setPrefWidth(180);
@@ -642,22 +685,40 @@ public class SlidingSidebar_test extends Application {
             view.setClip(clip);
             wall.getChildren().add(view);
 
-            marquee(strip, downward, 78 + column * 8);
+            POSTER_STRIPS.add(new PosterStrip(strip, downward, 78 + column * 8));
         }
 
+        startPosterDrift(wall);
         return wall;
     }
 
-    private static void marquee(VBox strip, boolean downward, double seconds) {
-        double period = 2288;
-        Timeline drift = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                new KeyValue(strip.translateYProperty(), downward ? -period : 0)),
-            new KeyFrame(Duration.seconds(seconds),
-                new KeyValue(strip.translateYProperty(), downward ? 0 : -period,
-                    Interpolator.LINEAR)));
-        drift.setCycleCount(Animation.INDEFINITE);
-        drift.play();
+    /** Advances every column from one delta clock instead of seven independent timelines. */
+    private static void startPosterDrift(Node wall) {
+        posterDrift = new AnimationTimer() {
+            private long last;
+
+            @Override
+            public void handle(long now) {
+                Node page = wall.getParent();
+                if (wall.getScene() == null || page == null || !page.isVisible()) {
+                    last = now;
+                    return;
+                }
+                if (last == 0) {
+                    last = now;
+                    return;
+                }
+                double delta = Math.min(0.05, (now - last) / 1_000_000_000.0);
+                last = now;
+                for (PosterStrip strip : POSTER_STRIPS) {
+                    strip.elapsed = (strip.elapsed + delta) % strip.seconds;
+                    double progress = strip.elapsed / strip.seconds;
+                    strip.node.setTranslateY(strip.downward
+                        ? POSTER_PERIOD * (progress - 1) : -POSTER_PERIOD * progress);
+                }
+            }
+        };
+        posterDrift.start();
     }
 
     private static StackPane posterCard(Poster poster) {
