@@ -24,4 +24,13 @@ module com.example.javagroupproject {
     opens com.example.javagroupproject to javafx.fxml;
     opens Testing_for_bascially_everything to javafx.graphics;
     exports com.example.javagroupproject;
+
+    exports Testing_for_bascially_everything.Login;
+    opens Testing_for_bascially_everything.Login to javafx.fxml;
+
+    opens com.guessit to javafx.fxml;
+    opens com.guessit.login to javafx.fxml;
+    opens com.guessit.controller to javafx.fxml;
+    exports com.guessit to javafx.graphics;
 }
+

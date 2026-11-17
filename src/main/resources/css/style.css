@@ -1,0 +1,129 @@
+/* Login Form */
+.login-form {
+    -fx-background-color: rgba(20, 20, 20, 0.95);
+    -fx-background-radius: 20;
+    -fx-padding: 35;
+    -fx-effect: dropshadow(gaussian, #7E3BED, 20, 0.3, 0, 0);
+}
+
+/* Title */
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #C6FF34;
+}
+
+/* Subtitle */
+.subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+
+/* Input */
+.input-field {
+    -fx-background-color: #252525;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #999999;
+    -fx-background-radius: 10;
+    -fx-border-color: #7E3BED;
+    -fx-border-radius: 10;
+}
+
+/* Login Button */
+.login-button {
+    -fx-background-color: #C6FF34;
+    -fx-text-fill: black;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #7E3BED;
+    -fx-text-fill: white;
+}
+
+/* Hyperlink */
+.link-text {
+    -fx-text-fill: #C6FF34;
+}
+
+/* ----- shared: backgrounds ----- */
+
+.dark-background {
+    -fx-background-color: #141414;
+}
+
+/* ----- text fields: focus & hover borders ----- */
+
+.input-field:focused {
+    -fx-border-color: #C6FF34;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+.input-field:hover {
+    -fx-border-color: #9b64f5;
+}
+
+/* ----- error / status labels ----- */
+
+.error-label {
+    -fx-text-fill: #FF5A5A;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(255, 90, 90, 0.12);
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+    -fx-alignment: center;
+    -fx-max-width: 320;
+}
+
+.status-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-background-color: rgba(126, 59, 237, 0.25);
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+    -fx-alignment: center;
+    -fx-max-width: 340;
+}
+
+.success-label {
+    -fx-text-fill: #C6FF34;
+    -fx-background-color: rgba(198, 255, 52, 0.15);
+}
+
+/* ----- misc ----- */
+
+.bottom-text {
+    -fx-text-fill: #BBBBBB;
+    -fx-font-size: 13px;
+}
+
+.remember-check {
+    -fx-text-fill: #DDDDDD;
+}
+
+/* ----- dashboard ----- */
+
+.dashboard-card {
+    -fx-background-color: rgba(20, 20, 20, 0.95);
+    -fx-background-radius: 20;
+    -fx-padding: 50;
+    -fx-effect: dropshadow(gaussian, #7E3BED, 20, 0.3, 0, 0);
+}
+
+.logout-button {
+    -fx-background-color: #7E3BED;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #9b64f5;
+}
