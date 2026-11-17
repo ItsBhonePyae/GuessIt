@@ -36,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -45,6 +46,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import Testing_for_bascially_everything.assets.AssetCatalog;
 
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,16 +57,16 @@ import java.util.Map;
  * Sliding sidebar navigation demo with a three-page movie-guessing app shell.
  *
  * <p>Pages: Singleplayer (default), History and Settings. The sidebar collapses
- * to an icon rail and expands again with an animated width transition. All
- * colours come from the supplied palette:</p>
+ * to an icon rail and expands again with an animated width transition. The
+ * palette is a film-slate scheme: warm brass, charcoal, chalk and paper.</p>
  *
  * <ul>
- *   <li>Verde Citrico {@code #b7e34e} (darkened from the reference lime)</li>
- *   <li>Roxo {@code #553199}</li>
- *   <li>Roxo Escuro {@code #342066}</li>
- *   <li>Grafite {@code #1e1b26}</li>
- *   <li>Preto {@code #000000}</li>
- *   <li>Branco {@code #ffffff}</li>
+ *   <li>Brass {@code #e6b154} (accent, replaces the pale lime)</li>
+ *   <li>Slate {@code #171719} (background, replaces pure black)</li>
+ *   <li>Brass Shadow {@code #7a5b2e} / {@code #3b2f1e}</li>
+ *   <li>Graphite {@code #232326}</li>
+ *   <li>Chalk {@code #f2efe8}</li>
+ *   <li>Paper {@code #d9d7d0} (rule lines)</li>
  * </ul>
  *
  * <p>The Singleplayer page uses a full-bleed, slowly drifting movie-poster wall
@@ -76,17 +78,18 @@ public class SlidingSidebar_test extends Application {
 
     // ------------------------------------------------------------------ theme
 
-    static final String LIME = "#b7e34e";
-    static final String LIME_HOVER = "#c9f26a";
-    static final String VIOLET = "#553199";
-    static final String DEEP_VIOLET = "#342066";
-    static final String GRAPHITE = "#1e1b26";
-    static final String BLACK = "#000000";
-    static final String WHITE = "#ffffff";
-    static final String MUTED = "#9b95a8";
-    static final String SOFT_TEXT = "#cbc5d8";
-    static final String BORDER = "#2b2735";
-    static final String HOVER = "#262130";
+    static final String LIME = "#e6b154";
+    static final String LIME_HOVER = "#f0c274";
+    static final String VIOLET = "#7a5b2e";
+    static final String DEEP_VIOLET = "#3b2f1e";
+    static final String GRAPHITE = "#232326";
+    static final String BLACK = "#171719";
+    static final String WHITE = "#f2efe8";
+    static final String MUTED = "#9a958c";
+    static final String SOFT_TEXT = "#d5d1c7";
+    static final String BORDER = "#34343a";
+    static final String HOVER = "#26262a";
+    static final String PAPER = "#d9d7d0";
     static final String FONT = "Segoe UI";
 
     private static final double SIDEBAR_OPEN = 260;
@@ -112,20 +115,20 @@ public class SlidingSidebar_test extends Application {
     }
 
     private static final List<Poster> POSTERS = List.of(
-        new Poster("Blade Runner 2049", "SCI-FI", "#553199", "#342066"),
-        new Poster("Dune: Part Two", "SCI-FI", "#342066", "#1e1b26"),
-        new Poster("Arrival", "MYSTERY", "#3d2470", "#553199"),
-        new Poster("Whiplash", "DRAMA", "#221c35", "#342066"),
-        new Poster("Parasite", "THRILLER", "#4a2b85", "#221c35"),
-        new Poster("Interstellar", "SPACE", "#1e1b26", "#553199"),
-        new Poster("La La Land", "MUSICAL", "#6a42b8", "#342066"),
-        new Poster("Nightcrawler", "CRIME", "#2b1a4d", "#1e1b26"),
-        new Poster("Her", "ROMANCE", "#553199", "#221c35"),
-        new Poster("Knives Out", "MYSTERY", "#342066", "#4a2b85"),
-        new Poster("Mad Max", "ACTION", "#1e1b26", "#3d2470"),
-        new Poster("Moonlight", "DRAMA", "#221c35", "#553199"),
-        new Poster("Whiplash", "MUSIC", "#553199", "#1e1b26"),
-        new Poster("The Batman", "CRIME", "#2b1a4d", "#342066")
+        new Poster("Blade Runner 2049", "SCI-FI", "#5a4a34", "#3b3125"),
+        new Poster("Dune: Part Two", "SCI-FI", "#3b3125", "#242427"),
+        new Poster("Arrival", "MYSTERY", "#6b5636", "#5a4a34"),
+        new Poster("Whiplash", "DRAMA", "#2b2620", "#3b3125"),
+        new Poster("Parasite", "THRILLER", "#7a5b2e", "#2b2620"),
+        new Poster("Interstellar", "SPACE", "#242427", "#5a4a34"),
+        new Poster("La La Land", "MUSICAL", "#8a6a3a", "#3b3125"),
+        new Poster("Nightcrawler", "CRIME", "#33291d", "#242427"),
+        new Poster("Her", "ROMANCE", "#5a4a34", "#2b2620"),
+        new Poster("Knives Out", "MYSTERY", "#3b3125", "#7a5b2e"),
+        new Poster("Mad Max", "ACTION", "#242427", "#6b5636"),
+        new Poster("Moonlight", "DRAMA", "#2b2620", "#5a4a34"),
+        new Poster("Whiplash", "MUSIC", "#5a4a34", "#242427"),
+        new Poster("The Batman", "CRIME", "#33291d", "#3b3125")
     );
 
     /** One row in the history list. */
@@ -179,6 +182,7 @@ public class SlidingSidebar_test extends Application {
     public void start(Stage stage) {
         Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
         mainStage = stage;
+        warnIfHeapIsUncapped();
         preloadPosterArtwork();
 
         pageHost.setId("pageHost");
@@ -212,6 +216,61 @@ public class SlidingSidebar_test extends Application {
 
         updateNavActive();
         setSidebar(true, false);
+    }
+
+    /**
+     * Prints the heap flags the app was actually started with, and warns when the
+     * project's cap is missing. IntelliJ's auto-generated run configurations
+     * ignore the named one unless the template carries the same options, and an
+     * uncapped JVM reserves 25% of system RAM (4 GB on a 16 GB machine), which
+     * grows the process working set that Task Manager reports.
+     */
+    private static void warnIfHeapIsUncapped() {
+        Runtime runtime = Runtime.getRuntime();
+        long maxHeapMb = runtime.maxMemory() / (1024L * 1024L);
+        String heapArgs = ManagementFactory.getRuntimeMXBean().getInputArguments().stream()
+            .filter(arg -> arg.startsWith("-Xms") || arg.startsWith("-Xmx")
+                || arg.startsWith("-XX:MaxDirectMemory"))
+            .reduce((left, right) -> left + " " + right)
+            .orElse("(none - JVM defaults)");
+        System.err.println("[GuessIt] heap flags: " + heapArgs + " | max=" + maxHeapMb + " MB");
+        if (maxHeapMb > 1024) {
+            System.err.println("[GuessIt] WARNING: no heap cap applied, so the process can grow"
+                + " to " + maxHeapMb + " MB. Run the 'SlidingSidebar_test' configuration"
+                + " (-Xms128m -Xmx512m) instead of an auto-generated one.");
+        }
+        warnIfMediaRuntimeLeaks();
+    }
+
+    /**
+     * Runs on the JavaFX 21 jars the project compiles against when the JVM does
+     * not bundle a newer runtime.
+     *
+     * <p>JavaFX 26 (shipped inside Liberica Full JDK 26) leaks the whole decoded
+     * frame set every time a media pipeline restarts: seeking, replaying, or
+     * changing scene costs ~165 MB of native memory that is never released, so a
+     * few minutes of play push the process to several gigabytes even though the
+     * Java heap stays at a few hundred megabytes. JavaFX 21 stays flat. The JDK
+     * image's modules win over the dependency jars, so the fix is to launch on a
+     * JDK without bundled JavaFX (see the run configuration's alternative JRE).</p>
+     */
+    private static void warnIfMediaRuntimeLeaks() {
+        String version = System.getProperty("javafx.runtime.version", "unknown");
+        System.err.println("[GuessIt] JavaFX runtime: " + version);
+        int major = 0;
+        int dot = version.indexOf('.');
+        try {
+            major = Integer.parseInt(dot < 0 ? version : version.substring(0, dot));
+        } catch (NumberFormatException ignored) {
+            // A non-numeric version is reported above; nothing to compare.
+        }
+        if (major > 21) {
+            System.err.println("[GuessIt] WARNING: JavaFX " + version + " leaks native"
+                + " memory on every seek/replay (~165 MB each, up to several GB)."
+                + " Project code targets JavaFX 21; run this configuration on a JDK"
+                + " without bundled JavaFX (e.g. jdk-24) so the Maven JavaFX 21 jars"
+                + " win, or the process will grow to 2-3 GB during play.");
+        }
     }
 
     /** Decodes every bundled poster on the loader pool before the first frame. */
@@ -277,7 +336,7 @@ public class SlidingSidebar_test extends Application {
         Label promoValue = label("6 days strong", 12, FontWeight.BOLD, WHITE);
         promoCard = new VBox(3, promoTitle, promoValue);
         promoCard.setPadding(new Insets(12, 12, 12, 12));
-        promoCard.setStyle("-fx-background-color: #17141f; -fx-background-radius: 12;"
+        promoCard.setStyle("-fx-background-color: #1d1d1f; -fx-background-radius: 6;"
             + " -fx-border-color: #2b2735; -fx-border-radius: 12; -fx-border-width: 1;");
 
         Region spacer = new Region();
@@ -325,11 +384,11 @@ public class SlidingSidebar_test extends Application {
     private NavItem navItem(String key, Feather glyph, String text) {
         FontIcon icon = new FontIcon(glyph);
         icon.setIconSize(18);
-        icon.setIconColor(Color.web("#b8b2c6"));
+        icon.setIconColor(Color.web("#a5a09a"));
 
         Label label = new Label(text);
         label.setFont(Font.font(FONT, FontWeight.SEMI_BOLD, 14));
-        label.setTextFill(Color.web("#b8b2c6"));
+        label.setTextFill(Color.web("#a5a09a"));
         label.setMinWidth(0);
 
         HBox row = new HBox(13, icon, label);
@@ -439,29 +498,36 @@ public class SlidingSidebar_test extends Application {
         for (NavItem item : navItems.values()) {
             boolean active = item.key.equals(activePage);
             item.button.setStyle(active ? activeNavStyle() : idleNavStyle());
-            item.icon.setIconColor(active ? Color.BLACK : Color.web("#b8b2c6"));
+            item.icon.setIconColor(active ? Color.web(LIME) : Color.web("#a5a09a"));
             // Inline style beats the stylesheet pass; keep the icon font in the same string.
             item.icon.setStyle("-fx-font-family: '" + item.icon.getFont().getFamily() + "';"
                 + " -fx-font-size: " + item.icon.getIconSize() + "px;"
-                + " -fx-icon-color: " + (active ? BLACK : "#b8b2c6") + ";"
-                + " -fx-fill: " + (active ? BLACK : "#b8b2c6") + ";");
-            item.label.setTextFill(active ? Color.BLACK : Color.web("#b8b2c6"));
+                + " -fx-icon-color: " + (active ? LIME : "#a5a09a") + ";"
+                + " -fx-fill: " + (active ? LIME : "#a5a09a") + ";");
+            item.label.setTextFill(active ? Color.web(LIME) : Color.web("#a5a09a"));
         }
     }
 
     private static String idleNavStyle() {
-        return "-fx-background-color: transparent; -fx-background-radius: 12;"
+        return "-fx-background-color: transparent; -fx-background-radius: 5;"
             + " -fx-text-fill: " + WHITE + "; -fx-cursor: hand;";
     }
 
     private static String hoverNavStyle() {
-        return "-fx-background-color: " + HOVER + "; -fx-background-radius: 12;"
+        return "-fx-background-color: " + HOVER + "; -fx-background-radius: 5;"
             + " -fx-text-fill: " + WHITE + "; -fx-cursor: hand;";
     }
 
+    /**
+     * Active row reads like a taped call-sheet line: a brass edge marker on a
+     * barely tinted slab instead of a glowing filled pill.
+     */
     private static String activeNavStyle() {
-        return "-fx-background-color: " + LIME + "; -fx-background-radius: 12;"
-            + " -fx-text-fill: " + BLACK + "; -fx-cursor: hand;";
+        return "-fx-background-color: rgba(230,177,84,0.13);"
+            + " -fx-background-radius: 5;"
+            + " -fx-border-color: transparent transparent transparent " + LIME + ";"
+            + " -fx-border-width: 0 0 0 3; -fx-border-radius: 5;"
+            + " -fx-text-fill: " + LIME + "; -fx-cursor: hand;";
     }
 
     // ================================================================= header
@@ -489,7 +555,7 @@ public class SlidingSidebar_test extends Application {
         header.setAlignment(Pos.CENTER_LEFT);
         header.setPadding(new Insets(16, 30, 16, 24));
         header.setStyle("-fx-background-color: " + BLACK + ";"
-            + " -fx-border-color: transparent transparent #201c28 transparent;"
+            + " -fx-border-color: transparent transparent " + BORDER + " transparent;"
             + " -fx-border-width: 0 0 1 0;");
         return header;
     }
@@ -578,18 +644,19 @@ public class SlidingSidebar_test extends Application {
         Region shade = new Region();
         shade.setMouseTransparent(true);
         shade.setStyle("-fx-background-color: linear-gradient(to right,"
-            + " rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.80) 32%,"
-            + " rgba(0,0,0,0.42) 62%, rgba(0,0,0,0.82) 100%);");
+            + " rgba(23,23,25,0.95) 0%, rgba(23,23,25,0.84) 32%,"
+            + " rgba(23,23,25,0.50) 62%, rgba(23,23,25,0.86) 100%);");
 
         Region bottomFade = new Region();
         bottomFade.setMouseTransparent(true);
         bottomFade.setStyle("-fx-background-color: linear-gradient(to bottom,"
-            + " rgba(0,0,0,0) 42%, rgba(0,0,0,0.9) 100%);");
+            + " rgba(23,23,25,0) 42%, rgba(23,23,25,0.93) 100%);");
 
         HBox kicker = new HBox(pill("SINGLEPLAYER  ·  MOVIE QUIZ", LIME, BLACK, Feather.PLAY));
 
-        Label headline = label("NAME THAT MOVIE.\nONE SCENE AT A TIME.", 52,
+        Label headline = label("NAME THAT MOVIE.\nONE SCENE AT A TIME.", 50,
             FontWeight.BLACK, WHITE);
+        headline.setFont(Font.font(FONT, FontWeight.BLACK, FontPosture.ITALIC, 50));
         headline.setLineSpacing(-4);
 
         Label subtitle = label("One iconic scene. Three guesses. Sixty seconds on the clock. "
@@ -673,16 +740,20 @@ public class SlidingSidebar_test extends Application {
             boolean downward = column % 2 != 0;
             strip.setTranslateY(downward ? -POSTER_PERIOD : 0);
             strip.setCache(true);
-            strip.setCacheHint(CacheHint.SPEED);
+            // Cache the strip and translate the cached bitmap instead of
+            // re-rasterising it every frame.
+            strip.setCacheHint(CacheHint.QUALITY);
 
+            // No per-column clip here. A rectangular clip on a pane whose child
+            // translates every frame makes Prism allocate a fresh off-screen
+            // render target per frame; those buffers are never reclaimed and grow
+            // native memory to several gigabytes (invisible to the Java heap and
+            // NMT). The page-level clip below already trims the wall to the
+            // window, so a per-column clip adds nothing but the leak.
             Pane view = new Pane(strip);
             view.setPrefWidth(180);
             view.setMinWidth(180);
             view.setMaxWidth(180);
-            Rectangle clip = new Rectangle();
-            clip.widthProperty().bind(view.widthProperty());
-            clip.heightProperty().bind(view.heightProperty());
-            view.setClip(clip);
             wall.getChildren().add(view);
 
             POSTER_STRIPS.add(new PosterStrip(strip, downward, 78 + column * 8));
@@ -976,7 +1047,7 @@ public class SlidingSidebar_test extends Application {
             settingRow("Difficulty", "How much time you get per round", difficultyGroup));
 
         Button lime = accentButton("accentLime", "Verde Citrico", LIME, true);
-        Button violet = accentButton("accentViolet", "Roxo", VIOLET, false);
+        Button violet = accentButton("accentViolet", "Brass", VIOLET, false);
         HBox accents = new HBox(8, lime, violet);
         accents.setAlignment(Pos.CENTER_LEFT);
 
@@ -1147,7 +1218,8 @@ public class SlidingSidebar_test extends Application {
         HBox box = new HBox(6, icon, label);
         box.setAlignment(Pos.CENTER_LEFT);
         box.setPadding(new Insets(5, 11, 5, 11));
-        box.setStyle("-fx-background-color: " + background + "; -fx-background-radius: 999;");
+        box.setStyle("-fx-background-color: " + background + "; -fx-background-radius: 3;"
+            + " -fx-border-color: transparent; -fx-border-width: 0;");
         box.setMaxWidth(Region.USE_PREF_SIZE);
         return box;
     }
@@ -1157,8 +1229,8 @@ public class SlidingSidebar_test extends Application {
         HBox box = new HBox(label);
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(5, 10, 5, 10));
-        box.setStyle("-fx-background-color: #17141f; -fx-background-radius: 999;"
-            + " -fx-border-color: " + BORDER + "; -fx-border-radius: 999; -fx-border-width: 1;");
+        box.setStyle("-fx-background-color: #232326; -fx-background-radius: 3;"
+            + " -fx-border-color: " + BORDER + "; -fx-border-radius: 3; -fx-border-width: 1;");
         return box;
     }
 
@@ -1185,42 +1257,52 @@ public class SlidingSidebar_test extends Application {
     }
 
     static String limeButtonStyle() {
-        return "-fx-background-color: " + LIME + "; -fx-text-fill: " + BLACK + ";"
+        return "-fx-background-color: " + LIME + "; -fx-text-fill: #1b1405;"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 13px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 14; -fx-padding: 13 24 13 24; -fx-cursor: hand;";
+            + " -fx-font-style: italic; -fx-background-radius: 4; -fx-background-insets: 0;"
+            + " -fx-border-color: #b98a35; -fx-border-radius: 4; -fx-border-width: 1;"
+            + " -fx-padding: 10 20 10 20; -fx-cursor: hand;";
     }
 
     static String limeHoverStyle() {
-        return "-fx-background-color: " + LIME_HOVER + "; -fx-text-fill: " + BLACK + ";"
+        return "-fx-background-color: " + LIME_HOVER + "; -fx-text-fill: #1b1405;"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 13px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 14; -fx-padding: 13 24 13 24; -fx-cursor: hand;";
+            + " -fx-font-style: italic; -fx-background-radius: 4; -fx-background-insets: 0;"
+            + " -fx-border-color: " + LIME + "; -fx-border-radius: 4; -fx-border-width: 1;"
+            + " -fx-padding: 10 20 10 20; -fx-cursor: hand;";
     }
 
     static String violetButtonStyle() {
-        return "-fx-background-color: " + VIOLET + "; -fx-text-fill: " + WHITE + ";"
+        return "-fx-background-color: " + DEEP_VIOLET + "; -fx-text-fill: " + WHITE + ";"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 13px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 14; -fx-padding: 13 24 13 24; -fx-cursor: hand;";
+            + " -fx-font-style: italic; -fx-background-radius: 4; -fx-background-insets: 0;"
+            + " -fx-mark-color: " + WHITE + ";"
+            + " -fx-border-color: " + VIOLET + "; -fx-border-radius: 4; -fx-border-width: 1;"
+            + " -fx-padding: 10 20 10 20; -fx-cursor: hand;";
     }
 
     static String violetHoverStyle() {
-        return "-fx-background-color: #6a42b8; -fx-text-fill: " + WHITE + ";"
+        return "-fx-background-color: #4a3a24; -fx-text-fill: " + WHITE + ";"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 13px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 14; -fx-padding: 13 24 13 24; -fx-cursor: hand;";
+            + " -fx-font-style: italic; -fx-background-radius: 4; -fx-background-insets: 0;"
+            + " -fx-mark-color: " + WHITE + ";"
+            + " -fx-border-color: " + LIME + "; -fx-border-radius: 4; -fx-border-width: 1;"
+            + " -fx-padding: 10 20 10 20; -fx-cursor: hand;";
     }
 
     static String ghostButtonStyle() {
-        return "-fx-background-color: #1b1724; -fx-text-fill: " + SOFT_TEXT + ";"
+        return "-fx-background-color: #1e1e21; -fx-text-fill: " + SOFT_TEXT + ";"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 10px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 10; -fx-border-color: " + BORDER + ";"
-            + " -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 10 14 10 14;"
+            + " -fx-background-radius: 4; -fx-background-insets: 0; -fx-border-color: " + BORDER + ";"
+            + " -fx-border-radius: 4; -fx-border-width: 1; -fx-padding: 8 12 8 12;"
             + " -fx-cursor: hand;";
     }
 
     static String ghostHoverStyle() {
-        return "-fx-background-color: #221c35; -fx-text-fill: " + WHITE + ";"
+        return "-fx-background-color: " + HOVER + "; -fx-text-fill: " + WHITE + ";"
             + " -fx-font-family: '" + FONT + "'; -fx-font-size: 10px; -fx-font-weight: bold;"
-            + " -fx-background-radius: 10; -fx-border-color: " + LIME + ";"
-            + " -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 10 14 10 14;"
+            + " -fx-background-radius: 4; -fx-background-insets: 0; -fx-border-color: " + LIME + ";"
+            + " -fx-border-radius: 4; -fx-border-width: 1; -fx-padding: 8 12 8 12;"
             + " -fx-cursor: hand;";
     }
 

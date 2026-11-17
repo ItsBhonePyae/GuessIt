@@ -76,7 +76,9 @@ public final class AssetCatalog {
         for (String extension : IMAGE_EXTENSIONS) {
             URL url = AssetCatalog.class.getResource(POSTER_ROOT + slug + "." + extension);
             if (url != null) {
-                image = new Image(url.toExternalForm(), 540, 810, true, true, false);
+                // Cards are 180x270, so 360x540 is a 2x HiDPI source. Decoding at
+                // 540x810 kept 4x the pixels (and texture memory) for no visible gain.
+                image = new Image(url.toExternalForm(), 360, 540, true, true, false);
                 break;
             }
         }

@@ -18,6 +18,7 @@ module com.example.javagroupproject {
     requires javafx.media;
     requires com.sun.jna;
     requires java.sql;
+    requires java.management;
     requires atlantafx.base;
     requires animatefx;
     requires java.keyring;
