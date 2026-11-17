@@ -11,14 +11,16 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/login.fxml")
+                getClass().getResource("/view/login.fxml")
         );
 
         Scene scene = new Scene(loader.load());
 
         stage.setTitle("Guess It - Login");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMinWidth(900);
+        stage.setMinHeight(600);
+        stage.setMaximized(true);
         stage.show();
     }
 

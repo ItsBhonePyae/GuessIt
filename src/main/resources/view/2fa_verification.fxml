@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="700.0" prefWidth="1100.0"
+           styleClass="app-root" stylesheets="@../css/style.css"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.guessit.login.TwoFactorController">
+
+   <children>
+
+      <!-- Two-factor authentication card -->
+      <VBox alignment="CENTER" maxWidth="440.0" spacing="14.0" styleClass="login-form">
+         <StackPane.margin>
+            <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
+         </StackPane.margin>
+
+         <children>
+
+            <!-- Title -->
+            <VBox alignment="CENTER" spacing="6.0">
+               <children>
+                  <Label styleClass="title" text="Two-Factor Authentication" wrapText="true" />
+                  <Label maxWidth="Infinity" styleClass="subtitle" textAlignment="CENTER"
+                         text="Enter the 6-digit code from your authenticator app or email."
+                         wrapText="true" />
+               </children>
+            </VBox>
+
+            <!-- Validation / success message -->
+            <Label fx:id="statusLabel" maxWidth="Infinity" managed="false" visible="false"
+                   styleClass="status-label" wrapText="true" />
+
+            <!-- 6-digit code -->
+            <TextField fx:id="otpField" alignment="CENTER" maxWidth="Infinity" prefHeight="58.0"
+                       onAction="#handleVerify" promptText="000000"
+                       styleClass="input-field, otp-field" />
+
+            <!-- Countdown -->
+            <Label alignment="CENTER" maxWidth="Infinity" styleClass="timer-label"
+                   text="The code is valid for a short time only." />
+
+            <!-- Actions -->
+            <Button fx:id="verifyButton" defaultButton="true" maxWidth="Infinity"
+                    onAction="#handleVerify" prefHeight="52.0"
+                    styleClass="login-button" text="Verify" />
+
+            <!-- Hint / switch back to login -->
+            <Label maxWidth="Infinity" styleClass="bottom-text" textAlignment="CENTER"
+                   text="This extra step keeps your account secure." wrapText="true" />
+
+            <Hyperlink onAction="#goToLogin" styleClass="link-text" text="Back to Login" />
+
+         </children>
+      </VBox>
+
+   </children>
+</StackPane>

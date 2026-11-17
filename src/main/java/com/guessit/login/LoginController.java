@@ -6,15 +6,16 @@ import com.guessit.util.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
- * Controller for fxml/login.fxml.
+ * Controller for view/login.fxml.
  *
  * Note: until the MySQL database is connected, any non-empty credentials
- * are accepted and lead to the dashboard.
+ * are accepted and the flow continues to two-factor verification.
  */
 public class LoginController {
 
@@ -23,6 +24,9 @@ public class LoginController {
 
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private CheckBox rememberCheck;
 
     @FXML
     private Button loginButton;
@@ -36,13 +40,14 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
-            showError("Please enter both username and password.");
+            showError("Please enter both username/email and password.");
             return;
         }
 
-        // TODO: replace with UserDao.login(username, password) + BCrypt check
+        // TODO: replace with UserDao.login(...) + BCrypt.checkpw(...)
         Session.setUsername(username);
-        SceneSwitcher.switchTo(loginButton, "/fxml/dashboard.fxml");
+        // 2FA is triggered after a successful password check
+        SceneSwitcher.switchTo(loginButton, "/view/2fa_verification.fxml");
     }
 
     @FXML
@@ -56,7 +61,7 @@ public class LoginController {
 
     @FXML
     private void goToRegister() {
-        SceneSwitcher.switchTo(usernameField, "/fxml/register.fxml");
+        SceneSwitcher.switchTo(usernameField, "/view/register.fxml");
     }
 
     private void showError(String message) {

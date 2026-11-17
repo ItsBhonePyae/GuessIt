@@ -24,7 +24,6 @@ module com.example.javagroupproject {
     requires com.sun.jna.platform;
 
     opens com.example.javagroupproject to javafx.fxml;
-    opens Testing_for_bascially_everything to javafx.graphics;
     exports com.example.javagroupproject;
 
     exports Testing_for_bascially_everything.Login;

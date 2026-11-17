@@ -3,18 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="650.0" prefWidth="1100.0" styleClass="dark-background" stylesheets="@../css/style.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.guessit.controller.DashboardController">
+<StackPane prefHeight="700.0" prefWidth="1100.0"
+           styleClass="app-root" stylesheets="@../css/style.css"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.guessit.controller.DashboardController">
 
    <children>
 
-      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <!-- Dashboard card -->
+      <VBox alignment="CENTER" maxWidth="520.0" spacing="22.0" styleClass="dashboard-card">
+         <StackPane.margin>
+            <Insets bottom="40.0" left="20.0" right="20.0" top="40.0" />
+         </StackPane.margin>
 
          <children>
 
@@ -24,15 +27,11 @@
             <Label styleClass="subtitle" text="You are logged in. Ready to guess some movies?" />
 
             <!-- Logout -->
-            <Button fx:id="logoutButton" maxWidth="220.0" onAction="#handleLogout"
+            <Button fx:id="logoutButton" maxWidth="220.0" minWidth="180.0" onAction="#handleLogout"
                     prefHeight="52.0" styleClass="logout-button" text="Logout" />
 
          </children>
-
-         <padding>
-            <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
-         </padding>
       </VBox>
 
    </children>
-</AnchorPane>
+</StackPane>

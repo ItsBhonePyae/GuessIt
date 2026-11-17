@@ -1,19 +1,19 @@
 package com.guessit.login;
 
 import com.guessit.util.SceneSwitcher;
+import com.guessit.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
- * Controller for fxml/register.fxml.
+ * Controller for view/register.fxml.
  *
  * Note: until the MySQL database is connected, registration only validates
- * the input and reports success — no account is stored yet.
+ * the input and continues to OTP verification — no account is stored yet.
  */
 public class RegisterController {
 
@@ -65,12 +65,15 @@ public class RegisterController {
         }
 
         // TODO: replace with UserDao.register(...) + BCrypt.hashpw(password)
-        showStatus("Account created for " + username + "! You can now log in.", true);
+        Session.setUsername(username);
+        Session.setEmail(email);
+        // Account created -> verify the email with a one-time code
+        SceneSwitcher.switchTo(registerButton, "/view/otp_verification.fxml");
     }
 
     @FXML
     private void goToLogin() {
-        SceneSwitcher.switchTo(usernameField, "/fxml/login.fxml");
+        SceneSwitcher.switchTo(usernameField, "/view/login.fxml");
     }
 
     private void showStatus(String message, boolean success) {
