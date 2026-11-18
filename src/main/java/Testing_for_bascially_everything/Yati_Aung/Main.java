@@ -1,13 +1,11 @@
-package Controller;
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+package Testing_for_bascially_everything.Yati_Aung;
 
 import atlantafx.base.theme.PrimerDark;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
-
-import util.SceneManager;
 
 public class Main extends Application {
 
@@ -18,11 +16,16 @@ public class Main extends Application {
                 new PrimerDark().getUserAgentStylesheet()
         );
 
-        SceneManager.setStage(stage);
-
-        SceneManager.switchScene("/fxml/MainMenuGuest.fxml");
+        java.net.URL fxml = getClass().getResource("MainMenuGuest.fxml");
+        if (fxml == null) {
+            System.out.println("FXML not found");
+            return;
+        }
+        Parent root = FXMLLoader.load(fxml);
+        Scene scene = new Scene(root);
 
         stage.setTitle("GuessIt - Movie Guessing Game");
+        stage.setScene(scene);
         stage.show();
     }
 

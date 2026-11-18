@@ -26,5 +26,6 @@ module com.example.javagroupproject {
 
     opens com.example.javagroupproject to javafx.fxml;
     opens Testing_for_bascially_everything to javafx.graphics, javafx.fxml;
+    opens Testing_for_bascially_everything.Yati_Aung to javafx.graphics, javafx.fxml;
     exports com.example.javagroupproject;
 }

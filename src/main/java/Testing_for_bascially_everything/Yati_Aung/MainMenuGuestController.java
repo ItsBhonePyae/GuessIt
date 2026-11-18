@@ -1,4 +1,4 @@
-package Controller;
+package Testing_for_bascially_everything.Yati_Aung;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,8 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import util.SceneManager;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,24 +52,14 @@ public class MainMenuGuestController implements Initializable {
 
     @FXML
     void goToGameSelection(ActionEvent event) {
-        try {
-            if(!btnAccount.getText().equals("LogIn")) {
-                SceneManager.switchScene("/fxml/GameMenuPage.fxml");
-            } else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-
-                alert.setTitle("GuessIt");
-                alert.setHeaderText("LogIn First");
-                alert.setContentText("You need to log in to play");
-
-                alert.showAndWait();
-            }
-        } catch (IOException exception) {
+        if(!btnAccount.getText().equals("LogIn")) {
+            // SceneManager.switchScene("/fxml/GameMenuPage.fxml");
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
             alert.setTitle("GuessIt");
-            alert.setHeaderText("Error Found!");
-            alert.setContentText(exception.getMessage());
+            alert.setHeaderText("LogIn First");
+            alert.setContentText("You need to log in to play");
 
             alert.showAndWait();
         }

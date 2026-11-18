@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="root" stylesheets="@../style/MainMenuStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainMenuGuestController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="root" stylesheets="@MainMenuStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Testing_for_bascially_everything.Yati_Aung.MainMenuGuestController">
    <children>
       <Pane prefHeight="700.0" prefWidth="1100.0" />
       <BorderPane prefHeight="700.0" prefWidth="1100.0">
@@ -19,8 +19,8 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <HBox alignment="CENTER" prefHeight="86.0" prefWidth="319.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#viewProfile" prefWidth="100.0" styleClass="navigation-btn" stylesheets="@../style/MainMenuStyle.css" text="Account" />
-                        <Button fx:id="btnSetting" mnemonicParsing="false" onAction="#viewSetting" prefWidth="100.0" styleClass="navigation-btn" stylesheets="@../style/MainMenuStyle.css" text="Setting" />
+                        <Button fx:id="btnAccount" mnemonicParsing="false" onAction="#viewProfile" prefWidth="100.0" styleClass="navigation-btn" stylesheets="@MainMenuStyle.css" text="Account" />
+                        <Button fx:id="btnSetting" mnemonicParsing="false" onAction="#viewSetting" prefWidth="100.0" styleClass="navigation-btn" stylesheets="@MainMenuStyle.css" text="Setting" />
                      </children>
                   </HBox>
                </children>
