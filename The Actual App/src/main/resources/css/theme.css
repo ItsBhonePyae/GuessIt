@@ -1,0 +1,58 @@
+.root {
+    -fx-background-color: #0a0a0c;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f5f5f5;
+}
+.title { -fx-font-size: 34px; -fx-font-weight: 900; -fx-text-fill: #ffd23f; }
+.subtitle { -fx-font-size: 14px; -fx-text-fill: #b8b0c8; }
+.field {
+    -fx-background-color: #1a1a1e;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #6b6578;
+    -fx-background-radius: 8;
+    -fx-border-color: #3a3a42;
+    -fx-border-radius: 8;
+    -fx-padding: 10 14;
+    -fx-pref-width: 280;
+}
+.primary-btn {
+    -fx-background-color: #ffd23f;
+    -fx-text-fill: #1a1200;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+}
+.primary-btn:hover { -fx-background-color: #ffe066; }
+.ghost-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b8b0c8;
+    -fx-border-color: #3a3a42;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+.status { -fx-text-fill: #ff6b6b; -fx-font-size: 12px; }
+.link { -fx-text-fill: #ffd23f; }
+.card {
+    -fx-background-color: #16161a;
+    -fx-background-radius: 12;
+    -fx-border-color: #3a3a42;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-padding: 16;
+}
+.card:hover { -fx-border-color: #ffd23f; -fx-background-color: #1e1e24; }
+.card-title { -fx-font-size: 22px; -fx-font-weight: 900; -fx-text-fill: #ffd23f; }
+.card-sub { -fx-font-size: 12px; -fx-text-fill: #b8b0c8; }
+.sidebar { -fx-background-color: #111114; -fx-border-color: #2a2a30; -fx-border-width: 0 1 0 0; }
+.brand { -fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #ffd23f; }
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f5f5f5;
+    -fx-alignment: center-left;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+}
+.nav-btn:hover { -fx-background-color: #1e1e24; -fx-text-fill: #ffd23f; }

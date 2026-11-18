@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.guessit.actualapp.controller.HomeController"
+      alignment="CENTER" spacing="24"
+      styleClass="root" stylesheets="@../css/theme.css">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+    <Label fx:id="welcomeLabel" text="Welcome!" styleClass="title"/>
+    <Label text="Choose a category" styleClass="subtitle"/>
+    <HBox spacing="24" alignment="CENTER">
+        <VBox styleClass="card" onMouseClicked="#openMovie" spacing="8" alignment="CENTER" prefWidth="200" prefHeight="160">
+            <Label text="Movie" styleClass="card-title"/>
+            <Label text="Guess the film" styleClass="card-sub"/>
+        </VBox>
+        <VBox styleClass="card" onMouseClicked="#openSong" spacing="8" alignment="CENTER" prefWidth="200" prefHeight="160">
+            <Label text="Song" styleClass="card-title"/>
+            <Label text="Guess the track" styleClass="card-sub"/>
+        </VBox>
+        <VBox styleClass="card" onMouseClicked="#openCelebrity" spacing="8" alignment="CENTER" prefWidth="200" prefHeight="160">
+            <Label text="Celebrity" styleClass="card-title"/>
+            <Label text="Guess the star" styleClass="card-sub"/>
+        </VBox>
+    </HBox>
+    <Button text="Logout" onAction="#logout" styleClass="ghost-btn"/>
+</VBox>

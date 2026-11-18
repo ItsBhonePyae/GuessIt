@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.guessit.actualapp.controller.MovieController"
+            styleClass="root" stylesheets="@../css/theme.css">
+    <left>
+        <VBox spacing="12" styleClass="sidebar" prefWidth="200">
+            <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
+            <Label text="GuessIt" styleClass="brand"/>
+            <Button text="Home" onAction="#goHome" styleClass="nav-btn"/>
+            <Button text="Play" onAction="#handlePlay" styleClass="nav-btn"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" spacing="12">
+            <MediaView fx:id="mediaView" fitWidth="720" fitHeight="405"/>
+            <Button fx:id="playButton" text="Play" onAction="#handlePlay" styleClass="primary-btn"/>
+        </VBox>
+    </center>
+</BorderPane>
