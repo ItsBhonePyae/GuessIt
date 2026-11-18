@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="1000" prefHeight="650"
+            style="-fx-background-color: #1E1B26;">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15"
+              style="-fx-background-color: #342066;"
+              padding="20">
+            <Label text="GUESSIFY"
+                   style="-fx-text-fill: #D3FC72;
+                          -fx-font-size: 27px;
+                          -fx-font-weight: bold;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="PLAYER MODE"
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 14px;"/>
+
+            <Label text="SCORE: 0"
+                   style="-fx-text-fill: #D3FC72;
+                          -fx-font-size: 17px;
+                          -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="22"
+              padding="35">
+
+            <Label text="LET'S PLAY!"
+                   style="-fx-text-fill: #D3FC72;
+                          -fx-font-size: 32px;
+                          -fx-font-weight: bold;"/>
+
+            <Label text="Choose Your Category"
+                   style="-fx-text-fill: white;
+                          -fx-font-size: 18px;"/>
+
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="MOVIES"
+                        prefWidth="150" prefHeight="45"
+                        style="-fx-background-color: #553799;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;"/>
+
+                <Button text="SONGS"
+                        prefWidth="150" prefHeight="45"
+                        style="-fx-background-color: #553799;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;"/>
+
+                <Button text="CELEBRITY"
+                        prefWidth="150" prefHeight="45"
+                        style="-fx-background-color: #553799;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;"/>
+            </HBox>
+
+            <VBox alignment="CENTER" spacing="15"
+                  maxWidth="650"
+                  style="-fx-background-color: #342066;
+                         -fx-background-radius: 18;
+                         -fx-padding: 30;">
+
+                <Label text="GUESS THE ANSWER"
+                       style="-fx-text-fill: #D3FC72;
+                              -fx-font-size: 20px;
+                              -fx-font-weight: bold;"/>
+
+                <Label text="Clue: This movie features a magical world."
+                       wrapText="true"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 17px;"/>
+
+                <TextField promptText="Enter your answer..."
+                           maxWidth="400"
+                           style="-fx-background-color: #1E1B26;
+                                  -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #aaaaaa;
+                                  -fx-background-radius: 8;
+                                  -fx-padding: 12;"/>
+
+                <Button text="SUBMIT ANSWER"
+                        prefWidth="200" prefHeight="42"
+                        style="-fx-background-color: #D3FC72;
+                               -fx-text-fill: #1E1B26;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;"/>
+
+                <Label text="Attempts: 0 / 3"
+                       style="-fx-text-fill: white;
+                              -fx-font-size: 14px;"/>
+            </VBox>
+
+            <Label text="Good luck! Have fun guessing."
+                   style="-fx-text-fill: #bbbbbb;
+                          -fx-font-size: 14px;"/>
+
+        </VBox>
+    </center>
+
+</BorderPane>
