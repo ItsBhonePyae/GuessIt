@@ -5,15 +5,29 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="700.0" prefWidth="1100.0"
+<StackPane fx:id="rootPane" prefHeight="700.0" prefWidth="1100.0"
            styleClass="app-root" stylesheets="@../css/style.css"
            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.guessit.login.TwoFactorController">
 
    <children>
+
+      <!-- Background -->
+      <ImageView fitHeight="${rootPane.height}" fitWidth="${rootPane.width}"
+                 preserveRatio="false" pickOnBounds="true">
+         <image>
+            <Image url="@../images/lgbg.gi.png" />
+         </image>
+      </ImageView>
+
+      <Pane styleClass="image-overlay" />
+      <Pane styleClass="gold-spotlight" />
 
       <!-- Two-factor authentication card -->
       <VBox alignment="CENTER" maxWidth="440.0" spacing="14.0" styleClass="login-form">

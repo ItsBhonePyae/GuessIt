@@ -1,6 +1,7 @@
 package com.guessit.login;
 
 import com.guessit.util.SceneSwitcher;
+import com.guessit.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,7 +34,10 @@ public class TwoFactorController {
         }
 
         // TODO: validate against the user's stored 2FA secret
-        SceneSwitcher.switchTo(verifyButton, "/view/player_dashboard.fxml");
+        String target = "ADMIN".equalsIgnoreCase(Session.getRole())
+                ? "/view/admin_dashboard.fxml"
+                : "/view/player_dashboard.fxml";
+        SceneSwitcher.switchTo(verifyButton, target);
     }
 
     @FXML

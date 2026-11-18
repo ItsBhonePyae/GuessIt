@@ -207,7 +207,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.javagroupproject/com.guessit.Main
+                            <mainClass>com.example.javagroupproject/com.guessit.guessitauth.GuessItLauncher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

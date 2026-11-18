@@ -25,7 +25,7 @@
       <ImageView fitHeight="${rootPane.height}" fitWidth="${rootPane.width}"
                  preserveRatio="false" pickOnBounds="true">
          <image>
-            <Image url="@../images/guessit-background.png" />
+            <Image url="@../images/lgbg.gi.png" />
          </image>
       </ImageView>
 

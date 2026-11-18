@@ -1,0 +1,121 @@
+/* Main Login Container */
+.login-container {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-spacing: 22px;
+    -fx-padding: 30px;
+}
+
+/* Welcome Text */
+.welcome-title {
+    -fx-text-fill: #F8E7C0;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(
+            gaussian, rgba(255,190,80,0.6),
+            15, 0.3, 0, 0
+    );
+}
+
+.welcome-subtitle {
+    -fx-text-fill: #D8C5A0;
+    -fx-font-size: 15px;
+}
+
+/* Input Fields */
+.input-field {
+    -fx-background-color: rgba(20,12,10,0.75);
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #B9A68C;
+
+    -fx-font-size: 15px;
+
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(218,165,75,0.55);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+
+    -fx-padding: 15px;
+    -fx-pref-width: 420px;
+    -fx-pref-height: 52px;
+}
+
+.input-field:focused {
+    -fx-border-color: #FFD477;
+
+    -fx-effect: dropshadow(
+            gaussian, rgba(255,190,70,0.35),
+            12, 0.3, 0, 0
+    );
+}
+
+/* Login Button */
+.login-button {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            #FFE09A,
+            #D49A38
+    );
+
+    -fx-text-fill: #351A08;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 10px;
+    -fx-pref-width: 420px;
+    -fx-pref-height: 52px;
+
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #FFF0BE;
+
+    -fx-effect: dropshadow(
+            gaussian, #E8B64C,
+            20, 0.5, 0, 0
+    );
+
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Forgot Password */
+.forgot-link {
+    -fx-text-fill: #E7BD70;
+    -fx-font-size: 14px;
+    -fx-underline: false;
+}
+
+.forgot-link:hover {
+    -fx-text-fill: #FFF0BE;
+    -fx-underline: true;
+}
+
+/* Register Link */
+.register-link {
+    -fx-text-fill: #FFD477;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-underline: false;
+}
+
+.register-link:hover {
+    -fx-text-fill: white;
+}
+
+/* Remember Me */
+.remember-check {
+    -fx-text-fill: #E8D7B5;
+    -fx-font-size: 14px;
+}
+
+.remember-check .box {
+    -fx-background-color: #24150D;
+    -fx-border-color: #D5A34B;
+    -fx-border-radius: 4px;
+}
+
+.remember-check:selected .mark {
+    -fx-background-color: #FFD477;
+}

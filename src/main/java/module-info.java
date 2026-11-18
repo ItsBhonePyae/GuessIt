@@ -22,6 +22,7 @@ module com.example.javagroupproject {
     requires animatefx;
     requires java.keyring;
     requires com.sun.jna.platform;
+    requires jbcrypt;
 
     opens com.example.javagroupproject to javafx.fxml;
     exports com.example.javagroupproject;
@@ -32,6 +33,10 @@ module com.example.javagroupproject {
     opens com.guessit to javafx.fxml;
     opens com.guessit.login to javafx.fxml;
     opens com.guessit.controller to javafx.fxml;
+    opens com.guessit.guessitauth to javafx.fxml;
+    opens application to javafx.fxml;
     exports com.guessit to javafx.graphics;
+    exports com.guessit.guessitauth to javafx.graphics;
+    exports application to javafx.graphics;
 }
 
