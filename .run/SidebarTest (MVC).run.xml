@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SidebarTest (MVC)" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="C:\Program Files\Java\jdk-24" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="Testing_for_bascially_everything.SidebarTestApp" />
+    <module name="JavaGroupProject" />
+    <option name="VM_PARAMETERS" value="-Xms96m -Xmx384m -XX:MaxMetaspaceSize=192m -XX:MaxDirectMemorySize=320m -XX:+UseG1GC -XX:MaxGCPauseMillis=30 -XX:InitiatingHeapOccupancyPercent=45 -XX:G1ReservePercent=15 -XX:G1PeriodicGCInterval=20000 -XX:ParallelGCThreads=4 -XX:ConcGCThreads=2 --enable-native-access=javafx.graphics,javafx.media" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

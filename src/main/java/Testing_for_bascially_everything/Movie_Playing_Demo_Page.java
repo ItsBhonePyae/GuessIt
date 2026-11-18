@@ -536,7 +536,7 @@ final class Movie_Playing_Demo_Page {
          * a pipeline instead of disposing and rebuilding it.
          */
         private final Map<String, MediaPlayer> mediaCache = new LinkedHashMap<>();
-        private static final int MAX_CACHED_PLAYERS = 4;
+        private static final int MAX_CACHED_PLAYERS = 2;
         private Runnable backAction;
         private final Random random = new Random();
         private Timeline ticker;
@@ -645,6 +645,12 @@ final class Movie_Playing_Demo_Page {
             addHover(fileBtn, violetButtonStyle(), violetHoverStyle());
 
             for (AssetCatalog.Clip clip : AssetCatalog.bundledClips()) {
+                MenuItem item = new MenuItem(clip.label());
+                item.setOnAction(event -> loadBundledClip(clip));
+                fileBtn.getItems().add(item);
+            }
+            fileBtn.getItems().add(new SeparatorMenuItem());
+            for (AssetCatalog.Clip clip : AssetCatalog.bundledClips2()) {
                 MenuItem item = new MenuItem(clip.label());
                 item.setOnAction(event -> loadBundledClip(clip));
                 fileBtn.getItems().add(item);
@@ -1147,6 +1153,11 @@ final class Movie_Playing_Demo_Page {
             resultTitle.setTextFill(Color.web(SOFT_TEXT));
             resultBanner.setStyle(neutralBannerStyle());
             statusLabel.setTextFill(Color.web(SOFT_TEXT));
+            if (round == 1) {
+                loadBundledClip(AssetCatalog.bundledClips().get(0));
+            } else if (round == 2) {
+                loadBundledClip(AssetCatalog.bundledClips2().get(0));
+            }
             statusLabel.setText("Press PLAY for the bundled demo scene, or choose another clip.");
             clipTime.setText("0:00 / 0:00");
             fileLabel.setText("NO CLIP LOADED");
@@ -1486,6 +1497,7 @@ final class Movie_Playing_Demo_Page {
             if (mediaCache.size() <= MAX_CACHED_PLAYERS) {
                 return;
             }
+            boolean evicted = false;
             Iterator<Map.Entry<String, MediaPlayer>> entries = mediaCache.entrySet().iterator();
             while (mediaCache.size() > MAX_CACHED_PLAYERS && entries.hasNext()) {
                 MediaPlayer candidate = entries.next().getValue();
@@ -1495,13 +1507,20 @@ final class Movie_Playing_Demo_Page {
                 entries.remove();
                 candidate.stop();
                 candidate.dispose();
+                evicted = true;
             }
             if (mediaCache.size() > MAX_CACHED_PLAYERS) {
                 MediaPlayer spare = mediaCache.remove(keepSource);
                 if (spare != null && spare != player) {
                     spare.stop();
                     spare.dispose();
+                    evicted = true;
                 }
+            }
+            if (evicted) {
+                // Disposed pipelines keep their native decode buffers until the
+                // media objects are collected; schedule a single coalesced GC.
+                releaseMediaMemorySoon();
             }
         }
 
