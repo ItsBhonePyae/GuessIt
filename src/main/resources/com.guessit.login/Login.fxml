@@ -1,0 +1,76 @@
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.guessit.LoginController"
+           prefWidth="1100"
+           prefHeight="650"
+           stylesheets="@../css/style.css">
+    <ImageView fitWidth="1100"
+               fitHeight="650"
+               preserveRatio="false">
+        <image>
+            <Image url="@guessit_background.png"/>
+        </image>
+    </ImageView>
+    <VBox fx:id="loginForm"
+          alignment="CENTER"
+          spacing="22"
+          maxWidth="400"
+          StackPane.alignment="CENTER_RIGHT"
+          styleClass="login-form">
+
+        <padding>
+            <Insets top="30" right="60"
+                    bottom="30" left="20"/>
+        </padding>
+
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="Welcome Back!" styleClass="title"/>
+            <Label text="Login to continue" styleClass="subtitle"/>
+        </VBox>
+
+        <TextField fx:id="usernameField"
+                   promptText="Enter Username"
+                   prefHeight="52"
+                   styleClass="input-field"/>
+
+        <PasswordField fx:id="passwordField"
+                       promptText="Enter Password"
+                       prefHeight="52"
+                       styleClass="input-field"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <CheckBox fx:id="rememberCheck"
+                      text="Remember Me"
+                      styleClass="remember-check"/>
+
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <Hyperlink text="Forgot Password?"
+                       onAction="#forgotPassword"
+                       styleClass="link-text"/>
+        </HBox>
+
+        <Button text="➜   Login"
+                onAction="#handleLogin"
+                maxWidth="Infinity"
+                prefHeight="55"
+                styleClass="login-button"/>
+
+        <HBox alignment="CENTER" spacing="5">
+            <Label text="Don't have an account?"
+                   styleClass="bottom-text"/>
+
+            <Hyperlink text="Register"
+                       onAction="#openRegister"
+                       styleClass="link-text"/>
+        </HBox>
+
+    </VBox>
+</StackPane>

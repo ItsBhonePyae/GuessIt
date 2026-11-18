@@ -23,13 +23,5 @@ module com.example.javagroupproject {
 
     opens com.example.javagroupproject to javafx.fxml;
     opens Testing_for_bascially_everything to javafx.graphics;
-    opens Testing_for_bascially_everything.Controller to javafx.fxml;
-
-    exports Testing_for_bascially_everything.Controller
-            to javafx.graphics;
-
-
-
-
+    exports com.example.javagroupproject;
 }
-
