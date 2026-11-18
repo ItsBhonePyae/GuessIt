@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    GuessIt - sidebar test, MVC view.
+
+    Model:      SidebarTestModel
+    Controller: SidebarTestController (injected explicitly, so Scene Builder
+                can open this file without project classes on its classpath)
+    Styles:     SidebarTest.css (relative to this file)
+
+    Settings is a header icon beside the bell and opens the settingsOverlay
+    modal instead of replacing the centre page.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="shell" prefHeight="860.0" prefWidth="1320.0"
+           styleClass="app-shell" stylesheets="@SidebarTest.css"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+
+        <BorderPane fx:id="frame" styleClass="app-frame">
+
+            <!-- ==================================================== sidebar -->
+            <left>
+                <VBox fx:id="sidebar" maxWidth="260.0" minWidth="76.0" prefWidth="260.0"
+                      styleClass="sidebar">
+
+                    <HBox fx:id="brand" alignment="CENTER_LEFT" spacing="11.0" styleClass="brand">
+                        <StackPane minHeight="40.0" minWidth="40.0" maxHeight="40.0" maxWidth="40.0"
+                                   styleClass="brand-mark">
+                            <Label text="&#9636;" styleClass="brand-glyph"/>
+                        </StackPane>
+                        <VBox fx:id="brandText" spacing="0.0">
+                            <Label text="GUESSIT" styleClass="brand-name"/>
+                            <Label text="MOVIE QUIZ" styleClass="brand-sub"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox fx:id="navList" spacing="6.0" styleClass="nav">
+                        <Button fx:id="navSingleplayer" maxWidth="Infinity"
+                                styleClass="nav-item">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="13.0" styleClass="nav-row">
+                                    <Label text="&#9654;" styleClass="nav-glyph"/>
+                                    <Label fx:id="navSingleplayerLabel" text="Singleplayer"
+                                           styleClass="nav-label"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="navHistory" maxWidth="Infinity"
+                                styleClass="nav-item">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" spacing="13.0" styleClass="nav-row">
+                                    <Label text="&#9719;" styleClass="nav-glyph"/>
+                                    <Label fx:id="navHistoryLabel" text="History"
+                                           styleClass="nav-label"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <!-- Settings deliberately not here; use the gear in the header. -->
+                    </VBox>
+
+                    <Region VBox.vgrow="ALWAYS"/>
+
+                    <VBox fx:id="promoCard" spacing="3.0" styleClass="promo-card">
+                        <Label text="DAILY STREAK" styleClass="promo-kicker"/>
+                        <Label fx:id="streakValue" text="6 days strong" styleClass="promo-value"/>
+                    </VBox>
+
+                    <VBox spacing="12.0" styleClass="sidebar-footer">
+                        <Separator styleClass="sidebar-rule"/>
+                        <HBox fx:id="profileRow" alignment="CENTER_LEFT" spacing="10.0"
+                              styleClass="profile-row">
+                            <StackPane styleClass="avatar">
+                                <Label text="G" styleClass="avatar-text"/>
+                            </StackPane>
+                            <VBox fx:id="profileText" spacing="0.0">
+                                <Label fx:id="playerName" text="Guest Player"
+                                       styleClass="profile-name"/>
+                                <Label fx:id="playerLevel" text="Level 1"
+                                       styleClass="profile-meta"/>
+                            </VBox>
+                        </HBox>
+                        <Label fx:id="version" text="v1.0.0  &#183;  demo build"
+                               styleClass="version"/>
+                    </VBox>
+                </VBox>
+            </left>
+
+            <!-- ===================================================== centre -->
+            <center>
+                <BorderPane fx:id="main">
+
+                    <top>
+                        <HBox fx:id="header" alignment="CENTER_LEFT" spacing="14.0"
+                              styleClass="header">
+
+                            <Button fx:id="sidebarToggle" text="&#9776;"
+                                    styleClass="icon-button"/>
+
+                            <Label fx:id="pageTitle" text="Singleplayer"
+                                   styleClass="page-title"/>
+
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <Button fx:id="searchButton" text="&#128269;"
+                                    styleClass="icon-button"/>
+
+                            <Button fx:id="bellButton" text="&#128276;"
+                                    styleClass="icon-button"/>
+
+                            <!-- Settings lives here now, next to the bell. -->
+                            <Button fx:id="settingsButton" text="&#9881;"
+                                    styleClass="icon-button"/>
+
+                            <StackPane fx:id="avatarChip" styleClass="avatar">
+                                <Label text="G" styleClass="avatar-text"/>
+                            </StackPane>
+                        </HBox>
+                    </top>
+
+                    <center>
+                        <StackPane fx:id="pageHost" minHeight="0.0" minWidth="0.0"
+                                   styleClass="page-host">
+                            <children>
+
+                                <!-- home page -->
+                                <StackPane fx:id="singleplayerPage" minHeight="0.0" minWidth="0.0"
+                                           styleClass="page, page-singleplayer">
+
+                                                                        <HBox id="posterBackdrop" alignment="CENTER" spacing="16.0"
+                                          styleClass="poster-wall">
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-blade">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SCI-FI" styleClass="poster-genre"/>
+                                                    <Label text="BLADE RUNNER 2049" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-moonlight">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="DRAMA" styleClass="poster-genre"/>
+                                                    <Label text="MOONLIGHT" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-knives">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MYSTERY" styleClass="poster-genre"/>
+                                                    <Label text="KNIVES OUT" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-dune">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SCI-FI" styleClass="poster-genre"/>
+                                                    <Label text="DUNE: PART TWO" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-night">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="CRIME" styleClass="poster-genre"/>
+                                                    <Label text="NIGHTCRAWLER" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-her">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="ROMANCE" styleClass="poster-genre"/>
+                                                    <Label text="HER" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-arrival">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MYSTERY" styleClass="poster-genre"/>
+                                                    <Label text="ARRIVAL" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-parasite">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="THRILLER" styleClass="poster-genre"/>
+                                                    <Label text="PARASITE" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-madmax">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="ACTION" styleClass="poster-genre"/>
+                                                    <Label text="MAD MAX" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-whiplash">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="DRAMA" styleClass="poster-genre"/>
+                                                    <Label text="WHIPLASH" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-interstellar">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SPACE" styleClass="poster-genre"/>
+                                                    <Label text="INTERSTELLAR" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-lalaland">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MUSICAL" styleClass="poster-genre"/>
+                                                    <Label text="LA LA LAND" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-parasite">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="THRILLER" styleClass="poster-genre"/>
+                                                    <Label text="PARASITE" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-batman">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="CRIME" styleClass="poster-genre"/>
+                                                    <Label text="THE BATMAN" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-blade">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SCI-FI" styleClass="poster-genre"/>
+                                                    <Label text="BLADE RUNNER 2049" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-interstellar">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SPACE" styleClass="poster-genre"/>
+                                                    <Label text="INTERSTELLAR" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-her">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="ROMANCE" styleClass="poster-genre"/>
+                                                    <Label text="HER" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-dune">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SCI-FI" styleClass="poster-genre"/>
+                                                    <Label text="DUNE: PART TWO" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-lalaland">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MUSICAL" styleClass="poster-genre"/>
+                                                    <Label text="LA LA LAND" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-knives">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MYSTERY" styleClass="poster-genre"/>
+                                                    <Label text="KNIVES OUT" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-arrival">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MYSTERY" styleClass="poster-genre"/>
+                                                    <Label text="ARRIVAL" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-night">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="CRIME" styleClass="poster-genre"/>
+                                                    <Label text="NIGHTCRAWLER" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-madmax">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="ACTION" styleClass="poster-genre"/>
+                                                    <Label text="MAD MAX" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-whiplash">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="DRAMA" styleClass="poster-genre"/>
+                                                    <Label text="WHIPLASH" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-her">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="ROMANCE" styleClass="poster-genre"/>
+                                                    <Label text="HER" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-moonlight">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="DRAMA" styleClass="poster-genre"/>
+                                                    <Label text="MOONLIGHT" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-parasite">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="THRILLER" styleClass="poster-genre"/>
+                                                    <Label text="PARASITE" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+
+                                        <VBox spacing="16.0" styleClass="poster-strip">
+                                            <StackPane styleClass="poster-card, poster-knives">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="MYSTERY" styleClass="poster-genre"/>
+                                                    <Label text="KNIVES OUT" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-blade">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SCI-FI" styleClass="poster-genre"/>
+                                                    <Label text="BLADE RUNNER 2049" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                            <StackPane styleClass="poster-card, poster-interstellar">
+                                                <Region styleClass="poster-scrim"/>
+                                                <VBox alignment="BOTTOM_LEFT" spacing="2.0">
+                                                    <Label text="SPACE" styleClass="poster-genre"/>
+                                                    <Label text="INTERSTELLAR" styleClass="poster-title"/>
+                                                </VBox>
+                                            </StackPane>
+                                        </VBox>
+                                    </HBox>
+
+                                    <Region mouseTransparent="true" styleClass="hero-shade"/>
+                                    <Region mouseTransparent="true" styleClass="hero-fade"/>
+
+                                    <VBox fx:id="heroCopy" maxHeight="-Infinity" maxWidth="780.0"
+                                          spacing="16.0" styleClass="hero-copy"
+                                          StackPane.alignment="CENTER_LEFT">
+                                        <HBox alignment="CENTER_LEFT" spacing="6.0" maxWidth="-Infinity"
+                                              styleClass="kicker">
+                                            <Label text="&#9654;" styleClass="kicker-glyph"/>
+                                            <Label text="SINGLEPLAYER  &#183;  MOVIE QUIZ"
+                                                   styleClass="kicker-text"/>
+                                        </HBox>
+
+                                        <Label styleClass="headline"
+                                               text="NAME THAT MOVIE.&#10;ONE SCENE AT A TIME."/>
+
+                                        <Label styleClass="subtitle" wrapText="true" maxWidth="560.0"
+                                               text="One iconic scene. Three guesses. Sixty seconds on the clock. See how many films you can name before the timer runs out."/>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                            <Button fx:id="playNow" styleClass="primary-button"
+                                                    text="PLAY NOW">
+                                                <graphic>
+                                                    <Label text="&#9654;" styleClass="button-glyph"/>
+                                                </graphic>
+                                            </Button>
+                                            <Button fx:id="howToPlay" styleClass="secondary-button"
+                                                    text="HOW TO PLAY">
+                                                <graphic>
+                                                    <Label text="?" styleClass="button-glyph"/>
+                                                </graphic>
+                                            </Button>
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                            <Label text="5 ROUNDS" styleClass="chip, chip-accent"/>
+                                            <Label text="60 SECONDS" styleClass="chip"/>
+                                            <Label text="3 GUESSES" styleClass="chip"/>
+                                        </HBox>
+                                    </VBox>
+                                </StackPane>
+
+                                <!-- history page -->
+                                <StackPane fx:id="historyPage" managed="false" visible="false"
+                                           minHeight="0.0" minWidth="0.0"
+                                           styleClass="page, page-history">
+                                    <VBox maxWidth="900.0" styleClass="page-content"
+                                          StackPane.alignment="TOP_LEFT">
+
+                                        <HBox alignment="CENTER_LEFT" spacing="6.0" maxWidth="-Infinity"
+                                              styleClass="pill-violet">
+                                            <Label text="&#9719;" styleClass="pill-glyph"/>
+                                            <Label text="HISTORY" styleClass="pill-text"/>
+                                        </HBox>
+
+                                        <Label text="YOUR CALL SHEET" styleClass="history-headline"/>
+
+                                        <Label styleClass="subtitle" wrapText="true" maxWidth="560.0"
+                                               text="Every round you have played, with the guesses it took and the points you earned."/>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="filter-row">
+                                            <Button fx:id="filterAll" text="ALL ROUNDS"
+                                                    styleClass="filter-button"/>
+                                            <Button fx:id="filterWins" text="WINS"
+                                                    styleClass="filter-button"/>
+                                            <Button fx:id="filterLosses" text="LOSSES"
+                                                    styleClass="filter-button"/>
+                                            <Region HBox.hgrow="ALWAYS"/>
+                                            <Label fx:id="historyCount" text="2 / 2 ROUNDS"
+                                                   styleClass="history-count"/>
+                                        </HBox>
+
+                                        <VBox styleClass="history-card">
+                                            <HBox fx:id="historyRowDune" alignment="CENTER_LEFT"
+                                                  spacing="14.0" maxWidth="Infinity"
+                                                  styleClass="history-row">
+                                                <Label text="D2" styleClass="history-badge"/>
+                                                <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                                    <Label text="Dune: Part Two"
+                                                           styleClass="history-title"/>
+                                                    <Label text="2024  &#183;  3 guesses  &#183;  Today, 14:32"
+                                                           styleClass="history-meta"/>
+                                                </VBox>
+                                                <Label text="0" styleClass="history-score"/>
+                                                <Label text="LOSS" styleClass="history-result"/>
+                                            </HBox>
+                                            <HBox fx:id="historyRowWhiplash" alignment="CENTER_LEFT"
+                                                  spacing="14.0" maxWidth="Infinity"
+                                                  styleClass="history-row">
+                                                <Label text="WH" styleClass="history-badge"/>
+                                                <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                                    <Label text="Whiplash" styleClass="history-title"/>
+                                                    <Label text="2014  &#183;  3 guesses  &#183;  Yesterday, 21:05"
+                                                           styleClass="history-meta"/>
+                                                </VBox>
+                                                <Label text="0" styleClass="history-score"/>
+                                                <Label text="LOSS" styleClass="history-result"/>
+                                            </HBox>
+                                            <Label fx:id="historyEmpty" managed="false" visible="false"
+                                                   text="No rounds in this filter yet."
+                                                   styleClass="history-empty"/>
+                                        </VBox>
+                                    </VBox>
+                                </StackPane>
+
+                            </children>
+                        </StackPane>
+                    </center>
+                </BorderPane>
+            </center>
+        </BorderPane>
+
+        <!-- ============================================= settings modal -->
+        <StackPane fx:id="settingsOverlay" managed="false" pickOnBounds="true" visible="false"
+                   styleClass="modal-overlay">
+
+            <children>
+                <Region fx:id="settingsBackdrop" maxHeight="Infinity" maxWidth="Infinity"
+                        styleClass="modal-backdrop"/>
+
+                <VBox fx:id="settingsModal" maxHeight="-Infinity" maxWidth="560.0"
+                      styleClass="modal-card">
+
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="modal-head">
+                        <Label text="SETTINGS" styleClass="modal-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="settingsClose" text="&#10005;"
+                                styleClass="icon-button"/>
+                    </HBox>
+
+                    <VBox fx:id="settingsBody" spacing="16.0" styleClass="modal-body">
+
+                        <VBox spacing="8.0" styleClass="settings-group">
+                            <Label text="DIFFICULTY" styleClass="field-label"/>
+                            <HBox spacing="8.0">
+                                <Button fx:id="difficultyEasy" text="EASY"
+                                        styleClass="option-button"/>
+                                <Button fx:id="difficultyMedium" text="MEDIUM"
+                                        styleClass="option-button"/>
+                                <Button fx:id="difficultyHard" text="HARD"
+                                        styleClass="option-button"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="8.0" styleClass="settings-group">
+                            <Label text="ACCENT" styleClass="field-label"/>
+                            <HBox spacing="8.0">
+                                <Button fx:id="accentLime" text="Lime"
+                                        styleClass="option-button"/>
+                                <Button fx:id="accentViolet" text="Violet"
+                                        styleClass="option-button"/>
+                            </HBox>
+                        </VBox>
+
+                        <Label fx:id="settingsStatus" text="Accent preview set to Lime."
+                               styleClass="settings-status"/>
+                    </VBox>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="modal-foot">
+                        <Button fx:id="settingsDone" text="DONE"
+                                styleClass="modal-done"/>
+                    </HBox>
+                </VBox>
+            </children>
+        </StackPane>
+
+    </children>
+</StackPane>

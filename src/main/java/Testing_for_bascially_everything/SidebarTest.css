@@ -1,0 +1,645 @@
+/*
+ * GuessIt - view stylesheet for SidebarTest.fxml.
+ *
+ * Theme: dark, lime, violet.
+ *   ink       #000000   graphite #1e1b26   panel #262130
+ *   lime      #b7e34e   lime light #c9f26a
+ *   violet    #553199   deep violet #342066
+ *   chalk     #ffffff   soft #cbc5d8       muted #9b95a8
+ *   border    #2b2735   hover #262130
+ *
+ * Only visual state lives here: the controller toggles the `active` and
+ * `collapsed` classes, everything else is presentational.
+ */
+
+/* ============================================================== shell ==== */
+
+.app-shell {
+    -fx-background-color: #000000;
+    -fx-font-family: "Segoe UI";
+}
+
+.app-frame {
+    -fx-background-color: #000000;
+}
+
+.page-host {
+    -fx-background-color: #000000;
+}
+
+/* ============================================================== sidebar == */
+
+.sidebar {
+    -fx-background-color: #1e1b26;
+    -fx-border-color: transparent #2b2735 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 22 14 20 14;
+    -fx-spacing: 22;
+}
+
+/* Brand tile */
+.brand-mark {
+    -fx-background-color: #b7e34e;
+    -fx-background-radius: 12;
+}
+
+.brand-glyph {
+    -fx-text-fill: #12101a;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.brand-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+
+.brand-sub {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+/* Navigation rows: lime edge marker on a barely tinted slab. */
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 5;
+    -fx-padding: 12 14 12 14;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+}
+
+.nav-item:hover {
+    -fx-background-color: #262130;
+}
+
+.nav-item:focused {
+    -fx-background-color: #262130;
+}
+
+.nav-item.active {
+    -fx-background-color: rgba(183, 227, 78, 0.12);
+    -fx-border-color: transparent transparent transparent #b7e34e;
+}
+
+.nav-glyph {
+    -fx-text-fill: #a5a0b2;
+    -fx-font-size: 15px;
+}
+
+.nav-label {
+    -fx-text-fill: #a5a0b2;
+    -fx-font-size: 13px;
+}
+
+.nav-item:hover .nav-label,
+.nav-item:hover .nav-glyph {
+    -fx-text-fill: #ffffff;
+}
+
+.nav-item.active .nav-label,
+.nav-item.active .nav-glyph {
+    -fx-text-fill: #b7e34e;
+}
+
+/* Collapsed rail: icons only, centred. */
+.sidebar.collapsed .brand {
+    -fx-alignment: center;
+}
+
+.sidebar.collapsed .nav-item {
+    -fx-alignment: center;
+    -fx-padding: 12;
+}
+
+/* A hidden label should not leave its gap behind, or the icon sits off-centre.
+   The skin stretches the graphic row, so the row itself has to centre too. */
+.sidebar.collapsed .nav-row {
+    -fx-spacing: 0;
+    -fx-alignment: center;
+}
+
+.sidebar.collapsed .profile-row {
+    -fx-alignment: center;
+}
+
+/* Streak card and footer */
+.promo-card {
+    -fx-background-color: #17141f;
+    -fx-background-radius: 8;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 10 12 10 12;
+    -fx-spacing: 3;
+}
+
+.promo-kicker {
+    -fx-text-fill: #b7e34e;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.promo-value {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-rule .line {
+    -fx-border-color: #2b2735;
+    -fx-border-width: 1 0 0 0;
+}
+
+.profile-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.profile-meta {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 10px;
+}
+
+.version {
+    -fx-text-fill: #6f6980;
+    -fx-font-size: 9px;
+}
+
+.sidebar-footer {
+    -fx-padding: 4 0 0 0;
+}
+
+/* Avatar used in the sidebar and in the header */
+.avatar {
+    -fx-background-color: #553199;
+    -fx-background-radius: 999;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+    -fx-pref-width: 32;
+    -fx-pref-height: 32;
+    -fx-max-width: 32;
+    -fx-max-height: 32;
+}
+
+.avatar-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+}
+
+/* =============================================================== header == */
+
+.header {
+    -fx-background-color: #000000;
+    -fx-border-color: transparent transparent #2b2735 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 30 16 24;
+}
+
+.page-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 8 10 8 10;
+    -fx-text-fill: #cbc5d8;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-background-color: #262130;
+    -fx-text-fill: #ffffff;
+}
+
+.icon-button:pressed {
+    -fx-background-color: #17141f;
+}
+
+/* ================================================================= pages == */
+
+.page {
+    -fx-background-color: #000000;
+}
+
+.page-singleplayer {
+    -fx-background-color: #000000;
+}
+
+.poster-wall {
+    -fx-background-color: #000000;
+    -fx-translate-x: -26;
+}
+
+.poster-card {
+    -fx-background-color: linear-gradient(to bottom right, #342066, #1e1b26);
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255, 255, 255, 0.06);
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-min-width: 180;
+    -fx-pref-width: 180;
+    -fx-max-width: 180;
+    -fx-min-height: 270;
+    -fx-pref-height: 270;
+    -fx-max-height: 270;
+}
+
+/* The artwork itself is applied by SidebarTestController.installPosterArtwork()
+   from AssetCatalog, which decodes each file once, off the FX thread, at 2x the
+   card size and shares the image between cards. Keeping the URLs here as well
+   would decode every poster a second time at full 540x810 resolution, which is
+   2.25x the pixels for no visible gain. */
+.poster-scrim {
+    -fx-background-color: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.45) 66%,
+        rgba(0, 0, 0, 0.86) 100%);
+    -fx-background-radius: 14;
+}
+
+.poster-genre {
+    -fx-text-fill: rgba(255, 255, 255, 0.55);
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 13 0 13;
+}
+
+.poster-title {
+    -fx-text-fill: rgba(255, 255, 255, 0.88);
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 13 13 13;
+}
+
+.hero-shade {
+    -fx-background-color: linear-gradient(to right,
+        rgba(0, 0, 0, 0.96) 0%,
+        rgba(0, 0, 0, 0.90) 30%,
+        rgba(0, 0, 0, 0.58) 62%,
+        rgba(0, 0, 0, 0.86) 100%);
+}
+
+.hero-fade {
+    -fx-background-color: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0) 42%,
+        rgba(0, 0, 0, 0.94) 100%);
+}
+
+.hero-copy {
+    -fx-padding: 0 60 0 68;
+    -fx-spacing: 16;
+}
+
+/* Lime call-sheet kicker */
+.kicker {
+    -fx-background-color: #b7e34e;
+    -fx-background-radius: 3;
+    -fx-padding: 5 11 5 11;
+}
+
+.kicker-glyph {
+    -fx-text-fill: #12101a;
+    -fx-font-size: 8px;
+}
+
+.kicker-text {
+    -fx-text-fill: #12101a;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.headline {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 50px;
+    -fx-font-weight: 900;
+    -fx-font-style: italic;
+}
+
+.subtitle {
+    -fx-text-fill: #cbc5d8;
+    -fx-font-size: 15px;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.primary-button {
+    -fx-background-color: #b7e34e;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0;
+    -fx-border-color: #96bd38;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-text-fill: #12101a;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #c9f26a;
+    -fx-border-color: #b7e34e;
+}
+
+.primary-button .button-glyph {
+    -fx-text-fill: #12101a;
+    -fx-font-size: 11px;
+}
+
+.secondary-button {
+    -fx-background-color: #342066;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0;
+    -fx-border-color: #553199;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #452a80;
+    -fx-border-color: #b7e34e;
+}
+
+.secondary-button .button-glyph {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11px;
+}
+
+/* Fact chips ------------------------------------------------------------- */
+
+.chip {
+    -fx-background-color: #1e1b26;
+    -fx-background-radius: 3;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+}
+
+.chip-accent {
+    -fx-text-fill: #b7e34e;
+}
+
+/* =============================================================== history == */
+
+.page-history {
+    -fx-background-color: #000000;
+}
+
+.page-content {
+    -fx-padding: 34 38 46 38;
+    -fx-spacing: 20;
+}
+
+/* Violet call-sheet pill, used by the history eyebrow. */
+.pill-violet {
+    -fx-background-color: #553199;
+    -fx-background-radius: 3;
+    -fx-padding: 5 11 5 11;
+}
+
+.pill-glyph {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 8px;
+}
+
+.pill-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.history-headline {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 34px;
+    -fx-font-weight: 900;
+    -fx-font-style: italic;
+}
+
+.filter-row {
+    -fx-spacing: 8;
+}
+
+.filter-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 999;
+    -fx-background-insets: 0;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+    -fx-text-fill: #cbc5d8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: #262130;
+    -fx-text-fill: #ffffff;
+}
+
+.filter-button.active {
+    -fx-background-color: #b7e34e;
+    -fx-text-fill: #12101a;
+    -fx-border-color: #b7e34e;
+}
+
+.history-count {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.history-card {
+    -fx-background-color: #1e1b26;
+    -fx-background-radius: 20;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-padding: 4 14 4 14;
+}
+
+.history-score {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.history-empty {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 12px;
+    -fx-padding: 28;
+}
+
+
+
+.history-row {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12;
+    -fx-padding: 12 10 12 10;
+    -fx-border-color: transparent transparent #2b2735 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.history-row:hover {
+    -fx-background-color: #262130;
+    -fx-border-color: transparent;
+}
+
+.history-badge {
+    -fx-background-color: linear-gradient(to bottom right, #553199, #342066);
+    -fx-background-radius: 12;
+    -fx-min-width: 46;
+    -fx-pref-width: 46;
+    -fx-max-width: 46;
+    -fx-min-height: 46;
+    -fx-pref-height: 46;
+    -fx-max-height: 46;
+    -fx-alignment: center;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+}
+
+.history-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+}
+
+.history-meta {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 11px;
+}
+
+.history-result {
+    -fx-background-color: #553199;
+    -fx-background-radius: 999;
+    -fx-padding: 4 10 4 10;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 9px;
+    -fx-font-weight: 900;
+}
+
+/* ======================================================= settings modal == */
+
+.modal-overlay {
+    -fx-background-color: transparent;
+}
+
+.modal-backdrop {
+    -fx-background-color: rgba(6, 5, 9, 0.68);
+}
+
+.modal-card {
+    -fx-background-color: #1e1b26;
+    -fx-background-radius: 16;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 40, 0.18, 0, 18);
+}
+
+.modal-head {
+    -fx-padding: 18 18 14 24;
+    -fx-border-color: transparent transparent #2b2735 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.modal-title {
+    -fx-text-fill: #b7e34e;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.modal-body {
+    -fx-padding: 18 24 6 24;
+    -fx-spacing: 16;
+}
+
+.modal-foot {
+    -fx-padding: 12 20 18 20;
+}
+
+.modal-done {
+    -fx-background-color: #b7e34e;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0;
+    -fx-border-color: #96bd38;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-text-fill: #12101a;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-padding: 9 22 9 22;
+    -fx-cursor: hand;
+}
+
+.modal-done:hover {
+    -fx-background-color: #c9f26a;
+    -fx-border-color: #b7e34e;
+}
+
+.field-label {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.option-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 999;
+    -fx-background-insets: 0;
+    -fx-border-color: #2b2735;
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+    -fx-text-fill: #cbc5d8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.option-button:hover {
+    -fx-background-color: #262130;
+    -fx-text-fill: #ffffff;
+}
+
+.option-button.active {
+    -fx-background-color: #b7e34e;
+    -fx-text-fill: #12101a;
+    -fx-border-color: #b7e34e;
+}
+
+.settings-status {
+    -fx-text-fill: #9b95a8;
+    -fx-font-size: 11px;
+}

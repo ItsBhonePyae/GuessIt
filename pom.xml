@@ -177,6 +177,20 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- FXML kept beside its controller (src/main/java) still needs to
+                 land on the classpath for FXMLLoader.getResource(...). -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -199,7 +213,21 @@
                         <configuration>
                             <mainClass>com.example.javagroupproject/com.example.javagroupproject.HelloApplication
                             </mainClass>
-                            <launcher>app</launcher>
+                            <options>
+                                    <option>-Xms96m</option>
+                                    <option>-Xmx384m</option>
+                                    <option>-XX:MaxMetaspaceSize=192m</option>
+                                    <option>-XX:MaxDirectMemorySize=320m</option>
+                                    <option>-XX:+UseG1GC</option>
+                                    <option>-XX:MaxGCPauseMillis=30</option>
+                                    <option>-XX:InitiatingHeapOccupancyPercent=45</option>
+                                    <option>-XX:G1ReservePercent=15</option>
+                                    <option>-XX:G1PeriodicGCInterval=20000</option>
+                                    <option>-XX:ParallelGCThreads=4</option>
+                                    <option>-XX:ConcGCThreads=2</option>
+                                    <option>--enable-native-access=javafx.graphics,javafx.media</option>
+                                </options>
+
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>

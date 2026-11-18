@@ -18,12 +18,13 @@ module com.example.javagroupproject {
     requires javafx.media;
     requires com.sun.jna;
     requires java.sql;
+    requires java.management;
     requires atlantafx.base;
     requires animatefx;
     requires java.keyring;
     requires com.sun.jna.platform;
 
     opens com.example.javagroupproject to javafx.fxml;
-    opens Testing_for_bascially_everything to javafx.graphics;
+    opens Testing_for_bascially_everything to javafx.graphics, javafx.fxml;
     exports com.example.javagroupproject;
 }

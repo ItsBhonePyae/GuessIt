@@ -37,13 +37,18 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
@@ -58,9 +63,17 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.LongConsumer;
 
 import static Testing_for_bascially_everything.SlidingSidebar_test.*;
@@ -83,9 +96,9 @@ final class Movie_Playing_Demo_Page {
     };
 
     private static final String[] SCENE_GRADIENTS = {
-        "linear-gradient(to bottom right, #342066, #0d0a14)",
-        "linear-gradient(to bottom right, #553199, #17141f)",
-        "linear-gradient(to bottom right, #2b1a4d, #0d0a14)"
+        "linear-gradient(to bottom right, #241f18, #0c0c0d)",
+        "linear-gradient(to bottom right, #2a2216, #0e0e10)",
+        "linear-gradient(to bottom right, #201e1a, #0a0a0b)"
     };
 
     /** Result colours: green for a correct answer, red for a wrong one. */
@@ -98,28 +111,66 @@ final class Movie_Playing_Demo_Page {
     private static final int MIN_CORRECT_POINTS = 50;
     private static final int SCENES = 3;
 
+    /**
+     * Releases media memory after a scene ends.
+     *
+     * <p>{@link MediaPlayer#dispose()} stops the pipeline, but JavaFX frees the
+     * native {@link Media} buffers only when the media objects are collected.
+     * With a big idle heap that may never happen, so switching scenes schedules
+     * one coalesced collection off the FX thread. This drops the native decode
+     * buffers that Task Manager shows as multi-gigabyte "memory".</p>
+     */
+    private static final ScheduledExecutorService MEDIA_CLEANER =
+        Executors.newSingleThreadScheduledExecutor(runnable -> {
+            Thread thread = new Thread(runnable, "media-cleaner");
+            thread.setDaemon(true);
+            return thread;
+        });
+    private static ScheduledFuture<?> pendingMediaCleanup;
+    private static final AtomicLong MEDIA_EPOCH = new AtomicLong();
+
+    private static void releaseMediaMemorySoon() {
+        long epoch = MEDIA_EPOCH.get();
+        ScheduledFuture<?> previous = pendingMediaCleanup;
+        if (previous != null) {
+            previous.cancel(false);
+        }
+        pendingMediaCleanup = MEDIA_CLEANER.schedule(() -> {
+            // Skip if the user reopened the page and media is loading again.
+            if (MEDIA_EPOCH.get() == epoch) {
+                System.gc();
+            }
+        }, 1200, TimeUnit.MILLISECONDS);
+    }
+
     private Movie_Playing_Demo_Page() {
     }
 
     // --------------------------------------------------- segmented timeline
 
     /**
-     * Three-part timeline (0-3s, 3-5s, 5s-end of clip) drawn on a canvas.
+     * Three-part timeline (0-3s, 3-5s, 5s-end of clip) drawn as a strip of
+     * sprocketed 16 mm film.
      *
-     * <p>Mirrors the timeline in {@code Movie_Playing_Page}: unlocked parts are
-     * tinted, the part already played fills with the accent colour, locked
-     * parts stay dark, and a round knob shows the playhead. Click-drag inside
-     * the unlocked window seeks; the locked tail is not reachable.</p>
+     * <p>Locked parts sit on unexposed film stock, unlocked parts are exposed,
+     * the part already played is printed in brass, and the playhead is a white
+     * splice mark. Click-drag inside the unlocked window seeks; the locked tail
+     * is not reachable.</p>
      */
     static final class DemoTimeline extends Pane {
         private static final double PAD = 12;
+        private static final double TRACK_TOP = 5;
+        private static final double TRACK_HEIGHT = 32;
         private static final long[] STAGE_MS = {3_000, 5_000};
         private static final String[] LABELS = {"3s", "5s", "FULL CLIP"};
-        private static final Color LOCKED = Color.web("#2a2633");
-        private static final Color LOCKED_TEXT = Color.web("#6f6b7a");
-        private static final Color LIT = Color.web("#46521f");
-        private static final Color PLAYED = Color.web(LIME);
-        private static final Color KNOB = Color.web("#ece9e1");
+        private static final Color STOCK = Color.web("#0e0e0f");
+        private static final Color LOCKED = Color.web("#262628");
+        private static final Color OPEN = Color.web("#4a4a4d");
+        private static final Color LOCKED_TEXT = Color.web("#77767a");
+        private static final Color PLAYED = Color.web("#e6b154");
+        private static final Color SPROCKET = Color.web("#5a5a5d");
+        private static final Color TRACK_EDGE = Color.web("#3a3a3c");
+        private static final Color KNOB = Color.web("#f2efe8");
 
         private final Canvas canvas = new Canvas();
         private long totalMs = 10_000;
@@ -133,9 +184,9 @@ final class Movie_Playing_Demo_Page {
 
         DemoTimeline() {
             setId("timeline");
-            setMinHeight(52);
-            setPrefHeight(52);
-            setMaxHeight(52);
+            setMinHeight(56);
+            setPrefHeight(56);
+            setMaxHeight(56);
             setCursor(Cursor.HAND);
             getChildren().add(canvas);
             setOnMousePressed(event -> {
@@ -218,35 +269,158 @@ final class Movie_Playing_Demo_Page {
             GraphicsContext g = canvas.getGraphicsContext2D();
             g.clearRect(0, 0, w, h);
 
-            double barY = 10;
-            double barH = 12;
-            g.setFont(Font.font(11));
-            g.setTextAlign(TextAlignment.RIGHT);
+            double trackX = PAD;
+            double trackW = Math.max(1, w - 2 * PAD);
+            double innerTop = TRACK_TOP + 10;
+            double innerH = TRACK_HEIGHT - 20;
+
+            // Film base with a 2 px inset rim, the way an unexposed strip sits
+            // inside a track.
+            g.setFill(STOCK);
+            g.fillRoundRect(trackX, TRACK_TOP, trackW, TRACK_HEIGHT, 5, 5);
+            g.setStroke(TRACK_EDGE);
+            g.setLineWidth(2);
+            g.strokeRoundRect(trackX + 1, TRACK_TOP + 1, trackW - 2, TRACK_HEIGHT - 2, 4, 4);
+
+            // Sprocket perforations, top and bottom, like 16 mm stock.
+            g.setFill(SPROCKET);
+            for (double x = trackX + 8; x < trackX + trackW - 6; x += 12) {
+                g.fillRect(x, TRACK_TOP + 4, 6, 4);
+                g.fillRect(x, TRACK_TOP + TRACK_HEIGHT - 8, 6, 4);
+            }
 
             long start = 0;
             for (int i = 0; i < 3; i++) {
                 long end = stageEnd(i);
-                double x0 = x(start) + 2;
-                double x1 = x(end) - 2;
+                double x0 = x(start) + 1;
+                double x1 = x(end) - 1;
                 boolean lit = i < unlocked;
 
-                g.setFill(lit ? LIT : LOCKED);
-                g.fillRoundRect(x0, barY, Math.max(0, x1 - x0), barH, 6, 6);
+                g.setFill(lit ? OPEN : LOCKED);
+                g.fillRect(x0, innerTop, Math.max(0, x1 - x0), innerH);
 
                 if (lit && positionMs > start) {
                     double px = Math.min(x(positionMs), x1);
                     g.setFill(PLAYED);
-                    g.fillRoundRect(x0, barY, Math.max(0, px - x0), barH, 6, 6);
+                    g.fillRect(x0, innerTop, Math.max(0, px - x0), innerH);
                 }
 
-                g.setFill(lit ? PLAYED : LOCKED_TEXT);
-                g.fillText(LABELS[i], x1, barY + barH + 16);
+                // Splice line between takes.
+                g.setStroke(STOCK);
+                g.setLineWidth(2);
+                g.strokeLine(x1, innerTop, x1, innerTop + innerH);
                 start = end;
             }
 
-            double px = x(Math.min(positionMs, totalMs));
+            // Take markers: centred on each splice, the last one flushed with
+            // the end of the strip.
+            g.setFont(Font.font("Consolas", 10));
+            for (int i = 0; i < 3; i++) {
+                long end = stageEnd(i);
+                boolean lit = i < unlocked;
+                g.setFill(lit ? KNOB : LOCKED_TEXT);
+                if (i == 2) {
+                    g.setTextAlign(TextAlignment.RIGHT);
+                    g.fillText(LABELS[i], trackX + trackW, TRACK_TOP + TRACK_HEIGHT + 15);
+                } else {
+                    g.setTextAlign(TextAlignment.CENTER);
+                    g.fillText(LABELS[i], x(end), TRACK_TOP + TRACK_HEIGHT + 15);
+                }
+            }
+            g.setTextAlign(TextAlignment.LEFT);
+
+            // Playhead: a white splice mark, full height of the strip.
+            double px = Math.max(trackX + 2, Math.min(x(positionMs), trackX + trackW - 2));
+            g.setFill(Color.web("#ffffff", 0.18));
+            g.fillRect(px - 4, TRACK_TOP + 3, 8, TRACK_HEIGHT - 6);
             g.setFill(KNOB);
-            g.fillOval(px - 7, barY + barH / 2 - 7, 14, 14);
+            g.fillRect(px - 2, TRACK_TOP + 3, 4, TRACK_HEIGHT - 6);
+        }
+    }
+
+    /**
+     * Closed clapper bar that caps the slate.
+     *
+     * <p>A real clapperboard's arm is hinged open; this one is snapped shut, so
+     * the diagonal chalk stripes read as one continuous band with a riveted
+     * hinge plate on the left. Drawn on a canvas so it scales with the window
+     * without carrying any clip/cache state.</p>
+     */
+    static final class ClapperBar extends Pane {
+        private static final double BAR_H = 28;
+        private static final Color CREAM = Color.web("#ecebe6");
+        private static final Color DARK = Color.web("#1c1c1e");
+
+        private final Canvas canvas = new Canvas();
+
+        ClapperBar() {
+            setMinHeight(30);
+            setPrefHeight(30);
+            setMaxHeight(30);
+            getChildren().add(canvas);
+        }
+
+        @Override
+        protected void layoutChildren() {
+            canvas.setWidth(getWidth());
+            canvas.setHeight(getHeight());
+            draw();
+        }
+
+        private void draw() {
+            double w = getWidth();
+            double h = getHeight();
+            if (w <= 0 || h <= 0) {
+                return;
+            }
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            g.clearRect(0, 0, w, h);
+
+            g.setFill(DARK);
+            g.fillRect(0, 0, w, BAR_H);
+
+            // Diagonal stripes: alternate cream parallelograms over the dark base.
+            double period = 54;
+            double stripe = period * 0.52;
+            double skew = 15;
+            g.save();
+            g.beginPath();
+            g.rect(0, 0, w, BAR_H);
+            g.clip();
+            for (double x = -period; x < w + period; x += period) {
+                g.setFill(CREAM);
+                g.fillPolygon(
+                    new double[]{x + skew, x + stripe + skew, x + stripe, x},
+                    new double[]{0, 0, BAR_H, BAR_H}, 4);
+            }
+            g.restore();
+
+            // Hinge plate.
+            double plate = Math.min(120, w * 0.24);
+            g.setFill(new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.web("#3a3a3d")), new Stop(1, Color.web("#141415"))));
+            g.fillRect(0, 0, plate, BAR_H);
+            g.setStroke(Color.web("#000000", 0.55));
+            g.setLineWidth(1);
+            g.strokeLine(plate, 0, plate, BAR_H);
+
+            // Rivets.
+            double[][] rivets = {{16, 9}, {16, 21}, {plate - 16, 21}};
+            for (double[] rivet : rivets) {
+                if (rivet[0] > plate - 6) {
+                    continue;
+                }
+                g.setFill(Color.web("#d8d5cd"));
+                g.fillOval(rivet[0] - 3, rivet[1] - 3, 6, 6);
+                g.setFill(Color.web("#6b6a66"));
+                g.fillOval(rivet[0] - 1, rivet[1] - 1, 2, 2);
+            }
+
+            // Edge light and shadow so it reads as a physical object.
+            g.setStroke(Color.web("#ffffff", 0.13));
+            g.strokeLine(0, 0.5, w, 0.5);
+            g.setFill(Color.web("#000000", 0.32));
+            g.fillRect(0, BAR_H - 3, w, 3);
         }
     }
 
@@ -355,6 +529,14 @@ final class Movie_Playing_Demo_Page {
         private final HBox resultBanner;
 
         private MediaPlayer player;
+        /**
+         * One reused native pipeline per clip source. Recreating a
+         * {@link MediaPlayer} for the same file leaks hundreds of megabytes of
+         * native decoder memory per cycle on Windows, so a scene change pauses
+         * a pipeline instead of disposing and rebuilding it.
+         */
+        private final Map<String, MediaPlayer> mediaCache = new LinkedHashMap<>();
+        private static final int MAX_CACHED_PLAYERS = 2;
         private Runnable backAction;
         private final Random random = new Random();
         private Timeline ticker;
@@ -370,14 +552,17 @@ final class Movie_Playing_Demo_Page {
         private boolean playing;
         private boolean seeking;
         private boolean resumeAfterSeek;
+        /** Stop time already pushed to the live player, so it is set only when it changes. */
+        private long appliedStopMs = Long.MIN_VALUE;
 
         PlayWindow() {
             setId("playRoot");
-            setStyle("-fx-background-color: #0f0d14;");
+            setStyle("-fx-background-color: #171719;");
 
-            roundLabel = label("ROUND 1 OF 5", 15, FontWeight.BLACK, WHITE);
+            roundLabel = label("TAKE 1 OF 5", 15, FontWeight.BLACK, WHITE);
+            roundLabel.setFont(Font.font(FONT, FontWeight.BLACK, FontPosture.ITALIC, 15));
             roundLabel.setId("roundLabel");
-            scoreLabel = label("SCORE 0", 9, FontWeight.BOLD, MUTED);
+            scoreLabel = label("ROLL 0", 9, FontWeight.BOLD, MUTED);
             scoreLabel.setId("scoreLabel");
             worthLabel = label("WORTH 5,000 PTS", 10, FontWeight.BOLD, LIME);
             worthLabel.setId("worthLabel");
@@ -389,32 +574,40 @@ final class Movie_Playing_Demo_Page {
             videoPane = new StackPane();
             videoPane.setId("videoPane");
             videoPane.setMinHeight(240);
+            // The screen sits in the slate like a cut-out window: a matte
+            // charcoal outer rim, a chalk-white mount, then the picture.
+            videoPane.setStyle(screenStyle(SCENE_GRADIENTS[0]));
 
             mediaView.setVisible(false);
             mediaView.setSmooth(true);
             mediaView.setPreserveRatio(true);
-            mediaView.fitWidthProperty().bind(videoPane.widthProperty().subtract(28));
-            mediaView.fitHeightProperty().bind(videoPane.heightProperty().subtract(28));
+            mediaView.fitWidthProperty().bind(videoPane.widthProperty().subtract(24));
+            mediaView.fitHeightProperty().bind(videoPane.heightProperty().subtract(24));
 
             sceneBadge = label("SCENE 1 OF 3", 9, FontWeight.BOLD, WHITE);
-            sceneBadge.setPadding(new Insets(5, 10, 5, 10));
-            sceneBadge.setStyle("-fx-background-color: rgba(0,0,0,0.62); -fx-background-radius: 999;");
+            sceneBadge.setFont(Font.font("Consolas", FontWeight.BOLD, 9));
+            sceneBadge.setPadding(new Insets(4, 9, 4, 8));
+            sceneBadge.setStyle("-fx-background-color: rgba(23,23,25,0.80);"
+                + " -fx-background-radius: 2; -fx-border-color: transparent transparent transparent #e5484d;"
+                + " -fx-border-width: 0 0 0 3;");
             StackPane.setAlignment(sceneBadge, Pos.TOP_LEFT);
-            StackPane.setMargin(sceneBadge, new Insets(14));
+            StackPane.setMargin(sceneBadge, new Insets(12));
 
             fileLabel = label("DATABASE CLIP", 9, FontWeight.BOLD, Color.web(WHITE, 0.62));
             fileLabel.setId("fileLabel");
 
-            Polygon triangle = new Polygon(0, 0, 46, 27, 0, 54);
-            triangle.setFill(Color.web(LIME, 0.92));
-            triangle.setEffect(new DropShadow(20, Color.web(LIME, 0.45)));
+            Polygon triangle = new Polygon(0, 0, 44, 26, 0, 52);
+            triangle.setFill(Color.web(LIME, 0.20));
+            triangle.setStroke(Color.web(PAPER, 0.75));
+            triangle.setStrokeWidth(1.5);
 
-            emptyState = new VBox(10, triangle, fileLabel);
+            emptyState = new VBox(12, triangle, fileLabel);
             emptyState.setAlignment(Pos.CENTER);
 
-            Label preview = label("PREVIEW", 8, FontWeight.BOLD, Color.web(WHITE, 0.38));
+            Label preview = label("16:9  ·  PREVIEW", 8, FontWeight.BOLD, Color.web(WHITE, 0.38));
+            preview.setFont(Font.font("Consolas", 8));
             StackPane.setAlignment(preview, Pos.BOTTOM_RIGHT);
-            StackPane.setMargin(preview, new Insets(14));
+            StackPane.setMargin(preview, new Insets(12));
 
             videoPane.getChildren().addAll(mediaView, emptyState, sceneBadge, preview);
 
@@ -452,6 +645,12 @@ final class Movie_Playing_Demo_Page {
             addHover(fileBtn, violetButtonStyle(), violetHoverStyle());
 
             for (AssetCatalog.Clip clip : AssetCatalog.bundledClips()) {
+                MenuItem item = new MenuItem(clip.label());
+                item.setOnAction(event -> loadBundledClip(clip));
+                fileBtn.getItems().add(item);
+            }
+            fileBtn.getItems().add(new SeparatorMenuItem());
+            for (AssetCatalog.Clip clip : AssetCatalog.bundledClips2()) {
                 MenuItem item = new MenuItem(clip.label());
                 item.setOnAction(event -> loadBundledClip(clip));
                 fileBtn.getItems().add(item);
@@ -521,17 +720,32 @@ final class Movie_Playing_Demo_Page {
 
             Region statusSpacer = new Region();
             HBox.setHgrow(statusSpacer, Priority.ALWAYS);
-            VBox resultText = new VBox(2, resultTitle, statusLabel);
+            HBox resultText = new HBox(10, resultTitle, statusLabel);
+            resultText.setAlignment(Pos.CENTER_LEFT);
+            HBox.setHgrow(statusLabel, Priority.ALWAYS);
             resultBanner = new HBox(12, resultText, statusSpacer, nextBtn);
             resultBanner.setId("resultBanner");
             resultBanner.setAlignment(Pos.CENTER_LEFT);
-            resultBanner.setPadding(new Insets(8, 14, 8, 14));
+            resultBanner.setPadding(new Insets(6, 14, 6, 14));
             resultBanner.setStyle(neutralBannerStyle());
 
-            VBox answerPane = new VBox(6, searchBtn, answerRow);
-            VBox body = new VBox(8, videoPane, timeline, controls, answerPane, resultBanner);
-            body.setPadding(new Insets(0, 28, 14, 28));
+            VBox answerPane = new VBox(5, searchBtn, answerRow);
+
+            // The slate: a closed clapper bar on top of a matte charcoal board
+            // that holds the screen, the film-strip timeline and the controls.
+            VBox slate = new VBox(7, videoPane, timeline, controls, answerPane, resultBanner);
+            slate.setPadding(new Insets(10, 14, 8, 14));
+            slate.setStyle("-fx-background-color: linear-gradient(to bottom, #212123, #1b1b1d);"
+                + " -fx-background-radius: 0 0 6 6;"
+                + " -fx-border-color: #34343a; -fx-border-width: 0 1 1 1;"
+                + " -fx-border-radius: 0 0 6 6;");
             VBox.setVgrow(videoPane, Priority.ALWAYS);
+            VBox.setVgrow(slate, Priority.ALWAYS);
+
+            VBox board = new VBox(new ClapperBar(), slate);
+            VBox body = new VBox(board);
+            body.setPadding(new Insets(0, 20, 6, 20));
+            VBox.setVgrow(board, Priority.ALWAYS);
 
             FontIcon backIcon = new FontIcon(Feather.ARROW_LEFT);
             backIcon.setIconSize(12);
@@ -546,7 +760,7 @@ final class Movie_Playing_Demo_Page {
                 }
             });
 
-            VBox headerLeft = new VBox(1, roundLabel, scoreLabel);
+            VBox headerLeft = new VBox(0, roundLabel, scoreLabel);
             Region headSpacer1 = new Region();
             HBox.setHgrow(headSpacer1, Priority.ALWAYS);
             Region headSpacer2 = new Region();
@@ -554,7 +768,10 @@ final class Movie_Playing_Demo_Page {
             HBox header = new HBox(16, backBtn, headerLeft, headSpacer1, worthLabel,
                 headSpacer2, timerLabel);
             header.setAlignment(Pos.CENTER);
-            header.setPadding(new Insets(12, 28, 8, 28));
+            header.setPadding(new Insets(8, 20, 6, 20));
+            header.setStyle("-fx-background-color: #171719;"
+                + " -fx-border-color: transparent transparent rgba(217,215,208,0.28) transparent;"
+                + " -fx-border-width: 0 0 1 0;");
 
             BorderPane root = new BorderPane();
             root.setTop(header);
@@ -635,9 +852,9 @@ final class Movie_Playing_Demo_Page {
             searchResults.setPlaceholder(emptyState);
             searchResults.setPrefHeight(80);
             searchResults.setMaxHeight(360);
-            searchResults.setStyle("-fx-control-inner-background: #0f0d14;"
-                + " -fx-background-color: #0f0d14; -fx-border-color: " + BORDER + ";"
-                + " -fx-border-radius: 10; -fx-background-radius: 10;"
+            searchResults.setStyle("-fx-control-inner-background: #1b1b1d;"
+                + " -fx-background-color: #1b1b1d; -fx-border-color: #4a4a4d;"
+                + " -fx-border-radius: 3; -fx-background-radius: 3;"
                 + " -fx-padding: 2;");
             searchResults.setCellFactory(view -> new ListCell<>() {
                 private final FontIcon filmIcon = new FontIcon(Feather.FILM);
@@ -665,7 +882,7 @@ final class Movie_Playing_Demo_Page {
                     title.setStyle("-fx-font-family: '" + FONT + "'; -fx-font-size: 12px;"
                         + " -fx-font-weight: " + (lit ? "bold" : "normal") + ";");
                     row.setStyle("-fx-background-color: "
-                        + (lit ? "#241d33" : "transparent")
+                        + (lit ? "#2d2a22" : "transparent")
                         + "; -fx-background-radius: 8;");
                     setGraphic(row);
                 }
@@ -688,7 +905,7 @@ final class Movie_Playing_Demo_Page {
             panel.setPrefWidth(500);
             panel.setMaxWidth(500);
             panel.setMaxHeight(Region.USE_PREF_SIZE);
-            panel.setStyle("-fx-background-color: #17141f; -fx-background-radius: 16;"
+            panel.setStyle("-fx-background-color: #1d1d1f; -fx-background-radius: 6;"
                 + " -fx-border-color: " + BORDER + "; -fx-border-radius: 16;"
                 + " -fx-border-width: 1;");
             StackPane.setAlignment(panel, Pos.TOP_CENTER);
@@ -696,7 +913,7 @@ final class Movie_Playing_Demo_Page {
 
             searchLayer = new StackPane(panel);
             searchLayer.setId("searchLayer");
-            searchLayer.setStyle("-fx-background-color: rgba(10,11,16,0.72);");
+            searchLayer.setStyle("-fx-background-color: rgba(12,12,13,0.78);");
             searchLayer.setVisible(false);
             searchLayer.setOnMouseClicked(event -> {
                 if (event.getTarget() == searchLayer) {
@@ -925,8 +1142,8 @@ final class Movie_Playing_Demo_Page {
             timeline.setTotal(10_000);
             timeline.setPosition(0);
 
-            roundLabel.setText("ROUND " + round + " OF 5");
-            scoreLabel.setText("SCORE " + String.format("%,d", score));
+            roundLabel.setText("TAKE " + round + " OF 5");
+            scoreLabel.setText("ROLL " + String.format("%,d", score));
             timerLabel.setText(clock(remaining));
             timerLabel.setTextFill(Color.web(WHITE));
             nextBtn.setVisible(false);
@@ -936,6 +1153,11 @@ final class Movie_Playing_Demo_Page {
             resultTitle.setTextFill(Color.web(SOFT_TEXT));
             resultBanner.setStyle(neutralBannerStyle());
             statusLabel.setTextFill(Color.web(SOFT_TEXT));
+            if (round == 1) {
+                loadBundledClip(AssetCatalog.bundledClips().get(0));
+            } else if (round == 2) {
+                loadBundledClip(AssetCatalog.bundledClips2().get(0));
+            }
             statusLabel.setText("Press PLAY for the bundled demo scene, or choose another clip.");
             clipTime.setText("0:00 / 0:00");
             fileLabel.setText("NO CLIP LOADED");
@@ -962,10 +1184,19 @@ final class Movie_Playing_Demo_Page {
 
         private void refreshScene() {
             sceneBadge.setText("SCENE " + sceneIdx + " OF " + SCENES);
-            videoPane.setStyle("-fx-background-color: "
-                + SCENE_GRADIENTS[(sceneIdx - 1) % SCENE_GRADIENTS.length] + ";"
-                + " -fx-background-radius: 18; -fx-border-color: #3a2b66;"
-                + " -fx-border-radius: 18; -fx-border-width: 1;");
+            videoPane.setStyle(screenStyle(
+                SCENE_GRADIENTS[(sceneIdx - 1) % SCENE_GRADIENTS.length]));
+        }
+
+        /**
+         * Screen frame built from three background layers: charcoal rim, paper
+         * mount, then the scene plate. Background layers paint back to front,
+         * so the largest radius belongs to the outermost rim.
+         */
+        private static String screenStyle(String plate) {
+            return "-fx-background-color: #101011, " + PAPER + ", " + plate + ";"
+                + " -fx-background-insets: 0, 2, 6;"
+                + " -fx-background-radius: 6, 4, 2;";
         }
 
         private void refreshTimeline() {
@@ -1029,14 +1260,23 @@ final class Movie_Playing_Demo_Page {
                 return;
             }
             if (stageLevel() >= 3) {
-                player.setStopTime(Duration.INDEFINITE);
+                if (appliedStopMs != -1) {
+                    player.setStopTime(Duration.INDEFINITE);
+                    appliedStopMs = -1;
+                }
                 return;
             }
             Duration total = player.getTotalDuration();
             if (total == null || total.isUnknown()) {
                 return; // applied again when the media reports READY
             }
-            player.setStopTime(Duration.millis(timeline.windowEnd()));
+            long end = timeline.windowEnd();
+            // Setting the same stop time again makes the pipeline flush the
+            // decoder on every replay for no benefit.
+            if (end != appliedStopMs) {
+                player.setStopTime(Duration.millis(end));
+                appliedStopMs = end;
+            }
         }
 
         private void moreTimeline() {
@@ -1131,15 +1371,86 @@ final class Movie_Playing_Demo_Page {
 
         /** Starts a real JavaFX media playback in the clip stage. */
         private void playClip(String source, String label) {
+            playClip(source, label, 0);
+        }
+
+        private void playClip(String source, String label, int attempt) {
             stopPlayback();
             try {
-                Media media = new Media(source);
-                MediaPlayer created = new MediaPlayer(media);
+                MediaPlayer created = mediaCache.get(source);
+                boolean reusable = created != null
+                    && created.getStatus() != MediaPlayer.Status.DISPOSED
+                    && created.getStatus() != MediaPlayer.Status.UNKNOWN
+                    && created.getStatus() != MediaPlayer.Status.HALTED;
+                if (!reusable) {
+                    if (created != null) {
+                        mediaCache.remove(source);
+                        created.stop();
+                        created.dispose();
+                    }
+                    Media media = new Media(source);
+                    created = new MediaPlayer(media);
+                    MediaPlayer built = created;
+                    built.setOnReady(() -> markReady(built, label));
+                    built.currentTimeProperty().addListener((obs, old, time) -> {
+                        if (built != player) {
+                            return;
+                        }
+                        if (!seeking && time != null) {
+                            timeline.setPosition(Math.min((long) time.toMillis(), timeline.windowEnd()));
+                        }
+                        clipTime.setText(clockDuration(time) + " / "
+                            + clockDuration(windowDuration(built)));
+                    });
+                    built.setOnEndOfMedia(() -> {
+                        if (built != player) {
+                            return;
+                        }
+                        if (loopBtn.isSelected()) {
+                            return;
+                        }
+                        playing = false;
+                        playBtn.setText("PLAY");
+                        built.pause();
+                        timeline.setPosition(timeline.windowEnd());
+                        statusLabel.setTextFill(Color.web(SOFT_TEXT));
+                        if (stageLevel() < 3) {
+                            long seconds = Math.max(1, Math.round(timeline.windowEnd() / 1000.0));
+                            statusLabel.setText("That is the whole " + seconds
+                                + "-second window - press MORE TIMELINE for more footage.");
+                        } else {
+                            statusLabel.setText("Clip finished - replay it or lock in your answer.");
+                        }
+                    });
+                    built.setOnError(() -> {
+                        if (built != player) {
+                            return;
+                        }
+                        MediaException error = built.getError();
+                        // JavaFX occasionally fails the first GStreamer pipeline init;
+                        // one retry recovers it without hiding a real bad file.
+                        if (attempt == 0) {
+                            mediaCache.remove(source);
+                            stopPlayback();
+                            built.dispose();
+                            Platform.runLater(() -> playClip(source, label, 1));
+                            return;
+                        }
+                        showPlaybackError(error);
+                    });
+                    media.setOnError(() -> {
+                        if (built == player) {
+                            showPlaybackError(media.getError());
+                        }
+                    });
+                    mediaCache.put(source, built);
+                    evictCachedPlayers(source);
+                }
                 player = created;
+                appliedStopMs = Long.MIN_VALUE;
+                MEDIA_EPOCH.incrementAndGet();
                 created.setVolume(volume.getValue() / 100.0);
                 created.setCycleCount(loopBtn.isSelected() ? MediaPlayer.INDEFINITE : 1);
-                created.setAutoPlay(true);
-
                 mediaView.setMediaPlayer(created);
                 mediaView.setVisible(true);
                 emptyState.setVisible(false);
@@ -1149,54 +1460,85 @@ final class Movie_Playing_Demo_Page {
                 clipTime.setText("0:00 / 0:00");
                 statusLabel.setTextFill(Color.web(SOFT_TEXT));
                 statusLabel.setText("Loading " + label + "...");
-
-                created.setOnReady(() -> {
-                    timeline.setTotal(Math.round(created.getTotalDuration().toMillis()));
-                    timeline.setPosition(0);
-                    applyStageLimit();
-                    clipTime.setText("0:00 / " + clockDuration(windowDuration(created)));
-                    statusLabel.setTextFill(Color.web(SOFT_TEXT));
-                    statusLabel.setText("Playing " + label + " - name the movie.");
-                });
-                created.currentTimeProperty().addListener((obs, old, time) -> {
-                    if (!seeking && time != null) {
-                        timeline.setPosition(Math.min((long) time.toMillis(), timeline.windowEnd()));
+                if (created.getStatus() == MediaPlayer.Status.READY
+                        || created.getStatus() == MediaPlayer.Status.PAUSED
+                        || created.getStatus() == MediaPlayer.Status.STOPPED
+                        || created.getStatus() == MediaPlayer.Status.PLAYING) {
+                    markReady(created, label);
+                    // Only rewind when the clip actually needs it: a redundant seek
+                    // forces an extra decode/surface allocation on every replay.
+                    Duration at = created.getCurrentTime();
+                    if (at == null || at.toMillis() > 40) {
+                        created.seek(Duration.ZERO);
                     }
-                    clipTime.setText(clockDuration(time) + " / "
-                        + clockDuration(windowDuration(created)));
-                });
-                created.setOnEndOfMedia(() -> {
-                    if (loopBtn.isSelected()) {
-                        return;
-                    }
-                    playing = false;
-                    playBtn.setText("PLAY");
-                    created.pause();
-                    timeline.setPosition(timeline.windowEnd());
-                    statusLabel.setTextFill(Color.web(SOFT_TEXT));
-                    if (stageLevel() < 3) {
-                        long seconds = Math.max(1, Math.round(timeline.windowEnd() / 1000.0));
-                        statusLabel.setText("That is the whole " + seconds
-                            + "-second window - press MORE TIMELINE for more footage.");
-                    } else {
-                        statusLabel.setText("Clip finished - replay it or lock in your answer.");
-                    }
-                });
-                created.setOnError(() -> showPlaybackError(created.getError()));
-                media.setOnError(() -> showPlaybackError(media.getError()));
+                    created.play();
+                } else {
+                    created.setAutoPlay(true);
+                }
             } catch (RuntimeException error) {
                 showPlaybackError(error);
             }
         }
 
-        private void stopPlayback() {
-            if (player != null) {
-                player.stop();
-                player.dispose();
-                player = null;
+        private void markReady(MediaPlayer source, String label) {
+            if (source != player) {
+                return;
             }
+            timeline.setTotal(Math.round(source.getTotalDuration().toMillis()));
+            timeline.setPosition(0);
+            applyStageLimit();
+            clipTime.setText("0:00 / " + clockDuration(windowDuration(source)));
+            statusLabel.setTextFill(Color.web(SOFT_TEXT));
+            statusLabel.setText("Playing " + label + " - name the movie.");
+        }
+
+        /** Drops the oldest unused pipeline once the cache is over its limit. */
+        private void evictCachedPlayers(String keepSource) {
+            if (mediaCache.size() <= MAX_CACHED_PLAYERS) {
+                return;
+            }
+            boolean evicted = false;
+            Iterator<Map.Entry<String, MediaPlayer>> entries = mediaCache.entrySet().iterator();
+            while (mediaCache.size() > MAX_CACHED_PLAYERS && entries.hasNext()) {
+                MediaPlayer candidate = entries.next().getValue();
+                if (candidate == player) {
+                    continue;
+                }
+                entries.remove();
+                candidate.stop();
+                candidate.dispose();
+                evicted = true;
+            }
+            if (mediaCache.size() > MAX_CACHED_PLAYERS) {
+                MediaPlayer spare = mediaCache.remove(keepSource);
+                if (spare != null && spare != player) {
+                    spare.stop();
+                    spare.dispose();
+                    evicted = true;
+                }
+            }
+            if (evicted) {
+                // Disposed pipelines keep their native decode buffers until the
+                // media objects are collected; schedule a single coalesced GC.
+                releaseMediaMemorySoon();
+            }
+        }
+
+        private void stopPlayback() {
+            MediaPlayer previous = player;
+            player = null;
+            // Detach the view, but keep the native pipeline in mediaCache. Disposing
+            // and rebuilding a MediaPlayer for the same clip leaks native decoder
+            // memory, so pause it here and reuse it on the next scene or replay.
             mediaView.setMediaPlayer(null);
             mediaView.setVisible(false);
+            if (previous != null) {
+                // pause(), never stop(): stop() tears down the native GStreamer/DXVA
+                // pipeline, so the next play() builds a brand-new one while the old
+                // decoder buffers stay allocated (~250 MB per scene/replay cycle on
+                // Windows). Pausing keeps the pipeline alive and reusable.
+                previous.pause();
+            }
             timeline.setPosition(0);
             seeking = false;
             resumeAfterSeek = false;
@@ -1251,7 +1593,7 @@ final class Movie_Playing_Demo_Page {
                 statusLabel.setText("Time's up - it was " + correctTitle + ".");
             } else if (correct) {
                 score += points();
-                scoreLabel.setText("SCORE " + String.format("%,d", score));
+                scoreLabel.setText("ROLL " + String.format("%,d", score));
                 result = "CORRECT";
                 statusLabel.setTextFill(Color.web(GREEN));
                 statusLabel.setText("Correct - +" + String.format("%,d", points())
@@ -1292,6 +1634,18 @@ final class Movie_Playing_Demo_Page {
                 ticker.stop();
             }
             stopPlayback();
+            // The page is gone, so release every cached pipeline exactly once.
+            for (MediaPlayer cached : mediaCache.values()) {
+                try {
+                    cached.stop();
+                    cached.dispose();
+                } catch (RuntimeException ignored) {
+                    // A pipeline that already failed may throw on dispose.
+                }
+            }
+            mediaCache.clear();
+            // This collection is safe now and frees the native decoder buffers.
+            releaseMediaMemorySoon();
         }
 
         private static String clock(int seconds) {
@@ -1299,50 +1653,51 @@ final class Movie_Playing_Demo_Page {
         }
 
         private static String searchButtonStyle() {
-            return "-fx-background-color: #17141f; -fx-text-fill: " + LIME + ";"
-                + " -fx-font-family: '" + FONT + "'; -fx-font-size: 12px;"
+            return "-fx-background-color: #1b1b1d; -fx-text-fill: " + LIME + ";"
+                + " -fx-font-family: 'Consolas'; -fx-font-size: 11px;"
                 + " -fx-font-weight: bold; -fx-alignment: center-left;"
-                + " -fx-background-radius: 12; -fx-border-color: " + BORDER + ";"
-                + " -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 11 16 11 16;"
+                + " -fx-background-radius: 3; -fx-background-insets: 0; -fx-border-color: #4a4a4d;"
+                + " -fx-border-radius: 3; -fx-border-width: 1; -fx-padding: 10 15 10 15;"
                 + " -fx-cursor: hand;";
         }
 
         private static String searchButtonHoverStyle() {
-            return "-fx-background-color: #211c2d; -fx-text-fill: #c9f26a;"
-                + " -fx-font-family: '" + FONT + "'; -fx-font-size: 12px;"
+            return "-fx-background-color: #26262a; -fx-text-fill: " + LIME_HOVER + ";"
+                + " -fx-font-family: 'Consolas'; -fx-font-size: 11px;"
                 + " -fx-font-weight: bold; -fx-alignment: center-left;"
-                + " -fx-background-radius: 12; -fx-border-color: rgba(183,227,78,0.5);"
-                + " -fx-border-radius: 12; -fx-border-width: 1; -fx-padding: 11 16 11 16;"
+                + " -fx-background-radius: 3; -fx-background-insets: 0; -fx-border-color: " + LIME + ";"
+                + " -fx-border-radius: 3; -fx-border-width: 1; -fx-padding: 10 15 10 15;"
                 + " -fx-cursor: hand;";
         }
 
         private static String searchInputStyle() {
             return "-fx-background-color: transparent; -fx-text-fill: " + WHITE + ";"
                 + " -fx-prompt-text-fill: " + MUTED + ";"
-                + " -fx-font-family: '" + FONT + "'; -fx-font-size: 13px;"
+                + " -fx-font-family: 'Consolas'; -fx-font-size: 12px;"
                 + " -fx-border-color: transparent; -fx-padding: 0;";
         }
 
         private static String searchBoxStyle() {
-            return "-fx-background-color: #0f0d14; -fx-background-radius: 10;"
-                + " -fx-border-color: " + BORDER + "; -fx-border-radius: 10;"
+            return "-fx-background-color: #141415; -fx-background-radius: 3; -fx-background-insets: 0;"
+                + " -fx-border-color: #4a4a4d; -fx-border-radius: 3;"
                 + " -fx-border-width: 1; -fx-padding: 9 12 9 12;";
         }
 
         private static String iconButtonStyle() {
-            return "-fx-background-color: transparent; -fx-background-radius: 6;"
+            return "-fx-background-color: transparent; -fx-background-radius: 2; -fx-background-insets: 0;"
                 + " -fx-padding: 3 4 3 4; -fx-cursor: hand;";
         }
 
         private static String iconButtonHoverStyle() {
-            return "-fx-background-color: #2a2436; -fx-background-radius: 6;"
+            return "-fx-background-color: #26262a; -fx-background-radius: 2; -fx-background-insets: 0;"
                 + " -fx-padding: 3 4 3 4; -fx-cursor: hand;";
         }
 
         private static HBox searchHint(String key, String action) {
             Label cap = label(key, 8, FontWeight.BOLD, SOFT_TEXT);
-            cap.setStyle("-fx-background-color: #211c2d; -fx-background-radius: 5;"
-                + " -fx-border-color: " + BORDER + "; -fx-border-radius: 5;"
+            cap.setFont(Font.font("Consolas", FontWeight.BOLD, 8));
+            cap.setStyle("-fx-background-color: #26262a; -fx-background-radius: 2;"
+                + " -fx-border-color: #4a4a4d; -fx-border-radius: 2;"
                 + " -fx-padding: 2 6 2 6;");
             HBox hint = new HBox(5, cap, label(action, 8, FontWeight.NORMAL, MUTED));
             hint.setAlignment(Pos.CENTER_LEFT);
@@ -1350,21 +1705,23 @@ final class Movie_Playing_Demo_Page {
         }
 
         private static String neutralBannerStyle() {
-            return bannerStyle("#17141f", BORDER);
+            return bannerStyle("#1f1f22", "#3a3a3c", "#4a4a4d");
         }
 
         private static String correctBannerStyle() {
-            return bannerStyle("rgba(62,207,106,0.12)", "rgba(62,207,106,0.45)");
+            return bannerStyle("rgba(62,207,106,0.10)", "rgba(62,207,106,0.40)", GREEN);
         }
 
         private static String wrongBannerStyle() {
-            return bannerStyle("rgba(229,72,77,0.12)", "rgba(229,72,77,0.45)");
+            return bannerStyle("rgba(229,72,77,0.10)", "rgba(229,72,77,0.40)", RED);
         }
 
-        private static String bannerStyle(String background, String border) {
-            return "-fx-background-color: " + background + "; -fx-background-radius: 12;"
-                + " -fx-border-color: " + border + "; -fx-border-radius: 12;"
-                + " -fx-border-width: 1;";
+        /** Call-sheet caption block: flat panel with a thin coloured edge marker. */
+        private static String bannerStyle(String background, String border, String edge) {
+            return "-fx-background-color: " + background + "; -fx-background-radius: 3;"
+                + " -fx-background-insets: 0;"
+                + " -fx-border-color: " + border + " " + border + " " + border + " " + edge + ";"
+                + " -fx-border-radius: 3; -fx-border-width: 1 1 1 3;";
         }
     }
 

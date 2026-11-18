@@ -47,9 +47,15 @@ public final class AssetCatalog {
     public record Clip(String label, String relativePath) { }
 
     private static final List<Clip> BUNDLED_CLIPS = List.of(
-        new Clip("The Lord of the Rings - Scene 1", "LordOfTheRings/scene1.mp4"),
-        new Clip("The Lord of the Rings - Scene 2", "LordOfTheRings/scene2.mp4"),
-        new Clip("The Lord of the Rings - Scene 3", "LordOfTheRings/scene3.mp4")
+        new Clip("Lord of the Rings 1 - Scene 1", "LordOfTheRings/scene1.mp4"),
+        new Clip("Lord of the Rings 1 - Scene 2", "LordOfTheRings/scene2.mp4"),
+        new Clip("Lord of the Rings 1 - Scene 3", "LordOfTheRings/scene3.mp4")
+    );
+
+    private static final List<Clip> BUNDLED_CLIPS_2 = List.of(
+        new Clip("Lord of the Rings 2 - Scene 1", "LordOfTheRings2/scene1.mp4"),
+        new Clip("Lord of the Rings 2 - Scene 2", "LordOfTheRings2/scene2.mp4"),
+        new Clip("Lord of the Rings 2 - Scene 3", "LordOfTheRings2/scene3.mp4")
     );
 
     private AssetCatalog() {
@@ -58,6 +64,11 @@ public final class AssetCatalog {
     /** The demo clips bundled with the project. */
     public static List<Clip> bundledClips() {
         return BUNDLED_CLIPS;
+    }
+
+    /** The second set of bundled clips (Lord of the Rings 2). */
+    public static List<Clip> bundledClips2() {
+        return BUNDLED_CLIPS_2;
     }
 
     /** Resolves a bundled clip, or {@code null} when it is not on the classpath. */
@@ -76,7 +87,9 @@ public final class AssetCatalog {
         for (String extension : IMAGE_EXTENSIONS) {
             URL url = AssetCatalog.class.getResource(POSTER_ROOT + slug + "." + extension);
             if (url != null) {
-                image = new Image(url.toExternalForm(), 540, 810, true, true, false);
+                // Cards are 180x270, so 360x540 is a 2x HiDPI source. Decoding at
+                // 540x810 kept 4x the pixels (and texture memory) for no visible gain.
+                image = new Image(url.toExternalForm(), 360, 540, true, true, false);
                 break;
             }
         }
