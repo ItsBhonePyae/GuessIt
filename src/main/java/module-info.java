@@ -18,14 +18,20 @@ module com.example.javagroupproject {
     requires javafx.media;
     requires com.sun.jna;
     requires java.sql;
-    requires java.management;
     requires atlantafx.base;
     requires animatefx;
     requires java.keyring;
     requires com.sun.jna.platform;
 
     opens com.example.javagroupproject to javafx.fxml;
-    opens Testing_for_bascially_everything to javafx.graphics, javafx.fxml;
-    opens Testing_for_bascially_everything.Yati_Aung to javafx.graphics, javafx.fxml;
     exports com.example.javagroupproject;
+
+    exports Testing_for_bascially_everything.Login;
+    opens Testing_for_bascially_everything.Login to javafx.fxml;
+
+    opens com.guessit to javafx.fxml;
+    opens com.guessit.login to javafx.fxml;
+    opens com.guessit.controller to javafx.fxml;
+    exports com.guessit to javafx.graphics;
 }
+
