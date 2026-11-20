@@ -22,6 +22,7 @@ module com.example.javagroupproject {
     requires animatefx;
     requires java.keyring;
     requires com.sun.jna.platform;
+    requires java.management;
 
     opens com.example.javagroupproject to javafx.fxml;
     exports com.example.javagroupproject;
