@@ -22,16 +22,12 @@ module com.example.javagroupproject {
     requires animatefx;
     requires java.keyring;
     requires com.sun.jna.platform;
+    requires java.management;
 
     opens com.example.javagroupproject to javafx.fxml;
     exports com.example.javagroupproject;
 
-    exports Testing_for_bascially_everything.Login;
-    opens Testing_for_bascially_everything.Login to javafx.fxml;
-
-    opens com.guessit to javafx.fxml;
-    opens com.guessit.login to javafx.fxml;
-    opens com.guessit.controller to javafx.fxml;
-    exports com.guessit to javafx.graphics;
+    exports com.guessit.actualapp to javafx.graphics;
+    opens com.guessit.actualapp.view to javafx.fxml;
 }
 
