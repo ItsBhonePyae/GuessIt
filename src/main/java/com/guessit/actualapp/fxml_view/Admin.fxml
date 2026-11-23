@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="860.0" prefWidth="1360.0"
+            styleClass="admin-root"
+            stylesheets="@admin.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <VBox prefWidth="244.0" spacing="14.0" styleClass="sidebar">
+            <padding>
+                <Insets top="28.0" right="18.0" bottom="22.0" left="18.0"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="11.0">
+                <StackPane minWidth="36.0" minHeight="36.0" prefHeight="36.0" prefWidth="36.0" styleClass="brand-mark">
+                    <Label styleClass="brand-mark-text" text="G"/>
+                </StackPane>
+                <VBox spacing="2.0">
+                    <Label styleClass="brand" text="GUESSIT"/>
+                    <Label styleClass="brand-caption" text="ADMIN WORKSPACE"/>
+                </VBox>
+            </HBox>
+            <Separator styleClass="sidebar-rule"/>
+            <Label styleClass="nav-caption" text="WORKSPACE"/>
+            <Button fx:id="dashboardNav" maxWidth="Infinity"
+                    styleClass="nav-button-active" text="01   Overview"/>
+            <Button fx:id="usersNav" maxWidth="Infinity"
+                    styleClass="nav-button" text="02   User management"/>
+            <Button fx:id="assetsNav" maxWidth="Infinity"
+                    styleClass="nav-button" text="03   Movies &amp; songs"/>
+            <Button fx:id="logsNav" maxWidth="Infinity"
+                    styleClass="nav-button" text="04   Activity log"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox spacing="7.0" styleClass="sidebar-note">
+                <Label styleClass="note-kicker" text="PREVIEW MODE"/>
+                <Label styleClass="note-copy"
+                       text="Changes stay in this session. No database is connected."
+                       wrapText="true"/>
+            </VBox>
+            <Button maxWidth="Infinity" styleClass="play-button"
+                    text="OPEN GUESSIT"/>
+            <Label styleClass="sidebar-footer" text="Movies  /  Music  /  Players"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="22.0" styleClass="main-area">
+            <padding>
+                <Insets top="28.0" right="34.0" bottom="28.0" left="34.0"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="16.0">
+                <VBox spacing="5.0">
+                    <Label styleClass="eyebrow" text="GUESSIT  /  CONTROL ROOM"/>
+                    <Label styleClass="page-title" text="Admin workspace"/>
+                    <Label fx:id="statusLabel" styleClass="page-subtitle" text="Dashboard"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="preview-chip" text="●  SESSION PREVIEW"/>
+            </HBox>
+            <StackPane fx:id="pageHost" VBox.vgrow="ALWAYS">
+                <children>
+                    <VBox fx:id="dashboardPage" spacing="20.0" styleClass="page">
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox spacing="4.0">
+                                <Label styleClass="section-title" text="At a glance"/>
+                                <Label styleClass="body-text"
+                                       text="A quick look at this workspace's sample data."/>
+                            </VBox>
+                        </HBox>
+                        <GridPane hgap="14.0" vgap="14.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="25.0" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="25.0" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="25.0" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="25.0" hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <VBox spacing="14.0" styleClass="stat-card" GridPane.columnIndex="0">
+                                <Label styleClass="stat-caption" text="PLAYERS"/>
+                                <Label fx:id="totalUsersLabel" styleClass="stat-number" text="3"/>
+                                <Label styleClass="stat-foot" text="Session preview"/>
+                            </VBox>
+                            <VBox spacing="14.0" styleClass="stat-card" GridPane.columnIndex="1">
+                                <Label styleClass="stat-caption" text="MOVIES"/>
+                                <Label fx:id="totalMoviesLabel" styleClass="stat-number" text="3"/>
+                                <Label styleClass="stat-foot" text="Catalog samples"/>
+                            </VBox>
+                            <VBox spacing="14.0" styleClass="stat-card" GridPane.columnIndex="2">
+                                <Label styleClass="stat-caption" text="SONGS"/>
+                                <Label fx:id="totalSongsLabel" styleClass="stat-number" text="2"/>
+                                <Label styleClass="stat-foot" text="Preview entries"/>
+                            </VBox>
+                            <VBox spacing="14.0" styleClass="stat-card" GridPane.columnIndex="3">
+                                <Label styleClass="stat-caption" text="RECENT ROUNDS"/>
+                                <Label fx:id="totalPlaysLabel" styleClass="stat-number" text="2"/>
+                                <Label styleClass="stat-foot" text="Local history"/>
+                            </VBox>
+                        </GridPane>
+                        <HBox spacing="16.0" VBox.vgrow="ALWAYS">
+                            <VBox spacing="13.0" styleClass="welcome-card" HBox.hgrow="ALWAYS">
+                                <Label styleClass="welcome-kicker" text="BEHIND THE SCENES"/>
+                                <Label styleClass="welcome-title" text="Keep the show in motion."/>
+                                <Label styleClass="body-text" text="Review players, organize the movie and song lineup, and keep an eye on recent admin actions."
+                                       wrapText="true"/>
+                                <Region VBox.vgrow="ALWAYS"/>
+                                <Button styleClass="primary-button"
+                                        text="Browse the lineup"/>
+                            </VBox>
+                            <VBox prefWidth="255.0" spacing="11.0" styleClass="quick-card">
+                                <Label styleClass="section-title" text="QUICK ACTIONS"/>
+                                <Button maxWidth="Infinity"
+                                        styleClass="secondary-button" text="+  Add preview user"/>
+                                <Button maxWidth="Infinity"
+                                        styleClass="secondary-button" text="+  Add preview asset"/>
+                                <Button maxWidth="Infinity"
+                                        styleClass="secondary-button" text="View activity log"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox fx:id="usersPage" managed="false" spacing="14.0"
+                          styleClass="page" visible="false">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <VBox spacing="4.0">
+                                <Label styleClass="section-title" text="User management"/>
+                                <Label styleClass="body-text" text="Sample users for this session only."/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="userSearchField" prefWidth="210.0"
+                                       promptText="Search users..." styleClass="search-field"/>
+                            <Button styleClass="primary-button" text="+ Add user"/>
+                            <Button styleClass="danger-button" text="Remove"/>
+                        </HBox>
+                        <TableView fx:id="usersTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="userNameColumn" prefWidth="170.0" text="USERNAME"/>
+                                <TableColumn fx:id="userEmailColumn" prefWidth="250.0" text="EMAIL"/>
+                                <TableColumn fx:id="userRoleColumn" prefWidth="125.0" text="ROLE"/>
+                                <TableColumn fx:id="userStatusColumn" prefWidth="125.0" text="STATUS"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox fx:id="assetsPage" managed="false" spacing="14.0"
+                          styleClass="page" visible="false">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <VBox spacing="4.0">
+                                <Label styleClass="section-title" text="Movies &amp; songs"/>
+                                <Label styleClass="body-text" text="Manage the sample lineup shown in this preview."/>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <ComboBox fx:id="assetTypeBox" prefWidth="145.0"/>
+                            <Button styleClass="primary-button" text="+ Add asset"/>
+                            <Button styleClass="danger-button" text="Remove"/>
+                        </HBox>
+                        <TableView fx:id="assetsTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="assetNameColumn" prefWidth="300.0" text="TITLE"/>
+                                <TableColumn fx:id="assetTypeColumn" prefWidth="110.0" text="TYPE"/>
+                                <TableColumn fx:id="assetDetailsColumn" prefWidth="250.0" text="DETAILS"/>
+                                <TableColumn fx:id="assetStatusColumn" prefWidth="110.0" text="SOURCE"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox fx:id="logsPage" managed="false" spacing="14.0"
+                          styleClass="page" visible="false">
+                        <VBox spacing="4.0">
+                            <Label styleClass="section-title" text="Admin activity"/>
+                            <Label styleClass="body-text" text="Recent actions performed in this workspace session."/>
+                        </VBox>
+                        <TableView fx:id="logsTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="logTimeColumn" prefWidth="170.0" text="WHEN"/>
+                                <TableColumn fx:id="logActionColumn" prefWidth="220.0" text="ACTION"/>
+                                <TableColumn fx:id="logDetailsColumn" prefWidth="320.0" text="DETAILS"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </children>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>
+

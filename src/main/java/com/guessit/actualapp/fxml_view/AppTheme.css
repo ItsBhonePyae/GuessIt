@@ -1,0 +1,1256 @@
+/* GuessIt - SceneBuilder theme mirroring the runtime views (Theme.java / view code). */
+
+/* ================================================================= base */
+
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #0b0e12;
+}
+
+.page {
+    -fx-background-color: #0b0e12;
+}
+
+/* ============================================================== landing */
+
+.landing-photo {
+    -fx-background-color: #0b0e12;
+    -fx-background-image: url("../../../../../resources/assets/backgrounds/cinema-auditorium.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.landing-scrim {
+    -fx-background-color: linear-gradient(to right,
+        rgba(8, 10, 13, 0.86) 0%,
+        rgba(8, 10, 13, 0.64) 42%,
+        rgba(8, 10, 13, 0.46) 72%,
+        rgba(8, 10, 13, 0.38) 100%);
+}
+
+.top-bar {
+    -fx-padding: 26 44 24 48;
+    -fx-background-color: transparent;
+}
+
+.brand-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #f3efe8;
+}
+
+.brand-sub {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b7afa3;
+}
+
+.nav-pill {
+    -fx-background-color: rgba(15, 14, 13, 0.68);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(236, 230, 218, 0.20);
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: #eee8dd;
+    -fx-font-size: 13px;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.nav-pill:hover {
+    -fx-background-color: rgba(198, 161, 91, 0.16);
+    -fx-border-color: rgba(198, 161, 91, 0.58);
+}
+
+.hero-block {
+    -fx-padding: 65 40 0 40;
+}
+
+.hero-eyebrow {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c6a15b;
+}
+
+.landing-headline {
+    -fx-font-size: 44px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #f3efe8;
+}
+
+.hero-sub {
+    -fx-font-size: 21px;
+    -fx-text-fill: #d7c7a9;
+}
+
+.hero-copy {
+    -fx-font-size: 15px;
+    -fx-text-fill: #d4cec4;
+}
+
+.primary-btn {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 6;
+    -fx-text-fill: #1c160c;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-padding: 12 22;
+    -fx-cursor: hand;
+}
+
+.primary-btn:hover {
+    -fx-background-color: #d8b878;
+}
+
+.footer-bar {
+    -fx-padding: 15 48;
+    -fx-border-color: rgba(236, 230, 218, 0.12) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #a59d91;
+}
+
+/* ================================================================ auth */
+
+.auth-scrim {
+    -fx-background-color: linear-gradient(to right,
+        rgba(6, 7, 9, 0.62) 0%,
+        rgba(6, 7, 9, 0.34) 38%,
+        rgba(6, 7, 9, 0.42) 68%,
+        rgba(6, 7, 9, 0.62) 100%);
+}
+
+.ticket-body {
+    -fx-fill: #212121;
+    -fx-stroke: #3a3a3a;
+    -fx-stroke-width: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.58), 30, 0.02, 0, 12);
+}
+
+.ticket-stub {
+    -fx-fill: #8f2429;
+}
+
+.stub-dots {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%,
+        rgba(0, 0, 0, 0.16) 0%,
+        rgba(0, 0, 0, 0.16) 46%,
+        transparent 55%);
+    -fx-background-size: 18 18;
+    -fx-background-repeat: repeat;
+}
+
+.ticket-seam-line {
+    -fx-stroke: rgba(240, 230, 215, 0.22);
+    -fx-stroke-width: 1.2;
+    -fx-stroke-dash-array: 3 7;
+}
+
+.admit-chip {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 8.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e4d9c9;
+    -fx-padding: 5 11;
+    -fx-background-color: rgba(0, 0, 0, 0.22);
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(240, 230, 215, 0.34);
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+}
+
+.stub-badge {
+    -fx-background-color: rgba(0, 0, 0, 0.20);
+    -fx-background-radius: 11;
+    -fx-border-color: rgba(240, 230, 215, 0.24);
+    -fx-border-radius: 11;
+    -fx-border-width: 1;
+}
+
+.stub-title {
+    -fx-font-size: 46px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #f4ece0;
+    -fx-effect: dropshadow(gaussian, rgba(42, 11, 12, 0.55), 6, 0, 0, 3);
+}
+
+.stub-tagline {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c6a15b;
+}
+
+.stub-copy {
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #d5ccbf;
+    -fx-line-spacing: 4px;
+}
+
+.barcode {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 20px;
+    -fx-text-fill: rgba(228, 217, 201, 0.55);
+}
+
+.stub-code {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 7.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e4d9c9;
+}
+
+.stub-rule {
+    -fx-background-color: rgba(240, 230, 215, 0.16);
+}
+
+.stub-foot {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 8.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d5c9ba;
+}
+
+.stub-foot-soft {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 6.5px;
+    -fx-text-fill: #d5c9ba;
+}
+
+/* icons drawn as stroked SVG paths; uniform line weight */
+.icon-stroke {
+    -fx-fill: transparent;
+    -fx-stroke: #929ba6;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-stroke-gold {
+    -fx-fill: transparent;
+    -fx-stroke: #c6a15b;
+    -fx-stroke-width: 1.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-stroke-pale {
+    -fx-fill: transparent;
+    -fx-stroke: rgba(228, 217, 201, 0.70);
+    -fx-stroke-width: 1.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-stroke-soft {
+    -fx-fill: transparent;
+    -fx-stroke: #c5ccd4;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-stroke-ghost {
+    -fx-fill: transparent;
+    -fx-stroke: #6f685d;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-nav {
+    -fx-fill: transparent;
+    -fx-stroke: #929ba6;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-nav-gold {
+    -fx-fill: transparent;
+    -fx-stroke: #c6a15b;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.icon-ink {
+    -fx-fill: transparent;
+    -fx-stroke: #1a1409;
+    -fx-stroke-width: 2.4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.tab {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c5ccd4;
+    -fx-alignment: center;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.tab-active {
+    -fx-background-color: #c6a15b;
+    -fx-text-fill: #1a1409;
+}
+
+.field-label {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a8a08f;
+}
+
+.field-wrap {
+    -fx-background-color: #262626;
+    -fx-background-radius: 6;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.field-input {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #edf0f3;
+    -fx-prompt-text-fill: #7c7c7c;
+    -fx-font-size: 13px;
+    -fx-padding: 10 0;
+}
+
+.field-input:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.divider {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+}
+
+.status {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d99a94;
+}
+
+.link-brass {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c6a15b;
+    -fx-cursor: hand;
+}
+
+.caption {
+    -fx-font-size: 10.5px;
+    -fx-text-fill: #929ba6;
+    -fx-alignment: center;
+}
+
+.legal {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 7px;
+    -fx-text-fill: rgba(150, 150, 150, 0.55);
+}
+
+.social-btn {
+    -fx-background-color: #262626;
+    -fx-background-radius: 4;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-text-fill: #e6e6e6;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 14;
+    -fx-cursor: hand;
+}
+
+.social-btn:hover {
+    -fx-background-color: #2f2f2f;
+    -fx-border-color: #4c4c4c;
+    -fx-text-fill: #ffffff;
+}
+
+.auth-btn {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 4;
+    -fx-text-fill: #1a1409;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 22;
+    -fx-cursor: hand;
+}
+
+.remember {
+    -fx-text-fill: #c5ccd4;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.remember .box {
+    -fx-background-color: #262626;
+    -fx-background-radius: 3;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+}
+
+.remember:selected .box {
+    -fx-background-color: #c6a15b;
+    -fx-border-color: #c6a15b;
+}
+
+/* ============================================================ game menu */
+
+.header-bar {
+    -fx-background-color: #0f1318;
+    -fx-border-color: transparent transparent #303944 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 15 30 15 24;
+}
+
+.film-badge {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 10;
+}
+
+.film-badge-icon {
+    -fx-fill: transparent;
+    -fx-stroke: #17130d;
+    -fx-stroke-width: 0.95;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.header-brand {
+    -fx-font-size: 19px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.header-brand-sub {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.header-note {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c5ccd4;
+}
+
+.ghost-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-color: #4a443c;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: #eee6d8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.ghost-btn:hover {
+    -fx-background-color: rgba(198, 161, 91, 0.10);
+    -fx-border-color: rgba(198, 161, 91, 0.60);
+    -fx-text-fill: #ffffff;
+}
+
+.menu-intro {
+    -fx-padding: 24 140 6 140;
+}
+
+.section-heading {
+    -fx-font-size: 26px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.menu-hint {
+    -fx-font-size: 13px;
+    -fx-text-fill: #929ba6;
+}
+
+.menu-scroll,
+.menu-scroll > .viewport {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.menu-row {
+    -fx-padding: 10 140 24 140;
+}
+
+.game-card, .game-card-movie, .game-card-song, .game-card-celebrity {
+    -fx-background-radius: 18;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-pref-width: 1000px;
+    -fx-pref-height: 540px;
+    -fx-cursor: hand;
+}
+
+.game-card-movie {
+    -fx-background-color: #35211f;
+    -fx-background-image: url("../../../../../resources/assets/card posters/view-3d-cinema-theatre-room.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.game-card-song {
+    -fx-background-color: #302a20;
+    -fx-background-image: url("../../../../../resources/assets/card posters/beautiful-shot-live-concert-performance-with-yellow-light-show-big-crowd-cheering.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.game-card-celebrity {
+    -fx-background-color: #30242a;
+    -fx-background-image: url("../../../../../resources/assets/card posters/red-carpet-luxury-hotel.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.card-fade {
+    -fx-background-color: linear-gradient(to right,
+        rgba(10, 13, 16, 0.94) 0%,
+        rgba(10, 13, 16, 0.72) 55%,
+        rgba(53, 33, 31, 0.25) 100%);
+}
+
+.card-fade-song {
+    -fx-background-color: linear-gradient(to right,
+        rgba(10, 13, 16, 0.94) 0%,
+        rgba(10, 13, 16, 0.72) 55%,
+        rgba(48, 42, 32, 0.25) 100%);
+}
+
+.card-fade-celebrity {
+    -fx-background-color: linear-gradient(to right,
+        rgba(10, 13, 16, 0.94) 0%,
+        rgba(10, 13, 16, 0.72) 55%,
+        rgba(48, 36, 42, 0.25) 100%);
+}
+
+.menu-availability {
+    -fx-font-size: 10px;
+    -fx-text-fill: #c5ccd4;
+}
+
+.icon-box {
+    -fx-background-color: rgba(10, 9, 8, 0.25);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(236, 230, 218, 0.16);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.menu-title {
+    -fx-font-size: 40px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
+}
+
+.menu-tagline {
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #c5ccd4;
+}
+
+.menu-copy {
+    -fx-font-size: 13px;
+    -fx-text-fill: #c5ccd4;
+}
+
+.menu-details {
+    -fx-font-size: 11px;
+    -fx-text-fill: #929ba6;
+}
+
+.menu-open {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #c6a15b;
+}
+
+.menu-soon {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #929ba6;
+}
+
+.dot {
+    -fx-background-color: #736b5f;
+    -fx-background-radius: 99;
+    -fx-opacity: 0.45;
+    -fx-min-width: 6;
+    -fx-pref-width: 6;
+    -fx-min-height: 6;
+    -fx-pref-height: 6;
+}
+
+.dot-active {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 99;
+    -fx-min-width: 26;
+    -fx-pref-width: 26;
+    -fx-min-height: 6;
+    -fx-pref-height: 6;
+}
+
+/* ============================================================= movie hub */
+
+.top-strip {
+    -fx-background-color: #0f1318;
+    -fx-border-color: transparent transparent #303944 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 9 22 9 18;
+}
+
+.top-note {
+    -fx-font-size: 11px;
+    -fx-text-fill: #929ba6;
+}
+
+.icon-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-color: #303944;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-min-width: 36;
+    -fx-pref-width: 36;
+    -fx-min-height: 36;
+    -fx-pref-height: 36;
+    -fx-cursor: hand;
+}
+
+.icon-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-border-color: #c6a15b;
+}
+
+.rail {
+    -fx-background-color: #151a20;
+    -fx-border-color: transparent #303944 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 20 14 18 14;
+}
+
+.rail-brand {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.rail-sub {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.rail-live {
+    -fx-font-size: 10px;
+    -fx-text-fill: #9d3f3f;
+}
+
+.rail-meta {
+    -fx-font-size: 10px;
+    -fx-text-fill: #c5ccd4;
+}
+
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7;
+    -fx-text-fill: #929ba6;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-alignment: center-left;
+    -fx-padding: 11 13;
+    -fx-cursor: hand;
+}
+
+.nav-item:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.045);
+    -fx-text-fill: #edf0f3;
+}
+
+.nav-item-active {
+    -fx-background-color: rgba(157, 63, 63, 0.12);
+    -fx-background-radius: 7;
+    -fx-border-color: #9d3f3f;
+    -fx-border-width: 0 0 0 2;
+    -fx-text-fill: #d8b878;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-alignment: center-left;
+    -fx-padding: 11 13;
+    -fx-cursor: hand;
+}
+
+.promo-card {
+    -fx-background-color: #1c2229;
+    -fx-background-radius: 8;
+    -fx-border-color: #303944;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 12;
+}
+
+.promo-title {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.promo-value {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.avatar {
+    -fx-background-color: #7a2c2d;
+    -fx-background-radius: 99;
+    -fx-border-color: #303944;
+    -fx-border-radius: 99;
+    -fx-border-width: 1;
+}
+
+.avatar-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #edf0f3;
+}
+
+.profile-name {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.profile-meta {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.rail-logout {
+    -fx-font-size: 10px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #929ba6;
+    -fx-cursor: hand;
+}
+
+.rail-separator {
+    -fx-background-color: rgba(48, 57, 68, 0.85);
+}
+
+/* poster wall: 7 columns x 180px, cards 180x270 */
+.poster,
+.poster-a, .poster-b, .poster-c, .poster-d, .poster-e,
+.poster-f, .poster-g, .poster-h, .poster-i, .poster-j {
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(236, 230, 218, 0.07);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-min-width: 180;
+    -fx-pref-width: 180;
+    -fx-max-width: 180;
+    -fx-min-height: 270;
+    -fx-pref-height: 270;
+    -fx-max-height: 270;
+    -fx-padding: 0;
+}
+
+.poster-a { -fx-background-color: linear-gradient(to bottom right, #35404c, #202832); }
+.poster-b { -fx-background-color: linear-gradient(to bottom right, #303a46, #20262f); }
+.poster-c { -fx-background-color: linear-gradient(to bottom right, #3d4652, #272f39); }
+.poster-d { -fx-background-color: linear-gradient(to bottom right, #414953, #272e37); }
+.poster-e { -fx-background-color: linear-gradient(to bottom right, #252c35, #1a2028); }
+.poster-f { -fx-background-color: linear-gradient(to bottom right, #2b323c, #1c232b); }
+.poster-g { -fx-background-color: linear-gradient(to bottom right, #434b57, #2c343f); }
+.poster-h { -fx-background-color: linear-gradient(to bottom right, #303944, #414953); }
+.poster-i { -fx-background-color: linear-gradient(to bottom right, #222a34, #303a46); }
+.poster-j { -fx-background-color: linear-gradient(to bottom right, #272e37, #1c232b); }
+
+.poster-scrim {
+    -fx-background-color: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.52) 68%,
+        rgba(0, 0, 0, 0.90) 100%);
+}
+
+.poster-tag {
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(236, 230, 218, 0.62);
+}
+
+.poster-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.hero-shade {
+    -fx-background-color: linear-gradient(to right,
+        rgba(8, 10, 13, 0.95) 0%,
+        rgba(8, 10, 13, 0.84) 36%,
+        rgba(8, 10, 13, 0.58) 72%,
+        rgba(8, 10, 13, 0.50) 100%);
+}
+
+.theater-tint {
+    -fx-background-color: linear-gradient(to right,
+        rgba(90, 20, 24, 0) 34%,
+        rgba(90, 20, 24, 0.15) 100%);
+}
+
+.hero-kicker {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #9d3f3f;
+}
+
+.hero-heading {
+    -fx-font-size: 44px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.hero-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #c5ccd4;
+}
+
+.hero-detail {
+    -fx-font-size: 12px;
+    -fx-text-fill: #929ba6;
+}
+
+.play-btn {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 6;
+    -fx-text-fill: #1c160c;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 22;
+    -fx-cursor: hand;
+}
+
+.play-btn:hover {
+    -fx-background-color: #d8b878;
+}
+
+/* =============================================================== history */
+
+.chip-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-color: #4a443c;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: #c5ccd4;
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.chip-btn:hover {
+    -fx-background-color: rgba(198, 161, 91, 0.10);
+    -fx-text-fill: #edf0f3;
+}
+
+.chip-active {
+    -fx-background-color: #c6a15b;
+    -fx-border-color: #c6a15b;
+    -fx-text-fill: #1c160c;
+}
+
+.history-row {
+    -fx-background-color: #1c2229;
+    -fx-background-radius: 6;
+    -fx-border-color: #303944;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 12;
+}
+
+.history-badge {
+    -fx-background-color: #1c2229;
+    -fx-background-radius: 6;
+    -fx-border-color: #303944;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.history-badge-text {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c5ccd4;
+}
+
+.history-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.history-meta {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.history-score {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.win {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c6a15b;
+}
+
+.loss {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9d3f3f;
+}
+
+.count {
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.page-eyebrow {
+    -fx-font-size: 10px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #c6a15b;
+}
+
+.page-heading {
+    -fx-font-size: 32px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #edf0f3;
+}
+
+.page-copy {
+    -fx-font-size: 12px;
+    -fx-text-fill: #929ba6;
+}
+
+/* ============================================================== gameplay */
+
+.play-header {
+    -fx-background-color: #0f1318;
+    -fx-border-color: transparent transparent rgba(236, 230, 218, 0.18) transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8 20 6 20;
+}
+
+.round-label {
+    -fx-font-size: 15px;
+    -fx-font-style: italic;
+    -fx-font-weight: 900;
+    -fx-text-fill: #edf0f3;
+}
+
+.roll-label {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #929ba6;
+}
+
+.worth-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c6a15b;
+}
+
+.timer {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #edf0f3;
+}
+
+.slate-btn {
+    -fx-background-color: #1b1815;
+    -fx-background-radius: 3;
+    -fx-border-color: #4a443c;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #c5ccd4;
+    -fx-font-size: 10px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 13;
+    -fx-cursor: hand;
+}
+
+.slate-btn:hover {
+    -fx-background-color: #2a2520;
+    -fx-border-color: #6a6154;
+    -fx-text-fill: #edf0f3;
+}
+
+.brass-btn {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 3;
+    -fx-text-fill: #1c160c;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+}
+
+.brass-btn:hover {
+    -fx-background-color: #d8b878;
+}
+
+.brick-btn {
+    -fx-background-color: #7a2c2d;
+    -fx-background-radius: 3;
+    -fx-text-fill: #f1e8dc;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 13;
+    -fx-cursor: hand;
+}
+
+.brick-btn:hover {
+    -fx-background-color: #9d3f3f;
+}
+
+.clapper-plate {
+    -fx-background-radius: 0;
+}
+
+.slate-box {
+    -fx-background-color: #101317;
+    -fx-background-radius: 0 0 6 6;
+    -fx-border-color: #252a30;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-radius: 0 0 6 6;
+}
+
+.play-triangle {
+    -fx-font-size: 52px;
+    -fx-text-fill: rgba(198, 161, 91, 0.22);
+}
+
+.empty-title {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a39a8b;
+}
+
+.preview-note {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6f685d;
+}
+
+.scene-badge {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #edf0f3;
+    -fx-background-color: rgba(18, 16, 15, 0.82);
+    -fx-background-radius: 2;
+    -fx-border-color: #9d3f3f;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 4 9;
+}
+
+.timeline-meta {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 10px;
+    -fx-text-fill: #929ba6;
+}
+
+.timeline-label-lit {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 10px;
+    -fx-text-fill: #ece6da;
+}
+
+.timeline-label-locked {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 10px;
+    -fx-text-fill: #777064;
+}
+
+.film-track {
+    -fx-background-color: #0f0e0d;
+    -fx-background-radius: 5;
+    -fx-border-color: #38332d;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+}
+
+.film-seg-open {
+    -fx-background-color: #4a463f;
+}
+
+.film-seg-locked {
+    -fx-background-color: #262421;
+}
+
+.sprocket-hole {
+    -fx-fill: #4d4740;
+}
+
+.film-separator {
+    -fx-stroke: #0f0e0d;
+    -fx-stroke-width: 2;
+}
+
+.playhead-outer {
+    -fx-fill: rgba(255, 255, 255, 0.16);
+}
+
+.timeline-pane {
+    -fx-background-color: transparent;
+}
+
+.clapper-bar {
+    -fx-background-color: #101317;
+}
+
+.clapper-stripe {
+    -fx-fill: #c4cbd2;
+}
+
+.clapper-plate {
+    -fx-background-color: linear-gradient(to bottom, #252a30, #101317);
+}
+
+.clapper-rivet {
+    -fx-fill: #89939d;
+}
+
+.clapper-rivet-core {
+    -fx-fill: #454d56;
+}
+
+.clapper-topline {
+    -fx-stroke: rgba(255, 255, 255, 0.12);
+    -fx-stroke-width: 1;
+}
+
+.clapper-shade {
+    -fx-background-color: rgba(0, 0, 0, 0.32);
+}
+
+.loading-ring {
+    -fx-fill: transparent;
+    -fx-stroke: #c6a15b;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 2 5;
+    -fx-stroke-line-cap: round;
+}
+
+.vol-label {
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #929ba6;
+}
+
+.search-answer {
+    -fx-background-color: #1b1815;
+    -fx-background-radius: 3;
+    -fx-border-color: #4a443c;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #c6a15b;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 9 13;
+    -fx-cursor: hand;
+}
+
+.search-answer:hover {
+    -fx-background-color: #241f19;
+    -fx-border-color: #c6a15b;
+}
+
+.answer-kicker {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #929ba6;
+}
+
+.answer-value {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #edf0f3;
+}
+
+.result-banner {
+    -fx-background-color: #171a1e;
+    -fx-background-radius: 3;
+    -fx-border-color: #2a2f35;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+    -fx-padding: 6 14;
+}
+
+.answer-row {
+    -fx-background-color: transparent;
+}
+
+.result-kicker {
+    -fx-font-size: 10px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #c5ccd4;
+}
+
+.result-copy {
+    -fx-font-size: 11px;
+    -fx-text-fill: #929ba6;
+}
+
+/* =============================================================== shared */
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.slider .track {
+    -fx-background-color: #2a2620;
+    -fx-pref-height: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #e6ddcd;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+}
+
+.progress-bar {
+    -fx-pref-height: 10;
+}
+
+.progress-bar .track {
+    -fx-background-color: #1b1815;
+    -fx-background-radius: 3;
+    -fx-border-color: #3a342d;
+    -fx-border-radius: 3;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 3;
+}

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane prefHeight="860.0" prefWidth="1320.0" styleClass="page"
+            stylesheets="@AppTheme.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="header-bar">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <StackPane maxHeight="38.0" maxWidth="38.0" minHeight="38.0"
+                                   minWidth="38.0" prefHeight="38.0" prefWidth="38.0"
+                                   styleClass="film-badge">
+                            <children>
+                                <SVGPath content="M4.18 2h15.64A2.18 2.18 0 0 1 22 4.18v15.64A2.18 2.18 0 0 1 19.82 22H4.18A2.18 2.18 0 0 1 2 19.82V4.18A2.18 2.18 0 0 1 4.18 2z M7 2v20 M17 2v20 M2 12h20 M2 7h5 M2 17h5 M17 17h5 M17 7h5"
+                                         scaleX="1.42" scaleY="1.42" styleClass="film-badge-icon"/>
+                            </children>
+                        </StackPane>
+                        <VBox spacing="0.0">
+                            <children>
+                                <Label styleClass="header-brand" text="GuessIt"/>
+                                <Label styleClass="header-brand-sub" text="Movie quiz"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="header-note" text="Welcome back, Guest Player"/>
+                <Button mnemonicParsing="false" styleClass="ghost-btn" text="Log out"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox>
+            <children>
+                <VBox spacing="5.0" styleClass="menu-intro">
+                    <children>
+                        <Label styleClass="section-heading" text="Choose a game"/>
+                        <Label styleClass="menu-hint" text="More modes will be added later."/>
+                    </children>
+                </VBox>
+
+                <ScrollPane fitToHeight="true" hbarPolicy="NEVER" styleClass="menu-scroll"
+                            vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                    <content>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="menu-row">
+                            <children>
+                                <!-- ========================== movie billing ========================== -->
+                                <StackPane maxHeight="540.0" maxWidth="1000.0" prefHeight="540.0"
+                                           prefWidth="1000.0" styleClass="game-card-movie">
+                                    <children>
+                                        <Region maxHeight="540.0" maxWidth="1000.0"
+                                                styleClass="card-fade"/>
+                                        <VBox alignment="TOP_LEFT" maxHeight="Infinity" maxWidth="640.0"
+                                              spacing="10.0" StackPane.alignment="CENTER_LEFT">
+                                            <padding>
+                                                <Insets bottom="34.0" left="38.0" right="38.0" top="34.0"/>
+                                            </padding>
+                                            <children>
+                                                <Label styleClass="menu-availability" text="Available now"/>
+                                                <Region VBox.vgrow="ALWAYS"/>
+                                                <StackPane maxHeight="48.0" maxWidth="48.0" minHeight="48.0"
+                                                           minWidth="48.0" prefHeight="48.0"
+                                                           prefWidth="48.0" styleClass="icon-box">
+                                                    <children>
+                                                        <SVGPath content="M4.18 2h15.64A2.18 2.18 0 0 1 22 4.18v15.64A2.18 2.18 0 0 1 19.82 22H4.18A2.18 2.18 0 0 1 2 19.82V4.18A2.18 2.18 0 0 1 4.18 2z M7 2v20 M17 2v20 M2 12h20 M2 7h5 M2 17h5 M17 17h5 M17 7h5"
+                                                                 scaleX="0.83" scaleY="0.83"
+                                                                 styleClass="icon-stroke-soft"/>
+                                                    </children>
+                                                </StackPane>
+                                                <Label styleClass="menu-title" text="Movie"/>
+                                                <Label styleClass="menu-tagline" text="Name that film"/>
+                                                <Label maxWidth="430.0" styleClass="menu-copy"
+                                                       text="Watch a short clip and choose the movie."
+                                                       wrapText="true"/>
+                                                <Label maxWidth="560.0" styleClass="menu-details"
+                                                       text="Five rounds, 60 seconds each. Start with a 3-second clip and reveal more footage for fewer points."
+                                                       wrapText="true"/>
+                                                <Label styleClass="menu-open" text="Open movie mode  →"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </StackPane>
+
+                                <!-- =========================== song billing =========================== -->
+                                <StackPane maxHeight="540.0" maxWidth="1000.0" prefHeight="540.0"
+                                           prefWidth="1000.0" styleClass="game-card-song">
+                                    <children>
+                                        <Region maxHeight="540.0" maxWidth="1000.0"
+                                                styleClass="card-fade-song"/>
+                                        <VBox alignment="TOP_LEFT" maxHeight="Infinity" maxWidth="640.0"
+                                              spacing="10.0" StackPane.alignment="CENTER_LEFT">
+                                            <padding>
+                                                <Insets bottom="34.0" left="38.0" right="38.0" top="34.0"/>
+                                            </padding>
+                                            <children>
+                                                <Label styleClass="menu-availability" text="Coming soon"/>
+                                                <Region VBox.vgrow="ALWAYS"/>
+                                                <StackPane maxHeight="48.0" maxWidth="48.0" minHeight="48.0"
+                                                           minWidth="48.0" prefHeight="48.0"
+                                                           prefWidth="48.0" styleClass="icon-box">
+                                                    <children>
+                                                        <SVGPath content="M9 18V5l12-2v13 M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                                                                 scaleX="0.83" scaleY="0.83"
+                                                                 styleClass="icon-stroke-soft"/>
+                                                    </children>
+                                                </StackPane>
+                                                <Label styleClass="menu-title" text="Song"/>
+                                                <Label styleClass="menu-tagline" text="Guess the track"/>
+                                                <Label maxWidth="430.0" styleClass="menu-copy"
+                                                       text="Listen to a cue and identify the song."
+                                                       wrapText="true"/>
+                                                <Label maxWidth="560.0" styleClass="menu-details"
+                                                       text="Planned mode: identify songs from short audio cues."
+                                                       wrapText="true"/>
+                                                <Label styleClass="menu-soon" text="Details"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </StackPane>
+
+                                <!-- ======================== celebrity billing ========================= -->
+                                <StackPane maxHeight="540.0" maxWidth="1000.0" prefHeight="540.0"
+                                           prefWidth="1000.0" styleClass="game-card-celebrity">
+                                    <children>
+                                        <Region maxHeight="540.0" maxWidth="1000.0"
+                                                styleClass="card-fade-celebrity"/>
+                                        <VBox alignment="TOP_LEFT" maxHeight="Infinity" maxWidth="640.0"
+                                              spacing="10.0" StackPane.alignment="CENTER_LEFT">
+                                            <padding>
+                                                <Insets bottom="34.0" left="38.0" right="38.0" top="34.0"/>
+                                            </padding>
+                                            <children>
+                                                <Label styleClass="menu-availability" text="Coming soon"/>
+                                                <Region VBox.vgrow="ALWAYS"/>
+                                                <StackPane maxHeight="48.0" maxWidth="48.0" minHeight="48.0"
+                                                           minWidth="48.0" prefHeight="48.0"
+                                                           prefWidth="48.0" styleClass="icon-box">
+                                                    <children>
+                                                        <SVGPath content="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75"
+                                                                 scaleX="0.83" scaleY="0.83"
+                                                                 styleClass="icon-stroke-soft"/>
+                                                    </children>
+                                                </StackPane>
+                                                <Label styleClass="menu-title" text="Celebrity"/>
+                                                <Label styleClass="menu-tagline" text="Guess the star"/>
+                                                <Label maxWidth="430.0" styleClass="menu-copy"
+                                                       text="Identify an actor from a film still."
+                                                       wrapText="true"/>
+                                                <Label maxWidth="560.0" styleClass="menu-details"
+                                                       text="Planned mode: identify performers from film stills or short clips."
+                                                       wrapText="true"/>
+                                                <Label styleClass="menu-soon" text="Details"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="8.0">
+            <padding>
+                <Insets bottom="22.0"/>
+            </padding>
+            <children>
+                <Region styleClass="dot-active"/>
+                <Region styleClass="dot"/>
+                <Region styleClass="dot"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

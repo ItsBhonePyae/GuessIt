@@ -64,6 +64,16 @@
             <version>3.5.11</version>
         </dependency>
         <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+        <dependency>
             <groupId>uk.co.caprica</groupId>
             <artifactId>vlcj-javafx</artifactId>
             <version>1.2.0</version>
@@ -197,7 +207,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.javagroupproject/com.example.javagroupproject.HelloApplication
+                            <mainClass>com.example.javagroupproject/com.guessit.guessitauth.GuessItLauncher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

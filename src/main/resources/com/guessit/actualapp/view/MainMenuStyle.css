@@ -1,0 +1,96 @@
+.root {
+    -fx-background-color: #0b0e12;
+}
+
+.landing-page {
+    -fx-background-color: transparent;
+}
+
+.top-bar {
+    -fx-padding: 26 44 24 48;
+}
+
+#lblLogo {
+    -fx-font-family: "System";
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #f3efe8;
+}
+
+.brand-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b7afa3;
+}
+
+.navigation-btn {
+    -fx-background-color: rgba(15, 14, 13, 0.68);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(236, 230, 218, 0.2);
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-padding: 10 18;
+    -fx-text-fill: #eee8dd;
+}
+
+.navigation-btn:hover {
+    -fx-background-color: rgba(198, 161, 91, 0.16);
+    -fx-border-color: rgba(198, 161, 91, 0.58);
+}
+
+.hero-wrapper {
+    -fx-padding: 65 40 0 40;
+}
+
+.hero {
+    -fx-alignment: center;
+    -fx-padding: 0;
+}
+
+.eyebrow {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c6a15b;
+}
+
+#lblMainHeadLine {
+    -fx-font-size: 44px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #f3efe8;
+}
+
+#lblSubHeadline {
+    -fx-font-size: 21px;
+    -fx-text-fill: #d7c7a9;
+}
+
+#lblContent {
+    -fx-font-size: 15px;
+    -fx-text-fill: #d4cec4;
+    -fx-max-width: 650px;
+}
+
+.primary-action {
+    -fx-background-color: #c6a15b;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-padding: 12 22;
+    -fx-text-fill: #1c160c;
+}
+
+.primary-action:hover {
+    -fx-background-color: #d8b878;
+}
+
+.footer {
+    -fx-border-color: rgba(236, 230, 218, 0.12) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 15 48;
+}
+
+#lblFooterInfo {
+    -fx-font-size: 11px;
+    -fx-text-fill: #a59d91;
+}
