@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="840" prefWidth="1280"
+            stylesheets="@../css/otp-retro.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <StackPane styleClass="otp-screen">
+            <Circle radius="250" styleClass="backdrop-orbit orbit-one"/>
+            <Circle radius="175" styleClass="backdrop-orbit orbit-two"/>
+
+            <VBox alignment="CENTER" maxWidth="860" spacing="18" styleClass="otp-card">
+                <padding>
+                    <Insets bottom="36" left="48" right="48" top="36"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="10">
+                    <Circle radius="4" styleClass="brand-dot"/>
+                    <Label styleClass="brand-label" text="THE MIDNIGHT PICTURE HOUSE"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label styleClass="edition-label" text="MEMBER ACCESS  /  06"/>
+                </HBox>
+
+                <StackPane minHeight="68" minWidth="68" prefHeight="68" prefWidth="68"
+                           styleClass="mail-emblem">
+                    <Circle radius="34" styleClass="mail-emblem-ring"/>
+                    <Label styleClass="mail-icon" text="✉"/>
+                    <Circle radius="4" styleClass="mail-spark" translateX="20" translateY="-21"/>
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="8">
+                    <Label styleClass="eyebrow" text="A NOTE FROM THE PROJECTION BOOTH"/>
+                    <Label styleClass="screen-title" text="Check your inbox"/>
+                    <Label styleClass="screen-description"
+                           text="Your six-frame entry code is on its way. Enter each digit below to continue."/>
+                    <HBox alignment="CENTER" spacing="7">
+                        <Label styleClass="email-prefix" text="SENT TO"/>
+                        <Label styleClass="email-address" text="al••••a@example.com"/>
+                    </HBox>
+                </VBox>
+
+                <VBox alignment="CENTER" maxWidth="Infinity" spacing="10" styleClass="film-strip">
+                    <HBox alignment="CENTER" maxWidth="Infinity" spacing="12" styleClass="sprocket-row">
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="12" styleClass="film-frames">
+                        <TextField fx:id="otp1" accessibleText="First code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                        <TextField fx:id="otp2" accessibleText="Second code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                        <TextField fx:id="otp3" accessibleText="Third code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                        <TextField fx:id="otp4" accessibleText="Fourth code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                        <TextField fx:id="otp5" accessibleText="Fifth code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                        <TextField fx:id="otp6" accessibleText="Sixth code digit" alignment="CENTER"
+                                   maxWidth="80" prefHeight="88" prefWidth="80" promptText="0"
+                                   styleClass="otp-cell"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER" maxWidth="Infinity" spacing="12" styleClass="sprocket-row">
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                        <Region styleClass="film-sprocket"/><Region styleClass="film-sprocket"/>
+                    </HBox>
+                </VBox>
+
+                <Button fx:id="verifyButton" maxWidth="Infinity" prefHeight="58"
+                        styleClass="verify-button" text="Verify code   →"/>
+
+                <HBox alignment="CENTER" spacing="7" styleClass="resend-row">
+                    <Label styleClass="resend-copy" text="Didn't get a code?"/>
+                    <Label fx:id="countdownLabel" styleClass="countdown-label" text="Resend in 0:25"/>
+                    <Hyperlink fx:id="resendLink" managed="false" styleClass="resend-link"
+                               text="Resend code" visible="false"/>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="7">
+                    <Circle radius="3" styleClass="footer-dot"/>
+                    <Label styleClass="footer-label" text="Your code expires in 10 minutes"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

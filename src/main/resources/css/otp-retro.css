@@ -1,0 +1,201 @@
+.otp-screen {
+    -fx-background-color: linear-gradient(to bottom right, #202b36, #10151b 58%, #171a1d);
+    -fx-padding: 32;
+}
+
+.backdrop-orbit {
+    -fx-fill: transparent;
+    -fx-stroke-width: 1;
+}
+
+.orbit-one {
+    -fx-stroke: rgba(232, 183, 103, 0.08);
+    -fx-translate-x: 390;
+    -fx-translate-y: -245;
+}
+
+.orbit-two {
+    -fx-stroke: rgba(232, 183, 103, 0.06);
+    -fx-translate-x: 390;
+    -fx-translate-y: -245;
+}
+
+.otp-card {
+    -fx-background-color: linear-gradient(to bottom right, #202a32, #171d23);
+    -fx-background-radius: 26;
+    -fx-border-color: rgba(242, 205, 143, 0.19);
+    -fx-border-radius: 26;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.48), 42, 0.22, 0, 18);
+}
+
+.brand-dot {
+    -fx-fill: #e8b767;
+    -fx-effect: dropshadow(gaussian, rgba(232, 183, 103, 0.7), 8, 0.2, 0, 0);
+}
+
+.brand-label {
+    -fx-text-fill: #e8d8bc;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2px;
+}
+
+.edition-label,
+.eyebrow,
+.email-prefix,
+.footer-label {
+    -fx-text-fill: #9aa5aa;
+}
+
+.edition-label {
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 1.2px;
+}
+
+.mail-emblem {
+    -fx-background-color: rgba(232, 183, 103, 0.09);
+    -fx-background-radius: 34;
+}
+
+.mail-emblem-ring {
+    -fx-fill: transparent;
+    -fx-stroke: rgba(232, 183, 103, 0.48);
+    -fx-stroke-width: 1.2;
+}
+
+.mail-icon {
+    -fx-text-fill: #efc982;
+    -fx-font-size: 29px;
+}
+
+.mail-spark {
+    -fx-fill: #f2d89e;
+}
+
+.eyebrow {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2.3px;
+}
+
+.screen-title {
+    -fx-text-fill: #f5eee2;
+    -fx-font-size: 37px;
+    -fx-font-weight: bold;
+}
+
+.screen-description {
+    -fx-text-fill: #b7c0c3;
+    -fx-font-size: 14px;
+}
+
+.email-prefix {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.4px;
+}
+
+.email-address {
+    -fx-text-fill: #e8c98e;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.film-strip {
+    -fx-background-color: linear-gradient(to bottom, #34312a, #242522 12%, #242522 88%, #34312a);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(245, 205, 131, 0.35);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 13 17;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 14, 0.12, 0, 5);
+}
+
+.sprocket-row {
+    -fx-padding: 1 0;
+}
+
+.film-sprocket {
+    -fx-background-color: linear-gradient(to bottom, #b9975d, #d2b579);
+    -fx-background-radius: 2;
+    -fx-min-width: 16;
+    -fx-pref-width: 16;
+    -fx-max-width: 16;
+    -fx-min-height: 8;
+    -fx-pref-height: 8;
+    -fx-max-height: 8;
+}
+
+.film-frames {
+    -fx-padding: 4 0;
+}
+
+.otp-cell {
+    -fx-background-color: linear-gradient(to bottom, #34393a, #292e30);
+    -fx-background-radius: 7;
+    -fx-border-color: #8d7449;
+    -fx-border-radius: 7;
+    -fx-border-width: 1;
+    -fx-text-fill: #f5d38e;
+    -fx-prompt-text-fill: rgba(232, 183, 103, 0.35);
+    -fx-font-size: 33px;
+    -fx-font-weight: bold;
+    -fx-highlight-fill: #8d7449;
+    -fx-highlight-text-fill: #fff8eb;
+    -fx-padding: 4;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.42), 8, 0.1, 0, 2);
+}
+
+.otp-cell:focused {
+    -fx-border-color: #f0c574;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(240, 197, 116, 0.35), 10, 0.15, 0, 0);
+}
+
+.verify-button {
+    -fx-background-color: linear-gradient(to right, #d7aa60, #efcb83);
+    -fx-background-radius: 10;
+    -fx-text-fill: #25231f;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(218, 172, 95, 0.24), 14, 0.12, 0, 5);
+}
+
+.verify-button:hover {
+    -fx-background-color: linear-gradient(to right, #e5ba72, #f7d997);
+}
+
+.verify-button:pressed {
+    -fx-translate-y: 1;
+}
+
+.resend-row {
+    -fx-padding: 0 0 2 0;
+}
+
+.resend-copy {
+    -fx-text-fill: #aeb8bb;
+    -fx-font-size: 12px;
+}
+
+.countdown-label {
+    -fx-text-fill: #e8c98e;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.resend-link {
+    -fx-text-fill: #f0c574;
+    -fx-font-size: 12px;
+}
+
+.footer-dot {
+    -fx-fill: #819184;
+}
+
+.footer-label {
+    -fx-font-size: 10px;
+    -fx-letter-spacing: 0.4px;
+}

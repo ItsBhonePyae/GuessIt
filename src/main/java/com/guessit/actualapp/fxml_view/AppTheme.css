@@ -295,6 +295,11 @@
 .tab-active {
     -fx-background-color: #c6a15b;
     -fx-text-fill: #1a1409;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
 }
 
 .field-label {
