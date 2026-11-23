@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="root" prefHeight="860.0" prefWidth="1320.0" styleClass="root"
+           stylesheets="@MainMenuStyle.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.guessit.actualapp.view.MainMenuGuestController">
+    <children>
+        <BorderPane styleClass="landing-page">
+            <top>
+                <HBox alignment="CENTER_LEFT" styleClass="top-bar">
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label fx:id="lblLogo" text="GuessIt"/>
+                                <Label styleClass="brand-subtitle" text="Movie quiz"/>
+                            </children>
+                        </VBox>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <HBox alignment="CENTER" spacing="12.0">
+                            <children>
+                                <Button fx:id="btnAccount" mnemonicParsing="false"
+                                        onAction="#viewProfile" styleClass="navigation-btn"
+                                        text="Account"/>
+                                <Button fx:id="btnSetting" mnemonicParsing="false"
+                                        onAction="#viewSetting" styleClass="navigation-btn"
+                                        text="Settings"/>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <StackPane alignment="TOP_CENTER" styleClass="hero-wrapper">
+                    <children>
+                        <VBox fx:id="middleSection" alignment="CENTER" maxWidth="650.0"
+                              prefWidth="650.0"
+                              spacing="12.0" styleClass="hero">
+                            <children>
+                                <Label fx:id="lblDescription" styleClass="eyebrow"
+                                       text="A movie quiz" textAlignment="CENTER"/>
+                                <Label fx:id="lblMainHeadLine" text="Can you name the movie?"
+                                       textAlignment="CENTER" wrapText="true"/>
+                                <Label fx:id="lblSubHeadline" text="One clip at a time."
+                                       textAlignment="CENTER"/>
+                                <Label fx:id="lblContent"
+                                       text="Watch a short scene and name the film before time runs out."
+                                       maxWidth="650.0" prefWidth="650.0"
+                                       textAlignment="CENTER" wrapText="true"/>
+                                <Button fx:id="btnPlay" mnemonicParsing="false"
+                                        onAction="#goToGameSelection" styleClass="primary-action"
+                                        text="Start playing"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER_LEFT" styleClass="footer">
+                    <children>
+                        <Label fx:id="lblFooterInfo" text="© GuessIt"/>
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</StackPane>

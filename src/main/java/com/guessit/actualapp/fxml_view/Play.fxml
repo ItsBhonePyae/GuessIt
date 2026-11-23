@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane prefHeight="860.0" prefWidth="1320.0" styleClass="page"
+            stylesheets="@AppTheme.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="CENTER" spacing="16.0" styleClass="play-header">
+            <padding>
+                <Insets bottom="6.0" left="20.0" right="20.0" top="8.0"/>
+            </padding>
+            <children>
+                <Button mnemonicParsing="false" styleClass="slate-btn" text="BACK">
+                    <graphic>
+                        <SVGPath content="M19 12H5 M12 19l-7-7 7-7" scaleX="0.58" scaleY="0.58"
+                                 styleClass="icon-stroke-soft"/>
+                    </graphic>
+                    <graphicTextGap>7.0</graphicTextGap>
+                </Button>
+                <VBox spacing="0.0">
+                    <children>
+                        <Label styleClass="round-label" text="TAKE 1 OF 5"/>
+                        <Label styleClass="roll-label" text="ROLL 0"/>
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="worth-label" text="WORTH 5,000 PTS"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="timer" text="1:00"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="0.0">
+            <padding>
+                <Insets bottom="6.0" left="20.0" right="20.0" top="0.0"/>
+            </padding>
+            <children>
+                <VBox spacing="0.0">
+                    <children>
+                        <!-- ================================ clapper bar ================================ -->
+                        <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="1280.0"
+                              styleClass="clapper-bar">
+                            <clip>
+                                <Rectangle height="30.0" width="1280.0"/>
+                            </clip>
+                            <children>
+                                <Region maxHeight="28.0" minHeight="28.0" prefHeight="28.0"
+                                        prefWidth="1280.0" styleClass="clapper-bar"/>
+                                <SVGPath content="M -39 0 L -10.92 0 L -25.92 28 L -54 28 Z M 15 0 L 43.08 0 L 28.08 28 L 0 28 Z M 69 0 L 97.08 0 L 82.08 28 L 54 28 Z M 123 0 L 151.08 0 L 136.08 28 L 108 28 Z M 177 0 L 205.08 0 L 190.08 28 L 162 28 Z M 231 0 L 259.08 0 L 244.08 28 L 216 28 Z M 285 0 L 313.08 0 L 298.08 28 L 270 28 Z M 339 0 L 367.08 0 L 352.08 28 L 324 28 Z M 393 0 L 421.08 0 L 406.08 28 L 378 28 Z M 447 0 L 475.08 0 L 460.08 28 L 432 28 Z M 501 0 L 529.08 0 L 514.08 28 L 486 28 Z M 555 0 L 583.08 0 L 568.08 28 L 540 28 Z M 609 0 L 637.08 0 L 622.08 28 L 594 28 Z M 663 0 L 691.08 0 L 676.08 28 L 648 28 Z M 717 0 L 745.08 0 L 730.08 28 L 702 28 Z M 771 0 L 799.08 0 L 784.08 28 L 756 28 Z M 825 0 L 853.08 0 L 838.08 28 L 810 28 Z M 879 0 L 907.08 0 L 892.08 28 L 864 28 Z M 933 0 L 961.08 0 L 946.08 28 L 918 28 Z M 987 0 L 1015.08 0 L 1000.08 28 L 972 28 Z M 1041 0 L 1069.08 0 L 1054.08 28 L 1026 28 Z M 1095 0 L 1123.08 0 L 1108.08 28 L 1080 28 Z M 1149 0 L 1177.08 0 L 1162.08 28 L 1134 28 Z M 1203 0 L 1231.08 0 L 1216.08 28 L 1188 28 Z M 1257 0 L 1285.08 0 L 1270.08 28 L 1242 28 Z"
+                                 styleClass="clapper-stripe"/>
+                                <Region maxHeight="28.0" minHeight="28.0" prefHeight="28.0"
+                                        prefWidth="120.0" styleClass="clapper-plate"/>
+                                <Line endX="120.0" endY="28.0" startX="120.0" startY="0.0"
+                                      stroke="rgba(0,0,0,0.55)" strokeWidth="1.0"/>
+                                <Circle centerX="16.0" centerY="9.0" radius="3.0" styleClass="clapper-rivet"/>
+                                <Circle centerX="16.0" centerY="21.0" radius="3.0" styleClass="clapper-rivet"/>
+                                <Circle centerX="104.0" centerY="21.0" radius="3.0" styleClass="clapper-rivet"/>
+                                <Circle centerX="16.0" centerY="9.0" radius="1.0" styleClass="clapper-rivet-core"/>
+                                <Circle centerX="16.0" centerY="21.0" radius="1.0" styleClass="clapper-rivet-core"/>
+                                <Circle centerX="104.0" centerY="21.0" radius="1.0" styleClass="clapper-rivet-core"/>
+                                <Line endX="1280.0" endY="0.5" startX="0.0" startY="0.5"
+                                      styleClass="clapper-topline"/>
+                                <Region layoutY="25.0" maxHeight="3.0" minHeight="3.0"
+                                        prefHeight="3.0" prefWidth="1280.0" styleClass="clapper-shade"/>
+                            </children>
+                        </Pane>
+
+                        <!-- ================================ slate ================================ -->
+                        <VBox spacing="7.0" styleClass="slate-box">
+                            <padding>
+                                <Insets bottom="8.0" left="14.0" right="14.0" top="10.0"/>
+                            </padding>
+                            <children>
+                                <StackPane VBox.vgrow="ALWAYS" minHeight="240.0"
+                                           style="-fx-background-color: #0f0e0d, #252a30, #221e19; -fx-background-insets: 0, 2, 6; -fx-background-radius: 6, 4, 2;">
+                                    <children>
+                                        <StackPane maxHeight="28.0" maxWidth="28.0" minHeight="28.0"
+                                                   minWidth="28.0" prefHeight="28.0" prefWidth="28.0"
+                                                   StackPane.alignment="CENTER">
+                                            <children>
+                                                <Circle radius="13.0" styleClass="loading-ring"/>
+                                            </children>
+                                        </StackPane>
+                                        <Label styleClass="scene-badge" text="SCENE 1 OF 3"
+                                               StackPane.alignment="TOP_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0" top="12.0"/>
+                                            </StackPane.margin>
+                                        </Label>
+                                        <Label styleClass="preview-note" text="16:9  ·  PREVIEW"
+                                               StackPane.alignment="BOTTOM_RIGHT">
+                                            <StackPane.margin>
+                                                <Insets bottom="12.0" right="12.0"/>
+                                            </StackPane.margin>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+
+                                <!-- ================================ timeline ================================ -->
+                                <Pane maxHeight="56.0" minHeight="56.0" prefHeight="56.0"
+                                      prefWidth="1252.0" styleClass="timeline-pane">
+                                    <children>
+                                        <Region layoutX="12.0" layoutY="5.0" maxHeight="32.0"
+                                                minHeight="32.0" prefHeight="32.0" prefWidth="1228.0"
+                                                styleClass="film-track"/>
+                                        <SVGPath content="M 20 9 h6 v4 h-6 Z M 20 29 h6 v4 h-6 Z M 32 9 h6 v4 h-6 Z M 32 29 h6 v4 h-6 Z M 44 9 h6 v4 h-6 Z M 44 29 h6 v4 h-6 Z M 56 9 h6 v4 h-6 Z M 56 29 h6 v4 h-6 Z M 68 9 h6 v4 h-6 Z M 68 29 h6 v4 h-6 Z M 80 9 h6 v4 h-6 Z M 80 29 h6 v4 h-6 Z M 92 9 h6 v4 h-6 Z M 92 29 h6 v4 h-6 Z M 104 9 h6 v4 h-6 Z M 104 29 h6 v4 h-6 Z M 116 9 h6 v4 h-6 Z M 116 29 h6 v4 h-6 Z M 128 9 h6 v4 h-6 Z M 128 29 h6 v4 h-6 Z M 140 9 h6 v4 h-6 Z M 140 29 h6 v4 h-6 Z M 152 9 h6 v4 h-6 Z M 152 29 h6 v4 h-6 Z M 164 9 h6 v4 h-6 Z M 164 29 h6 v4 h-6 Z M 176 9 h6 v4 h-6 Z M 176 29 h6 v4 h-6 Z M 188 9 h6 v4 h-6 Z M 188 29 h6 v4 h-6 Z M 200 9 h6 v4 h-6 Z M 200 29 h6 v4 h-6 Z M 212 9 h6 v4 h-6 Z M 212 29 h6 v4 h-6 Z M 224 9 h6 v4 h-6 Z M 224 29 h6 v4 h-6 Z M 236 9 h6 v4 h-6 Z M 236 29 h6 v4 h-6 Z M 248 9 h6 v4 h-6 Z M 248 29 h6 v4 h-6 Z M 260 9 h6 v4 h-6 Z M 260 29 h6 v4 h-6 Z M 272 9 h6 v4 h-6 Z M 272 29 h6 v4 h-6 Z M 284 9 h6 v4 h-6 Z M 284 29 h6 v4 h-6 Z M 296 9 h6 v4 h-6 Z M 296 29 h6 v4 h-6 Z M 308 9 h6 v4 h-6 Z M 308 29 h6 v4 h-6 Z M 320 9 h6 v4 h-6 Z M 320 29 h6 v4 h-6 Z M 332 9 h6 v4 h-6 Z M 332 29 h6 v4 h-6 Z M 344 9 h6 v4 h-6 Z M 344 29 h6 v4 h-6 Z M 356 9 h6 v4 h-6 Z M 356 29 h6 v4 h-6 Z M 368 9 h6 v4 h-6 Z M 368 29 h6 v4 h-6 Z M 380 9 h6 v4 h-6 Z M 380 29 h6 v4 h-6 Z M 392 9 h6 v4 h-6 Z M 392 29 h6 v4 h-6 Z M 404 9 h6 v4 h-6 Z M 404 29 h6 v4 h-6 Z M 416 9 h6 v4 h-6 Z M 416 29 h6 v4 h-6 Z M 428 9 h6 v4 h-6 Z M 428 29 h6 v4 h-6 Z M 440 9 h6 v4 h-6 Z M 440 29 h6 v4 h-6 Z M 452 9 h6 v4 h-6 Z M 452 29 h6 v4 h-6 Z M 464 9 h6 v4 h-6 Z M 464 29 h6 v4 h-6 Z M 476 9 h6 v4 h-6 Z M 476 29 h6 v4 h-6 Z M 488 9 h6 v4 h-6 Z M 488 29 h6 v4 h-6 Z M 500 9 h6 v4 h-6 Z M 500 29 h6 v4 h-6 Z M 512 9 h6 v4 h-6 Z M 512 29 h6 v4 h-6 Z M 524 9 h6 v4 h-6 Z M 524 29 h6 v4 h-6 Z M 536 9 h6 v4 h-6 Z M 536 29 h6 v4 h-6 Z M 548 9 h6 v4 h-6 Z M 548 29 h6 v4 h-6 Z M 560 9 h6 v4 h-6 Z M 560 29 h6 v4 h-6 Z M 572 9 h6 v4 h-6 Z M 572 29 h6 v4 h-6 Z M 584 9 h6 v4 h-6 Z M 584 29 h6 v4 h-6 Z M 596 9 h6 v4 h-6 Z M 596 29 h6 v4 h-6 Z M 608 9 h6 v4 h-6 Z M 608 29 h6 v4 h-6 Z M 620 9 h6 v4 h-6 Z M 620 29 h6 v4 h-6 Z M 632 9 h6 v4 h-6 Z M 632 29 h6 v4 h-6 Z M 644 9 h6 v4 h-6 Z M 644 29 h6 v4 h-6 Z M 656 9 h6 v4 h-6 Z M 656 29 h6 v4 h-6 Z M 668 9 h6 v4 h-6 Z M 668 29 h6 v4 h-6 Z M 680 9 h6 v4 h-6 Z M 680 29 h6 v4 h-6 Z M 692 9 h6 v4 h-6 Z M 692 29 h6 v4 h-6 Z M 704 9 h6 v4 h-6 Z M 704 29 h6 v4 h-6 Z M 716 9 h6 v4 h-6 Z M 716 29 h6 v4 h-6 Z M 728 9 h6 v4 h-6 Z M 728 29 h6 v4 h-6 Z M 740 9 h6 v4 h-6 Z M 740 29 h6 v4 h-6 Z M 752 9 h6 v4 h-6 Z M 752 29 h6 v4 h-6 Z M 764 9 h6 v4 h-6 Z M 764 29 h6 v4 h-6 Z M 776 9 h6 v4 h-6 Z M 776 29 h6 v4 h-6 Z M 788 9 h6 v4 h-6 Z M 788 29 h6 v4 h-6 Z M 800 9 h6 v4 h-6 Z M 800 29 h6 v4 h-6 Z M 812 9 h6 v4 h-6 Z M 812 29 h6 v4 h-6 Z M 824 9 h6 v4 h-6 Z M 824 29 h6 v4 h-6 Z M 836 9 h6 v4 h-6 Z M 836 29 h6 v4 h-6 Z M 848 9 h6 v4 h-6 Z M 848 29 h6 v4 h-6 Z M 860 9 h6 v4 h-6 Z M 860 29 h6 v4 h-6 Z M 872 9 h6 v4 h-6 Z M 872 29 h6 v4 h-6 Z M 884 9 h6 v4 h-6 Z M 884 29 h6 v4 h-6 Z M 896 9 h6 v4 h-6 Z M 896 29 h6 v4 h-6 Z M 908 9 h6 v4 h-6 Z M 908 29 h6 v4 h-6 Z M 920 9 h6 v4 h-6 Z M 920 29 h6 v4 h-6 Z M 932 9 h6 v4 h-6 Z M 932 29 h6 v4 h-6 Z M 944 9 h6 v4 h-6 Z M 944 29 h6 v4 h-6 Z M 956 9 h6 v4 h-6 Z M 956 29 h6 v4 h-6 Z M 968 9 h6 v4 h-6 Z M 968 29 h6 v4 h-6 Z M 980 9 h6 v4 h-6 Z M 980 29 h6 v4 h-6 Z M 992 9 h6 v4 h-6 Z M 992 29 h6 v4 h-6 Z M 1004 9 h6 v4 h-6 Z M 1004 29 h6 v4 h-6 Z M 1016 9 h6 v4 h-6 Z M 1016 29 h6 v4 h-6 Z M 1028 9 h6 v4 h-6 Z M 1028 29 h6 v4 h-6 Z M 1040 9 h6 v4 h-6 Z M 1040 29 h6 v4 h-6 Z M 1052 9 h6 v4 h-6 Z M 1052 29 h6 v4 h-6 Z M 1064 9 h6 v4 h-6 Z M 1064 29 h6 v4 h-6 Z M 1076 9 h6 v4 h-6 Z M 1076 29 h6 v4 h-6 Z M 1088 9 h6 v4 h-6 Z M 1088 29 h6 v4 h-6 Z M 1100 9 h6 v4 h-6 Z M 1100 29 h6 v4 h-6 Z M 1112 9 h6 v4 h-6 Z M 1112 29 h6 v4 h-6 Z M 1124 9 h6 v4 h-6 Z M 1124 29 h6 v4 h-6 Z M 1136 9 h6 v4 h-6 Z M 1136 29 h6 v4 h-6 Z M 1148 9 h6 v4 h-6 Z M 1148 29 h6 v4 h-6 Z M 1160 9 h6 v4 h-6 Z M 1160 29 h6 v4 h-6 Z M 1172 9 h6 v4 h-6 Z M 1172 29 h6 v4 h-6 Z M 1184 9 h6 v4 h-6 Z M 1184 29 h6 v4 h-6 Z M 1196 9 h6 v4 h-6 Z M 1196 29 h6 v4 h-6 Z M 1208 9 h6 v4 h-6 Z M 1208 29 h6 v4 h-6 Z M 1220 9 h6 v4 h-6 Z M 1220 29 h6 v4 h-6 Z M 1232 9 h6 v4 h-6 Z M 1232 29 h6 v4 h-6 Z"
+                                       layoutX="0.0" layoutY="0.0" styleClass="sprocket-hole"/>
+                                        <Region layoutX="13.0" layoutY="15.0" maxHeight="12.0" minHeight="12.0"
+                                                prefHeight="12.0" prefWidth="367.0" styleClass="film-seg-open"/>
+                                        <Region layoutX="381.0" layoutY="15.0" maxHeight="12.0" minHeight="12.0"
+                                                prefHeight="12.0" prefWidth="244.0" styleClass="film-seg-locked"/>
+                                        <Region layoutX="626.0" layoutY="15.0" maxHeight="12.0" minHeight="12.0"
+                                                prefHeight="12.0" prefWidth="612.0" styleClass="film-seg-locked"/>
+                                        <Line endX="381.0" endY="27.0" startX="381.0" startY="15.0"
+                                              styleClass="film-separator"/>
+                                        <Line endX="626.0" endY="27.0" startX="626.0" startY="15.0"
+                                              styleClass="film-separator"/>
+                                        <Region layoutX="14.0" layoutY="8.0" maxHeight="26.0" minHeight="26.0"
+                                                prefHeight="26.0" prefWidth="8.0" styleClass="playhead-outer"/>
+                                        <Region layoutX="16.0" layoutY="8.0" maxHeight="26.0" minHeight="26.0"
+                                                prefHeight="26.0" prefWidth="4.0" styleClass="playhead-inner"/>
+                                        <Label layoutX="370.0" layoutY="43.0" styleClass="timeline-label-lit"
+                                               text="3s"/>
+                                        <Label layoutX="616.0" layoutY="43.0" styleClass="timeline-label-locked"
+                                               text="5s"/>
+                                        <Label layoutX="1172.0" layoutY="43.0" styleClass="timeline-label-locked"
+                                               text="FULL CLIP"/>
+                                    </children>
+                                </Pane>
+
+                                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" styleClass="brass-btn" text="PAUSE">
+                                            <graphic>
+                                                <SVGPath content="M6 4h4v16H6zM14 4h4v16h-4z" scaleX="0.58"
+                                                         scaleY="0.58" style=" -fx-fill: #1c160c;"/>
+                                            </graphic>
+                                            <graphicTextGap>7.0</graphicTextGap>
+                                        </Button>
+                                        <Button mnemonicParsing="false" styleClass="slate-btn" text="LOOP"/>
+                                        <Button mnemonicParsing="false" styleClass="slate-btn"
+                                                text="MORE TIMELINE (5S)"/>
+                                        <Button mnemonicParsing="false" styleClass="slate-btn"
+                                                text="ANOTHER SCENE (-150)"/>
+                                        <Button mnemonicParsing="false" styleClass="brick-btn"
+                                                text="CHOOSE CLIP">
+                                            <graphic>
+                                                <SVGPath content="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"
+                                                         scaleX="0.58" scaleY="0.58" styleClass="icon-stroke-soft"/>
+                                            </graphic>
+                                            <graphicTextGap>7.0</graphicTextGap>
+                                        </Button>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Label styleClass="timeline-meta" text="0:00 / 0:00"/>
+                                        <Label styleClass="vol-label" text="VOL"/>
+                                        <Slider maxWidth="80.0" minWidth="80.0" prefWidth="80.0"
+                                                value="80.0"/>
+                                    </children>
+                                </HBox>
+
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Button maxWidth="340.0" mnemonicParsing="false"
+                                                styleClass="search-answer" text="SEARCH FOR A MOVIE">
+                                            <graphic>
+                                                <SVGPath content="M21 21l-4.35-4.35 M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+                                                         scaleX="0.58" scaleY="0.58" styleClass="icon-stroke-gold"/>
+                                            </graphic>
+                                            <graphicTextGap>9.0</graphicTextGap>
+                                        </Button>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0"
+                                              styleClass="answer-row" visible="false" managed="false">
+                                            <children>
+                                                <Label styleClass="answer-kicker" text="YOUR ANSWER:"/>
+                                                <Label styleClass="answer-value" text="-"/>
+                                                <Region HBox.hgrow="ALWAYS"/>
+                                                <Button mnemonicParsing="false" styleClass="brass-btn"
+                                                        text="LOCK IN ANSWER"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="result-banner">
+                                    <children>
+                                        <Label styleClass="result-kicker" text="WATCH THE CLIP"/>
+                                        <Label styleClass="result-copy"
+                                               text="Loading The Fellowship of the Ring..."/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

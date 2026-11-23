@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="860.0" prefWidth="1320.0" styleClass="page"
+           stylesheets="@AppTheme.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Region styleClass="landing-photo"/>
+        <Region styleClass="landing-scrim"/>
+        <BorderPane>
+            <top>
+                <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="top-bar">
+                    <children>
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label styleClass="brand-title" text="GuessIt"/>
+                                <Label styleClass="brand-sub" text="Movie quiz"/>
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button mnemonicParsing="false" styleClass="nav-pill" text="Account"/>
+                        <Button mnemonicParsing="false" styleClass="nav-pill" text="Settings"/>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <VBox alignment="CENTER" maxWidth="730.0" spacing="16.0" styleClass="hero-block">
+                    <children>
+                        <Label styleClass="hero-eyebrow" text="A movie quiz"/>
+                        <Label maxWidth="650.0" styleClass="landing-headline"
+                               text="Can you name the movie?" textAlignment="CENTER" wrapText="true"/>
+                        <Label styleClass="hero-sub" text="One clip at a time."/>
+                        <Label maxWidth="650.0" styleClass="hero-copy"
+                               text="Watch a short scene and name the film before time runs out."
+                               textAlignment="CENTER" wrapText="true"/>
+                        <Button mnemonicParsing="false" styleClass="primary-btn" text="Start playing">
+                            <VBox.margin>
+                                <Insets top="4.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER_LEFT" styleClass="footer-bar">
+                    <children>
+                        <Label styleClass="footer-text" text="© GuessIt"/>
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</StackPane>
