@@ -26,7 +26,7 @@ GuessIt/
     │   └── com/guessit/           <- application code
     │       ├── Main.java          <- JavaFX entry point (Login screen)
     │       ├── login/             <- Login & Register section (controllers)
-    │       ├── controller/        <- other screen controllers
+    │       ├── Controller/        <- other screen controllers
     │       ├── model/             <- plain data classes (POJOs)
     │       ├── dao/               <- database access, one DAO per model
     │       └── util/              <- DBUtil, PasswordUtil, helpers
@@ -41,11 +41,11 @@ GuessIt/
 1. **All `.fxml` and `.css` files live in `src/main/resources`** — never in
    `src/main/java`. Controllers load them by absolute path, e.g.
    `getClass().getResource("/fxml/login.fxml")`.
-2. **Controllers never run SQL.** A controller calls a DAO; the DAO uses
+2. **Controllers never run SQL.** A Controller calls a DAO; the DAO uses
    `DBUtil` for its `Connection`.
 3. **Passwords are never stored in plain text.** Hash with jBCrypt
    (`BCrypt.hashpw(...)`) on register, check with `BCrypt.checkpw(...)` on login.
-4. **FXML controller packages must be opened** in `module-info.java`, e.g.
+4. **FXML Controller packages must be opened** in `module-info.java`, e.g.
    `opens com.guessit.login to javafx.fxml;`
 5. Models are plain POJOs — no JavaFX imports, no JDBC imports.
 
