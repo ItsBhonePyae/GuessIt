@@ -214,7 +214,11 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.javagroupproject/com.guessit.guessitauth.GuessItLauncher
+                            <!-- FIX: the old entry point
+                                 com.guessit.guessitauth.GuessItLauncher did not exist anywhere in
+                                 the project, so "mvnw javafx:run" failed with "Could not find or
+                                 load main class". Point it at the real launcher class. -->
+                            <mainClass>com.example.javagroupproject/Controller.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
