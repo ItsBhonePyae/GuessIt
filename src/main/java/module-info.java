@@ -23,27 +23,14 @@ module com.example.javagroupproject {
     requires java.keyring;
     requires com.sun.jna.platform;
     requires java.management;
+    requires java.prefs;
+    requires jbcrypt;
 
     opens com.example.javagroupproject to javafx.fxml;
     exports com.example.javagroupproject;
+    opens Controller to javafx.graphics, javafx.fxml;
 
-    // FIX: removed `opens com.guessit to javafx.fxml;`. No such package exists, and the
-    // JVM refuses to start the app when the module descriptor names a missing package:
-    //   java.lang.module.InvalidModuleDescriptorException: Package com.guessit not found in module
-    // javac only warns about it, which is why the build "succeeded" but launch failed.
+//    opens com.guessit.actualapp to javafx.fxml;
 
-    // FIX: the new screen controllers (Controller.MainMenuController, ...) live in `Controller`.
-    // Without opening the package, FXMLLoader cannot inject @FXML fields / call onAction methods:
-    //   javafx.fxml.LoadException: module com.example.javagroupproject does not "opens Controller" to javafx.fxml
-    opens Controller to javafx.fxml;
-
-    // FIX: Controller.Main extends javafx.application.Application. javafx.graphics constructs
-    // the Application class by reflection, so its package must be exported, otherwise launch
-    // fails with: IllegalAccessException ... does not export Controller to module javafx.graphics
-    exports Controller;
-
-    // FIX: same reason as above for the older hand-written views under com.guessit.actualapp.view
-    // (MainMenuGuest.fxml declares fx:controller in that package).
-    opens com.guessit.actualapp.view to javafx.fxml;
 }
 

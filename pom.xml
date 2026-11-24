@@ -228,6 +228,14 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
+                    <execution>
+                        <!-- Auth test screens: mvn clean javafx:run@auth-test -->
+                        <id>auth-test</id>
+                        <configuration>
+                            <mainClass>com.example.javagroupproject/com.guessit.actualapp.test_controller.AuthDemo
+                            </mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
