@@ -1,0 +1,225 @@
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="800.0"
+            prefWidth="1200.0"
+            stylesheets="@../CSS_Style/otp.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.OtpController">
+
+    <center>
+        <StackPane alignment="CENTER">
+
+            <!-- Main OTP Card -->
+            <VBox alignment="CENTER"
+                  styleClass="otp-card"
+                  maxHeight="690.0"
+                  maxWidth="850.0"
+                  prefHeight="690.0"
+                  prefWidth="850.0"
+                  spacing="16.0">
+
+                <padding>
+                    <Insets top="25.0"
+                            right="45.0"
+                            bottom="25.0"
+                            left="45.0"/>
+                </padding>
+
+                <!-- Email Icon -->
+                <StackPane minHeight="116.0"
+                           minWidth="116.0"
+                           prefHeight="116.0"
+                           prefWidth="116.0">
+
+                    <Circle radius="58.0"
+                            styleClass="email-circle"/>
+
+                    <Label text="✉"
+                           styleClass="email-icon"/>
+
+                    <Circle radius="9.0"
+                            styleClass="notification-dot"
+                            translateX="-24.0"
+                            translateY="24.0"
+                            StackPane.alignment="TOP_RIGHT"/>
+
+                </StackPane>
+
+                <!-- Title -->
+                <Label text="Check your inbox"
+                       styleClass="title-label"/>
+
+                <!-- Description -->
+                <VBox alignment="CENTER"
+                      spacing="8.0">
+
+                    <Label text="Enter the 6-digit code we sent"
+                           styleClass="description-label"/>
+
+                    <HBox alignment="CENTER"
+                          spacing="10.0">
+
+                        <Label text="to"
+                               styleClass="description-label"/>
+
+                        <Label fx:id="emailLabel"
+                               text="your@email.com"
+                               styleClass="email-label"/>
+
+                    </HBox>
+
+                </VBox>
+
+                <Region prefHeight="14.0"
+                        minHeight="14.0"/>
+
+                <!-- Movie Filmstrip -->
+                <VBox alignment="CENTER"
+                      maxWidth="620.0"
+                      prefWidth="620.0"
+                      spacing="8.0"
+                      styleClass="filmstrip-roll">
+
+                    <!-- Top Film Perforations -->
+                    <HBox alignment="CENTER"
+                          spacing="16.0">
+
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+
+                    </HBox>
+
+                    <!-- OTP Fields -->
+                    <HBox alignment="CENTER"
+                          spacing="12.0">
+
+                        <TextField fx:id="otp1"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                        <TextField fx:id="otp2"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                        <TextField fx:id="otp3"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                        <TextField fx:id="otp4"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                        <TextField fx:id="otp5"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                        <TextField fx:id="otp6"
+                                   alignment="CENTER"
+                                   prefHeight="90.0"
+                                   prefWidth="80.0"
+                                   styleClass="otp-field"/>
+
+                    </HBox>
+
+                    <!-- Bottom Film Perforations -->
+                    <HBox alignment="CENTER"
+                          spacing="16.0">
+
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+                        <Region styleClass="sprocket-hole"/>
+
+                    </HBox>
+
+                </VBox>
+
+                <Region prefHeight="14.0"
+                        minHeight="14.0"/>
+
+                <!-- Verify Button -->
+                <Button fx:id="verifyButton"
+                        maxWidth="Infinity"
+                        prefHeight="76.0"
+                        text="Verify code"
+                        styleClass="verify-button"/>
+
+                <!-- Resend Section -->
+                <HBox alignment="CENTER"
+                      spacing="10.0">
+
+                    <Label text="Didn't get a code?"
+                           styleClass="resend-label"/>
+
+                    <Label fx:id="countdownLabel"
+                           text="Resend in 30s"
+                           styleClass="countdown-label"/>
+
+                </HBox>
+
+                <!-- Resend Link -->
+                <Hyperlink fx:id="resendLink"
+                           managed="false"
+                           visible="false"
+                           text="Resend code"
+                           styleClass="resend-link"/>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>
