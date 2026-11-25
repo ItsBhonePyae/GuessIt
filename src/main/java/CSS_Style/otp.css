@@ -1,0 +1,184 @@
+/* Main Background */
+.root {
+    -fx-background-color: #160a0b;
+}
+
+/* Main OTP Card */
+.otp-card {
+    -fx-background-color: linear-gradient(to bottom, #312520 0%, #241615 65%, #550108 100%); /*[cite: 3] */
+    -fx-background-radius: 30px;
+    -fx-border-color: rgba(245, 183, 10, 0.45); /*[cite: 3] */
+    -fx-border-radius: 30px;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.72), 32, 0.2, 0, 10);
+}
+
+/* Email Icon Circle */
+.email-circle {
+    -fx-fill: #312520; /*[cite: 3] */
+    -fx-stroke: #f5b70a; /*[cite: 3] */
+    -fx-stroke-width: 2px;
+}
+
+/* Notification Dot */
+.notification-dot {
+    -fx-fill: #df2531; /*[cite: 4] */
+    -fx-stroke: #312520; /*[cite: 3] */
+    -fx-stroke-width: 1.5px;
+}
+
+/* Email Icon */
+.email-icon {
+    -fx-font-size: 40px;
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+}
+
+/* Main Title */
+.title-label {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff; /*[cite: 4] */
+}
+
+/* Description */
+.description-label {
+    -fx-font-size: 22px;
+    -fx-text-fill: rgba(255, 255, 255, 0.8); /*[cite: 4] */
+}
+
+/* Email Address Badge */
+.email-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-background-color: #312520; /*[cite: 3] */
+    -fx-border-color: rgba(245, 183, 10, 0.5); /*[cite: 3] */
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 8px 15px;
+}
+
+/* Vintage Filmstrip Strip */
+.vintage-strip-box {
+    -fx-background-color: #d8c7a8;
+    -fx-background-radius: 8px;
+    -fx-border-color: #f5b70a; /*[cite: 3] */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.78), 20, 0.25, 0, 6);
+}
+
+/* Sprocket Holes */
+.strip-hole {
+    -fx-background-color: #312520; /*[cite: 3] */
+    -fx-border-color: rgba(49, 37, 32, 0.85); /*[cite: 3] */
+    -fx-border-width: 1px;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-min-width: 10px;
+    -fx-max-width: 10px;
+    -fx-min-height: 7px;
+    -fx-max-height: 7px;
+}
+
+/* Individual Film Frame Cell */
+.vintage-frame-cell {
+    -fx-background-color: #1a1310;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px 6px 5px 6px;
+    -fx-border-color: #312520; /*[cite: 3] */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 4px;
+}
+
+.frame-top-label {
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+}
+
+.frame-bottom-num {
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+}
+
+/* OTP TextFields (Aged Film Frame Screen) */
+.otp-field {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1b1210;
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom, #f6eedc 0%, #e4d4b7 100%);
+    -fx-background-radius: 3px;
+    -fx-border-color: rgba(245, 183, 10, 0.65); /*[cite: 3] */
+    -fx-border-radius: 3px;
+    -fx-border-width: 1.5px;
+}
+
+.otp-field:hover {
+    -fx-border-color: #f5b70a; /*[cite: 3] */
+    -fx-background-color: #fff8e8;
+}
+
+.otp-field:focused {
+    -fx-background-color: #550108; /*[cite: 3] */
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-border-color: #f5b70a; /*[cite: 3] */
+    -fx-border-width: 2.5px;
+    -fx-border-radius: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(245, 183, 10, 0.55), 14, 0.25, 0, 0);
+}
+
+/* Verify Button */
+.verify-button {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000; /*[cite: 4] */
+    -fx-background-color: linear-gradient(to bottom, #ffd13b 0%, #f5b70a 100%); /*[cite: 3] */
+    -fx-background-radius: 18px;
+    -fx-border-color: #f5b70a; /*[cite: 3] */
+    -fx-border-radius: 18px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(245, 183, 10, 0.32), 14, 0.15, 0, 4);
+}
+
+.verify-button:hover {
+    -fx-background-color: #ffe066;
+    -fx-border-color: #ffffff; /*[cite: 4] */
+}
+
+.verify-button:pressed {
+    -fx-background-color: #550108; /*[cite: 3] */
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-border-color: #f5b70a; /*[cite: 3] */
+}
+
+/* Resend Section */
+.resend-label {
+    -fx-font-size: 17px;
+    -fx-text-fill: rgba(255, 255, 255, 0.75); /*[cite: 4] */
+}
+
+/* Countdown */
+.countdown-label {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+}
+
+/* Resend Hyperlink */
+.resend-link {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f5b70a; /*[cite: 3] */
+    -fx-underline: true;
+}
+
+.resend-link:hover {
+    -fx-text-fill: #df2531; /*[cite: 4] */
+}
