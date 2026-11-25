@@ -58,9 +58,6 @@ public class SceneManager {
 
         // Create the first Scene
         if (scene == null) {
-            // FIX: MainMenu.fxml is designed at 1320x860 (its root prefWidth/prefHeight).
-            // Starting the scene at 1000x650 left the 1320x860 BorderPane overflowing the
-            // window, so the menu looked cut off. Match the design size instead.
             scene = new Scene(root, 1320, 860);
             stage.setScene(scene);
         } else {
@@ -68,15 +65,15 @@ public class SceneManager {
             scene.setRoot(root);
         }
 
-        // Fade animation
-        root.setOpacity(0);
-
-        FadeTransition fade = new FadeTransition(
-                Duration.millis(300), root
-        );
-
-        fade.setFromValue(0);
-        fade.setToValue(1);
-        fade.play();
+//        // Fade animation
+//        root.setOpacity(0);
+//
+//        FadeTransition fade = new FadeTransition(
+//                Duration.millis(300), root
+//        );
+//
+//        fade.setFromValue(0);
+//        fade.setToValue(1);
+//        fade.play();
     }
 }

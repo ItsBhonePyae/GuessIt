@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RegisterController">
    <children>
       <Region prefHeight="200.0" prefWidth="200.0" />
       <Region prefHeight="200.0" prefWidth="200.0" />
@@ -74,8 +74,8 @@
                               <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
                            </columnConstraints>
                            <children>
-                              <Label maxHeight="46.0" maxWidth="Infinity" minHeight="46.0" prefHeight="46.0" styleClass="tab-active" text="Sign In" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" />
-                              <Label maxHeight="46.0" maxWidth="Infinity" minHeight="46.0" prefHeight="46.0" styleClass="tab" text="Register" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                              <Label fx:id="lblLogin" maxHeight="46.0" maxWidth="Infinity" minHeight="46.0" onMouseClicked="#goToLogIn" prefHeight="46.0" styleClass="tab-active" text="Sign In" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" />
+                              <Label fx:id="lblRegister" maxHeight="46.0" maxWidth="Infinity" minHeight="46.0" onMouseClicked="#goToRegister" prefHeight="46.0" styleClass="tab" text="Register" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
                            </children>
                            <rowConstraints>
                               <RowConstraints />
