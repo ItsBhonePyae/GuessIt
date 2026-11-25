@@ -1,0 +1,145 @@
+/* moviePlayerDemo.css — dark, music-themed styling for MoviePlayerDemo.fxml
+   Palette matches the GuessIt app: brass accent, charcoal background, chalk text. */
+
+.root {
+    -fx-background-color: #171719;
+    -fx-font-family: "Segoe UI";
+}
+
+/* ---------- sidebar (left VBox) ---------- */
+.sidebar, .left-sidebar {
+    -fx-background-color: #232326;
+    -fx-border-color: transparent #34343a transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 10 14 20 14;
+}
+
+/* ---------- top bar buttons ---------- */
+.button {
+    -fx-background-color: #232326;
+    -fx-text-fill: #f2efe8;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-border-color: #34343a;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #26262a;
+    -fx-border-color: #e6b154;
+    -fx-text-fill: #e6b154;
+}
+
+/* primary action buttons */
+#btnPlay, .primary-button {
+    -fx-background-color: #e6b154;
+    -fx-text-fill: #1b1405;
+    -fx-font-style: italic;
+    -fx-border-color: #b98a35;
+}
+
+#btnPlay:hover, .primary-button:hover {
+    -fx-background-color: #f0c274;
+    -fx-border-color: #e6b154;
+}
+
+/* secondary buttons */
+#btnHowtoPlay, #btnHowtoPlay1, #btnHowtoPlay2, .secondary-button {
+    -fx-background-color: #3b2f1e;
+    -fx-text-fill: #f2efe8;
+    -fx-border-color: #7a5b2e;
+}
+
+/* hide sidebar button */
+#btnHideSidebar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #9a958c;
+    -fx-padding: 4 8 4 8;
+}
+
+#btnHideSidebar:hover {
+    -fx-background-color: #26262a;
+    -fx-text-fill: #f2efe8;
+}
+
+/* ---------- labels ---------- */
+.label {
+    -fx-text-fill: #f2efe8;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+/* title / headline */
+.label.headline, .headline {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-fill: #f2efe8;
+}
+
+/* subtitle */
+.label.subtitle, .subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #d5d1c7;
+}
+
+/* eyebrow / kicker */
+.label.eyebrow, .eyebrow, .kicker-text {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e6b154;
+}
+
+/* section label */
+.label.section {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9a958c;
+}
+
+/* chips */
+.chip {
+    -fx-background-color: #232326;
+    -fx-text-fill: #9a958c;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10 4 10;
+    -fx-background-radius: 3;
+    -fx-border-color: #34343a;
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+}
+
+.chip-accent {
+    -fx-text-fill: #e6b154;
+    -fx-border-color: #e6b154;
+}
+
+/* ---------- region spacers ---------- */
+.region {
+    -fx-background-color: transparent;
+}
+
+/* ---------- top HBox ---------- */
+.top-bar, .topbar {
+    -fx-background-color: #171719;
+    -fx-border-color: transparent transparent #34343a transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 30 16 24;
+}
+
+/* ---------- center stack ---------- */
+.stack-pane, .StackPane {
+    -fx-background-color: #171719;
+}
+
+/* ---------- vboxes ---------- */
+.vbox {
+    -fx-spacing: 12;
+}
