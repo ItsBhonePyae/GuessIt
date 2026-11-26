@@ -9,17 +9,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../CSS_Style/moviePlayerDemo.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.moviePlayerDemo.java">
+<BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="616.0" prefWidth="953.0" stylesheets="@../CSS_Style/moviePlayerDemo.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MoviePlayerDemo">
    <center>
-      <BorderPane prefHeight="616.0" prefWidth="835.0" BorderPane.alignment="CENTER">
+      <BorderPane maxWidth="1.7976931348623157E308" prefHeight="616.0" BorderPane.alignment="CENTER">
          <top>
-            <HBox prefHeight="66.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="66.0" prefWidth="489.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnHideSidebar" mnemonicParsing="false" onAction="#clickHideSidebar" prefHeight="26.0" prefWidth="75.0" text="hide" />
-                  <Region prefHeight="46.0" prefWidth="613.0" />
-                  <Button fx:id="btnNoti" mnemonicParsing="false" onAction="#clickNoti" prefHeight="30.0" prefWidth="108.0" text="Noti" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Setting" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="122.0" text="Home" />
                </children>
                <padding>
                   <Insets top="20.0" />
@@ -27,17 +23,17 @@
             </HBox>
          </top>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <StackPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="150.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0">
                      <children>
-                        <Region prefHeight="370.0" prefWidth="1110.0" />
+                        <Region prefHeight="370.0" />
                         <VBox spacing="8.0">
                            <children>
                               <Label text="Single Player" />
                               <Label text="Guess the Movie" />
                               <Label text="Watch a short clip and choose the film before the timer runs out" />
-                              <HBox prefWidth="785.0" spacing="10.0">
+                              <HBox spacing="10.0">
                                  <children>
                                     <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#clickPlay" text="Play Now" />
                                     <Button fx:id="btnHowtoPlay2" mnemonicParsing="false" onAction="#clickHowtoPlay" text="How to Play" />
@@ -49,7 +45,7 @@
                               <Insets left="20.0" />
                            </padding>
                         </VBox>
-                        <Region prefHeight="392.0" prefWidth="1110.0" />
+                        <Region prefHeight="392.0" />
                      </children>
                   </VBox>
                </children>
@@ -58,7 +54,7 @@
       </BorderPane>
    </center>
    <left>
-      <VBox prefHeight="616.0" prefWidth="170.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="616.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Region prefHeight="14.0" prefWidth="170.0" />
             <HBox prefHeight="71.0" prefWidth="155.0">
@@ -126,4 +122,20 @@
          </children>
       </VBox>
    </left>
+   <right>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <HBox prefHeight="66.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnNoti" mnemonicParsing="false" onAction="#clickNoti" prefHeight="30.0" text="Noti" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" text="Setting" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" text="Home" />
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </HBox>
+         </top>
+      </BorderPane>
+   </right>
 </BorderPane>
